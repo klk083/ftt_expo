@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Prices from "../Common_files/Prices";

@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Modal, TouchableHighlight } from 'react-native';
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { write_your_num, fft_info } from "../Common_files/Texts";
 
 export default class App extends Component {
   state = {
     tlf: '',
-    isDisabled: true
+    isDisabled: true,
+    modalVisible: false,
   };
 
   handleTlf = text => {
@@ -21,7 +23,8 @@ export default class App extends Component {
   }
 
   verificationTlf = (tlfnr) => {
-    Alert.alert(
+    this.setModalVisible(true)
+    /*Alert.alert(
       'Vi skal verifisere mobilnummeret ditt:',
       '+47 ' + tlfnr + '\n\nEr det OK, eller vil du endre numeret?',
       [
@@ -34,10 +37,15 @@ export default class App extends Component {
           this.props.navigation.navigate('Number_verification', {tlf: tlfnr})}},
       ],
       {cancelable: false, onDismiss: () => {}},
-    );
+    );*/
   };
 
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  }
+
   render() {
+    const { modalVisible } = this.state
     return (
       <View style={styles.container}>
         <Text style={styles.topInfo}>{write_your_num}</Text>
@@ -64,6 +72,33 @@ export default class App extends Component {
               disabled={this.state.isDisabled}
               onPress={() => this.verificationTlf(this.state.tlf)}>Neste</Text>
         </TouchableOpacity>
+        <View style={styles.centeredView}>
+
+
+        <Modal
+            animationType="none"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Vi skal verifisere mobilnummeret ditt:</Text>
+
+              <TouchableHighlight
+                  style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                  onPress={() => {
+                    this.setModalVisible(!modalVisible);
+                  }}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+        </View>
       </View>
     );
   }
@@ -89,7 +124,7 @@ const styles = StyleSheet.create({
     //marginTop: 30,
     color: '#3467eb',
     marginBottom: 5,
-    fontSize: 35,
+    fontSize: RFPercentage(5),
     //justifyContent: 'flex-start'
     flexDirection: 'row'
   },
@@ -97,18 +132,18 @@ const styles = StyleSheet.create({
   //container contents
   topInfo: {
     textAlign: 'center',
-    fontSize: 45,
+    fontSize: RFPercentage(6),
     color: 'dodgerblue',
   },
   fft_info:{
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: RFPercentage(3.5),
     marginHorizontal: 25,
     marginTop: 10,
   },
   button: {
     alignItems: 'center',
-    fontSize: 40,
+    fontSize: RFPercentage(6),
     textAlign: 'center',
     borderRadius: 15,
     backgroundColor: 'darkseagreen',
@@ -116,4 +151,45 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5
   },
+
+
+
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
+
 });

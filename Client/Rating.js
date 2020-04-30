@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import {give_review, is_trip_done} from "../Common_files/Texts";
+import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { RFPercentage } from 'react-native-responsive-fontsize'
+
+import { give_review, is_trip_done } from "../Common_files/Texts"
 
 export default class Rating extends React.Component {
     state = {
@@ -47,7 +49,7 @@ export default class Rating extends React.Component {
                         name={
                             i <= this.state.stars ? this.star : this.star_o
                         }
-                        size={40}
+                        size={RFPercentage(7)}
                         color='gold'
                     />
                 </TouchableOpacity>
@@ -61,7 +63,7 @@ export default class Rating extends React.Component {
                     <View style={styles.starsContainer}>
                         <View style={styles.rating_bar}>{rating_bar}</View>
                         <View>
-                            <Text>{this.state.stars} / 5 stjerner</Text>
+                            <Text style={styles.starsRate}>{this.state.stars} / 5 stjerner</Text>
                         </View>
                     </View>
                 </View>
@@ -96,16 +98,15 @@ const styles = StyleSheet.create({
     },
     trip_done: {
         color: 'teal',
-        fontSize: 50,
+        fontSize: RFPercentage(7),
     },
     review: {
-        fontSize: 30,
+        fontSize: RFPercentage(4),
     },
     no_thanks: {
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: RFPercentage(3),
         padding: 10,
-        //marginTop: 20,
         backgroundColor: 'dodgerblue',
         borderRadius: 15,
     },
@@ -113,13 +114,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center'
     },
-    no_button: {
-        //flex: 0.5,
-        //marginTop:60,
-    },
     buttonContainer: {
         flex: 0.3,
-        //paddingTop: 100,
         alignItems: 'center',
+    },
+    starsRate: {
+        fontSize: RFPercentage(2)
     }
 })

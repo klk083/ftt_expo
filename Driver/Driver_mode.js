@@ -1,11 +1,11 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import Driver_main from './Driver_main'
 import LogoTitle from "../Common_files/LogoTitle";
 import Client_MenuButton from "../Client/Client_MenuButton";
-import Client_MenuDrawerNavigator from "../Client/Client_MenuDrawerNavigator";
 import DriverHasOrder from "./DriverHasOrder";
 
 const DriverStack = createStackNavigator();
@@ -37,7 +37,7 @@ class NewDriverStack extends React.Component {
                         },
                         headerTitleAlign: 'center',
                         headerTitleStyle: {
-                            fontSize: 30,
+                            fontSize: RFPercentage(5),
                         },
                         headerRight: props => <Client_MenuButton {...props}/>,
                     }}

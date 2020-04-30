@@ -3,13 +3,14 @@ import { StyleSheet, View, Image } from 'react-native';
 import Constants from 'expo-constants/src/Constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { RFPercentage } from "react-native-responsive-fontsize";
+
 
 import WelcomeScreen from "./WelcomeScreen";
 import Privacy from "./Privacy";
 import Terms_of_service from "./Terms_of_service";
 import Registrering from "../Registration/Registrering";
 import Verifying_mob_num from "../Registration/Verifying_mob_num";
-import Client_taxi_confirmation from "../Client/Client_taxi_confirmation";
 
 const RegistrationStack = createStackNavigator();
 
@@ -38,7 +39,7 @@ class NewRegistrationStack extends React.Component {
                 title: 'Personvern',
                 headerTitleAlign: 'center',
                 headerTitleStyle: {
-                  fontSize: 30,
+                  fontSize: RFPercentage(4),
                 }
               }}
           />
@@ -49,7 +50,7 @@ class NewRegistrationStack extends React.Component {
                 title: 'Servicevilkår',
                 headerTitleAlign: 'center',
                 headerTitleStyle: {
-                  fontSize: 30,
+                  fontSize: RFPercentage(4),
                 }
               }}
           />
@@ -60,7 +61,7 @@ class NewRegistrationStack extends React.Component {
                 title: 'Registrer mobilnummer',
                 headerTitleAlign: 'center',
                 headerTitleStyle: {
-                  fontSize: 30,
+                  fontSize: RFPercentage(4),
                 }
               }}
           />
@@ -71,7 +72,7 @@ class NewRegistrationStack extends React.Component {
                 headerTitle: 'Verifisering',
                 headerTitleAlign: 'center',
                 headerTitleStyle: {
-                  fontSize: 30,
+                  fontSize: RFPercentage(4),
                 }
               }}
           />
@@ -151,44 +152,7 @@ const styles = StyleSheet.create({
   SplashScreen_ChildView: {
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: '#84b07f',
     flex: 1,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-  welcome: {
-    fontSize: 50,
-    textAlign: 'center',
-    color: '#000000',
-  },
-  instructions: {
-    margin: 5,
-    textAlign: 'center',
-    color: '#000000',
-    fontSize: 25,
-    marginBottom: 5,
-  },
-  button: {
-    margin: 20,
-    padding: 15,
-    minWidth: '70%',
-    minHeight: '15%',
-  },
-  linked: {
-    marginTop: 10,
-    textAlign: 'center',
-    margin: 10,
-    color: 'blue',
-    textDecorationLine: 'underline',
-  },
-  confirmButton: {
-    alignItems: 'center',
-    //backgroundColor: '#009933',
-    paddingVertical: 60,
   },
 });
 

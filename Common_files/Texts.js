@@ -26,6 +26,8 @@ export const is_trip_done = "Er turen ferdig?";
 export const priority_orders = "Prioritert bestilling";
 
 export const give_review = "Gi vurdering";
+
+
 // Driver texts
 export const driver_available = "Du er tilgjengelig";
 export const driver_not_available = "Du er ikke tilgjengelig";

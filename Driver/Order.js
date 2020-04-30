@@ -1,27 +1,29 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native'
 import call from 'react-native-phone-call'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 class Order extends React.Component {
-    state = {
-        norwegian_number: '+4741617861'
-    }
-
-    call = () => {
+    call = (phoneNumber) => {
         //handler to make a call
         const args = {
-            number: this.state.norwegian_number,
+            number: phoneNumber,
             prompt: false,
         };
         call(args).catch(console.error);
+    }
+
+    componentDidMount() {
+      console.log(this.props)
     }
 
     render() {
         return (
             <View style={styles.row}>
                 <TouchableOpacity
+                    key={this.props.distKm}
                     style={styles.row}
-                    onPress={() => this.call()}
+                    onPress={() => this.call(this.props.phoneNumber)}
                 >
                     <Text style={styles.clientData}>Aksepter</Text>
                     <Text style={styles.clientData}>{this.props.distKm} km</Text>
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     clientData: {
-        fontSize: 25,
+        fontSize: RFPercentage(3),
         textAlign: 'center',
     }
 })

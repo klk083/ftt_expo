@@ -1,5 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import {cancel_taxi, looking_for_taxi_priority, priority_price, buy_yourself_out_of_queue} from '../Common_files/Texts'
 
@@ -12,7 +13,7 @@ export default class Client_main extends React.Component {
                         style={styles.looking_for_taxi_priority}
                         onPress={() => this.props.navigation.navigate('Client_taxi_confirmation')}
                     >{looking_for_taxi_priority}</Text>
-                    <ActivityIndicator size='large' color='black' />
+                    <ActivityIndicator size={RFPercentage(10)} color='black' />
                 </View>
                 <View style={styles.priority_buttonContainer}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Booked_priority')}>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         flex: 0.5,
     },
     looking_for_taxi_priority: {
-        fontSize: 40,
+        fontSize: RFPercentage(6),
         marginTop: 50,
         marginBottom: 50,
         textAlign: 'center',
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     },
     priority_button: {
         textAlign: 'center',
-        fontSize: 40,
+        fontSize: RFPercentage(6),
     },
     cancel_buttonContainer: {
         flex: 0.1,
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     },
     cancel_button: {
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: RFPercentage(4),
         padding: 10,
         backgroundColor: 'firebrick',
         borderRadius: 15,

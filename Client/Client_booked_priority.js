@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import {cancel_taxi, looking_for_taxi_booked_priority} from '../Common_files/Texts'
 
@@ -11,7 +12,7 @@ export default class Client_main extends React.Component {
                     <Text
                         style={styles.looking_for_taxi}
                         onPress={() => this.props.navigation.navigate('Client_taxi_confirmation')}>{looking_for_taxi_booked_priority}</Text>
-                    <ActivityIndicator size='large' color='black' />
+                    <ActivityIndicator size={RFPercentage(10)} color='black' />
                 </View>
                 <View style={styles.cancel_buttonContainer}>
                     <TouchableOpacity>
@@ -59,19 +60,13 @@ const styles = StyleSheet.create({
     },
     cancel_button: {
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: RFPercentage(4),
         padding: 10,
         backgroundColor: 'firebrick',
         borderRadius: 15,
     },
-    button_price: {
-        textAlign: 'center',
-        fontSize: 20,
-        paddingBottom: 10,
-        backgroundColor: 'darkseagreen',
-    },
     looking_for_taxi: {
-        fontSize: 40,
+        fontSize: RFPercentage(6),
         margin: 50,
         textAlign: 'center',
 
