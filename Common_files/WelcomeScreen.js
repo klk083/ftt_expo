@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { privacyTitle, terms_of_serviceTitle} from "./Texts";
 
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   welcome: {
-    fontSize: 60,
+    fontSize: RFPercentage(8),
     textAlign: 'center',
     color: '#000000',
   },
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     margin: 5,
     textAlign: 'center',
     color: '#000000',
-    fontSize: 25,
+    fontSize: RFPercentage(3),
     marginBottom: 5,
   },
   buttonContainer: {
@@ -64,6 +65,6 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     alignItems: 'center',
-    fontSize: 30,
+    fontSize: RFPercentage(5),
   },
 });

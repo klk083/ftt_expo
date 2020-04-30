@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import Client_main from "./Client_main";
 import Client_booking from "./Client_booking";
@@ -49,7 +49,7 @@ class NewClientStack extends React.Component {
                         headerRight: props => <Client_MenuButton {...props}/>,
                         headerTitleAlign: 'center',
                         headerTitleStyle: {
-                            fontSize: 40,
+                            fontSize: RFPercentage(5),
                             color: 'black',
                         }
                     }}/>
@@ -65,7 +65,7 @@ class NewClientStack extends React.Component {
                         headerRight: props => <Client_MenuButton {...props}/>,
                         headerTitleAlign: 'center',
                         headerTitleStyle: {
-                            fontSize: 25,
+                            fontSize: RFPercentage(5),
                             color: 'black',
                         }
                     }}/>
@@ -81,7 +81,7 @@ class NewClientStack extends React.Component {
                         headerRight: props => <Client_MenuButton {...props}/>,
                         headerTitleAlign: 'center',
                         headerTitleStyle: {
-                            fontSize: 25,
+                            fontSize: RFPercentage(3.2),
                             color: 'black',
                         }
                     }}/>
@@ -97,7 +97,7 @@ class NewClientStack extends React.Component {
                         headerRight: props => <Client_MenuButton {...props}/>,
                         headerTitleAlign: 'center',
                         headerTitleStyle: {
-                            fontSize: 35,
+                            fontSize: RFPercentage(5),
                             color: 'black',
                         },
                     }}

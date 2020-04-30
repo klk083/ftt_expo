@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Switch, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Switch } from 'react-native'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import {driver_available, driver_not_available, priority_orders, orders } from '../Common_files/Texts'
 import Orders, { compareDistKm } from './Orders'
-import SectionListContacts from "./SectionListClients";
+import SectionListClients from "./SectionListClients";
 
-export default class Client_main extends React.Component {
+export default class Driver_main extends React.Component {
     state = {
         isAvailable: false,
         orders: Orders,
@@ -37,9 +38,9 @@ export default class Client_main extends React.Component {
                 {this.state.isAvailable && (
                     <View style={styles.orderContainer}>
                         <Text style={styles.priority_order_list} onPress={() => this.props.navigation.navigate("DriverHasOrder")}>{priority_orders}</Text>
-                        <SectionListContacts contacts={this.state.orders} />
+                        <SectionListClients contacts={this.state.orders} />
                         <Text style={styles.basic_order_list}>{orders}</Text>
-                        <SectionListContacts contacts={this.state.orders}/>
+                        <SectionListClients contacts={this.state.orders}/>
                     </View>
                 )}
             </View>
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     availability: {
-        fontSize: 30,
+        fontSize: RFPercentage(4),
     },
     switch: {
         transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
@@ -72,11 +73,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     priority_order_list: {
-        fontSize: 40,
+        fontSize: RFPercentage(5),
         color: 'dodgerblue',
     },
     basic_order_list: {
-        fontSize: 35,
+        fontSize: RFPercentage(5),
         color: 'darkseagreen',
         marginTop: 10,
     },

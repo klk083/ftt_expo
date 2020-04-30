@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { getPreciseDistance } from 'geolib'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import {book_taxi, basic_price} from '../Common_files/Texts'
 
@@ -20,6 +21,7 @@ export default class Client_main extends React.Component {
         errorMessage: "",
         isGranted: true,
         distanceBetween: 0,
+        clientPhone: '+4712345678',
         secondLocation: {latitude: 63.430487, longitude: 10.394978}
     }
 
@@ -32,7 +34,7 @@ export default class Client_main extends React.Component {
         this.setState({errorMessage: 'granted', isGranted: true})
         if (status !== 'granted') {
             this.setState({
-                errorMessage: 'Permission to access location was denied',
+                errorMessage: 'Du må slå på lokasjonen for å bruke appen',
                 isGranted: false,
             });
         }
@@ -77,7 +79,7 @@ export default class Client_main extends React.Component {
     }
 
     render() {
-        const {location, geocode, errorMessage, accuracy, altitude, heading, latitude, longitude, speed, distanceBetween} = this.state
+        const {location, geocode, errorMessage, accuracy, altitude, heading, latitude, longitude, speed, distanceBetween, clientPhone} = this.state
 
         return (
             <View style={styles.container}>
@@ -105,27 +107,32 @@ export default class Client_main extends React.Component {
                             </Text>
                             <TouchableOpacity onPress={() => this.getDistanceBetweenClientAndDriver()}>
                                 <Text style={styles.heading5}>{
-                                    (this.state.distanceBetween === 0) ? 'Trykk for å måle avstand' : `Du er ${distanceBetween} km unna i luftlinje.`
+                                    (location ? ((this.state.distanceBetween === 0) ? 'Trykk for å måle avstand' : `Du er ${distanceBetween} km unna i luftlinje.`) : null)
                                 }</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity>
                                 <Text style={styles.button}
-                                      onPress={() => this.props.navigation.navigate('Booking')}>{book_taxi}</Text>
+                                      onPress={() => this.props.navigation.navigate('Booking',
+                                          {clientPhone: clientPhone, clientLocation: location})}
+                                >{book_taxi}</Text>
                                 <Text style={styles.button_price}
-                                      onPress={() => this.props.navigation.navigate('Booking_priority')}>({basic_price})</Text>
+                                      onPress={() => this.props.navigation.navigate('Booking_priority',
+                                          {clientLocation: this.state.location}
+                                          )}>({basic_price})</Text>
                             </TouchableOpacity>
                         </View>
                     </View>)
                 }
                 {!this.state.isGranted && (
                     <View style={styles.locationContainer}>
+                        <Text style={styles.heading4}>Du må slå på lokasjonen</Text>
+                        <Text style={styles.heading4}>for å bruke appen</Text>
                         <View style={styles.spaceBetweenViews}>
-                            <Text style={styles.heading4}>{errorMessage}</Text>
                             <View style={styles.buttonContainerLocation}>
                                 <TouchableOpacity onPress={this.getLocationAsync}>
-                                    <Text style={styles.buttonLocation}>Slå på lokasjonen</Text>
+                                    <Text style={styles.buttonLocation}>Slå på {'\n'}lokasjonen</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -155,12 +162,12 @@ const styles = StyleSheet.create({
     },
     button: {
         textAlign: 'center',
-        fontSize: 90,
+        fontSize: RFPercentage(12),
         paddingHorizontal: 90,
     },
     button_price: {
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: RFPercentage(3),
     },
 
 
@@ -175,35 +182,30 @@ const styles = StyleSheet.create({
     },
     buttonLocation: {
         textAlign: 'center',
-        fontSize: 50,
-        paddingHorizontal: 20,
+        fontSize: RFPercentage(6),
+        padding: 15
     },
 
 
-    heading1:{
-        color:"gray",
-        fontWeight:"bold",
-        fontSize:30,
-        margin:20
+    heading1: {
+        color: 'gray',
+        fontWeight: 'bold',
+        fontSize: RFPercentage(4),
+        margin: 20
     },
-    heading2:{
-        color:"gray",
-        margin:5,
-        fontWeight:"bold",
-        fontSize:15
+    heading2: {
+        color: 'gray',
+        margin: 5,
+        fontWeight: 'bold',
+        fontSize: RFPercentage(2)
     },
-    heading3:{
-        color:"gray",
-        margin:5
-    },
-    heading4:{
-        color:"gray",
-        marginVertical:45,
-        fontSize:25,
+    heading4: {
+        color: 'gray',
+        alignItems: 'center',
+        fontSize: RFPercentage(5),
     },
     heading5: {
-        fontSize: 30,
-        justifyContent: 'center',
+        fontSize: RFPercentage(4),
         marginVertical: 30,
         color: 'red'
     }

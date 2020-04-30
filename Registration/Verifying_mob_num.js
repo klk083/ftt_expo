@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput } from 'react-native';
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { verifisering_info, send_ny_sms } from '../Common_files/Texts'
 
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   },
   info: {
     marginTop: 20,
-    fontSize: 30,
+    fontSize: RFPercentage(4),
     textAlign: 'center',
     margin: 10,
     color: '#000000',
@@ -106,11 +107,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
     color: '#3467eb',
     marginBottom: 5,
-    fontSize: 35,
+    fontSize: RFPercentage(5),
   },
   button: {
     alignItems: 'center',
-    fontSize: 30,
+    fontSize: RFPercentage(4),
     textAlign: 'center',
     borderRadius: 15,
     backgroundColor: 'darkseagreen',
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   },
   wrongNum: {
     marginTop: 10,
-    fontSize: 30,
+    fontSize: RFPercentage(4),
     textAlign: 'center',
     margin: 10,
     color: 'blue',

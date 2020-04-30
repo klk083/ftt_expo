@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { Button, View } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import * as React from 'react'
+import { Button, View } from 'react-native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { NavigationContainer } from '@react-navigation/native'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import LogoTitle from "../Common_files/LogoTitle";
 import Client_MenuButton from "./Client_MenuButton";
@@ -40,7 +41,7 @@ export default function App() {
                 drawerType='slide'
                 drawerStyle={{
                     backgroundColor: 'darkseagreen',
-                    width: 175
+                    width: 175,
                 }}
             >
                 <Drawer.Screen
@@ -83,7 +84,7 @@ export default function App() {
                         headerRight: props => <Client_MenuButton {...props}/>,
                         headerTitleAlign: 'center',
                         headerTitleStyle: {
-                            fontSize: 40,
+                            fontSize: RFPercentage(5),
                             color: 'black',
                         }
                     }}/>
@@ -99,7 +100,7 @@ export default function App() {
                         headerRight: props => <Client_MenuButton {...props}/>,
                         headerTitleAlign: 'center',
                         headerTitleStyle: {
-                            fontSize: 25,
+                            fontSize: RFPercentage(4),
                             color: 'black',
                         }
                     }}/>

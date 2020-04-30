@@ -3,6 +3,8 @@ import { View, ScrollView, Text, StyleSheet, FlatList } from 'react-native'
 import Constants from "expo-constants";
 
 import {terms_of_service} from './Texts'
+import { RFPercentage } from "react-native-responsive-fontsize";
+
 
 export default class Privacy extends React.Component {
     render() {
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: 20,
+        fontSize: RFPercentage(3)
     }
 });
 

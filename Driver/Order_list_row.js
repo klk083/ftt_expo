@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 
 export default class Order_list_row extends React.Component {
     render() {
@@ -12,7 +12,3 @@ export default class Order_list_row extends React.Component {
         )
     }
 }
-
-const styles = StyleSheet.create ({
-
-})

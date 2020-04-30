@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, Modal  } from 'react-native'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { is_order_accomplished, order_was_canceled, order_is_accomplished, reason_for_the_cancellation } from '../Common_files/Texts'
 
@@ -65,6 +66,11 @@ export default class DriverHasOrder extends React.Component {
                                 autoFocus={true}
                                 onChangeText={this.handleTlf}
                             />
+                            <View style={styles.sendReasonButtonContainer}>
+                                <TouchableOpacity>
+                                    <Text style={styles.sendReasonButton}>Send</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </Modal>
@@ -83,7 +89,7 @@ const styles = StyleSheet.create({
         flex: 0.1,
     },
     is_order_accomplished: {
-        fontSize: 45,
+        fontSize: RFPercentage(7),
         marginTop: 50,
         marginBottom: 50,
         textAlign: 'center',
@@ -100,7 +106,7 @@ const styles = StyleSheet.create({
     },
     accomplished_button: {
         textAlign: 'center',
-        fontSize: 35,
+        fontSize: RFPercentage(5),
     },
     orderCancel_buttonContainer: {
         flex: 0.7,
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
     },
     orderCancel_button: {
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: RFPercentage(3),
         padding: 10,
         backgroundColor: 'firebrick',
         borderRadius: 15,
@@ -130,7 +136,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingLeft: 30,
         paddingRight: 30,
-        paddingBottom: 50,
+        paddingBottom: 20,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -143,15 +149,25 @@ const styles = StyleSheet.create({
     },
     modalText: {
         alignItems: 'flex-start',
-        fontSize: 25,
-        textAlign: "center"
+        fontSize: RFPercentage(3.5),
+        textAlign: 'center'
     },
     reason: {
         marginTop: 5,
         color: '#3467eb',
-        //marginBottom: 5,
-        fontSize: 25,
+        fontSize: RFPercentage(3.5),
         marginLeft: 30,
         marginRight: 30,
     },
+    sendReasonButtonContainer:  {
+        paddingTop: 30,
+        justifyContent: 'flex-end'
+    },
+    sendReasonButton: {
+        fontSize: RFPercentage(3.5),
+        backgroundColor: 'dodgerblue',
+        borderRadius: 15,
+        paddingVertical: 5,
+        paddingHorizontal: 10
+    }
 });

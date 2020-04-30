@@ -4,6 +4,7 @@
 */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { confirmation_msg, taxi_num, taxi_corporation, is_trip_done, give_review } from '../Common_files/Texts'
 import Rating from "./Rating";
@@ -44,6 +45,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        fontSize: 50,
+        fontSize: RFPercentage(7),
     }
 });
