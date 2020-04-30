@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   instructions: {
-    margin: 5,
+    marginHorizontal: 30,
+    lineHeight: 30,
     textAlign: 'center',
     color: '#000000',
     fontSize: RFPercentage(3),
