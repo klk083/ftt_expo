@@ -12,8 +12,8 @@ import Drawer from "./Client/Drawer";
 
 const App = createSwitchNavigator({
     SplashScreen: SplashScreen,
-    //Client: Client_mode,
-    //Driver: Driver_mode,
+    Client: Client_mode,
+    Driver: Driver_mode,
     //Drawer: Client_MenuDrawerNavigator, // den er feil
     //Drawer_new: Drawer // den er feil
 });
