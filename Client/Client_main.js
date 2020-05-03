@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { Alert, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { getPreciseDistance } from 'geolib'
@@ -9,6 +9,8 @@ import {book_taxi, basic_price} from '../Common_files/Texts'
 
 export default class Client_main extends React.Component {
     state = {
+        secretKey: '4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15',
+        tokenGotten: '',
         accuracy: '',
         altitude: '',
         heading: '',
@@ -78,6 +80,54 @@ export default class Client_main extends React.Component {
         this.setState({distanceBetween: distanceBetween})
     }
 
+    bookingPressed = async () => {
+        const {secretKey, tokenGotten} = this.state;
+        await fetch('http://192.168.1.22:8080/token', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                secretGotten: secretKey,
+            }),
+        })
+            .then((response) => response.text())
+            .then((responseData) => {
+                this.setState({
+                    tokenGotten: responseData,
+                    }
+
+                )
+            })
+            .catch(error => {
+                console.error(error);
+
+            });
+        this.makeOrder();
+    }
+
+    makeOrder = async () => {
+    const {tokenGotten, clientPhone, location,latitude,longitude} = this.state;
+
+    fetch('http://192.168.1.22:8080/makeorder', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({
+            pnum: clientPhone,
+            latitude: latitude,
+            longitude: longitude,
+            token: tokenGotten,
+        }),
+    })
+        .then(response => response.json())
+        .then(responseJson => {
+            this.props.navigation.navigate('Booking',
+                {clientPhone: clientPhone, clientLocation: location})
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    }
+
     render() {
         const {location, geocode, errorMessage, accuracy, altitude, heading, latitude, longitude, speed, distanceBetween, clientPhone} = this.state
 
@@ -114,8 +164,10 @@ export default class Client_main extends React.Component {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity>
                                 <Text style={styles.button}
-                                      onPress={() => this.props.navigation.navigate('Booking',
+                                      /*onPress={() => this.props.navigation.navigate('Booking',
                                           {clientPhone: clientPhone, clientLocation: location})}
+                                             */
+                                    onPress={ this.bookingPressed}
                                 >{book_taxi}</Text>
                                 <Text style={styles.button_price}
                                       onPress={() => this.props.navigation.navigate('Booking_priority',
@@ -162,7 +214,7 @@ const styles = StyleSheet.create({
     },
     button: {
         textAlign: 'center',
-        fontSize: RFPercentage(12),
+        fontSize: RFPercentage(8),
         paddingHorizontal: 90,
     },
     button_price: {
