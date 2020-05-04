@@ -1,5 +1,10 @@
 import React from 'react'
 
+// Server texts
+export const serverIp = "http://192.168.1.22:8080";
+export const secretKey = "4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15";
+
+
 // Common texts
 export const write_your_num = "Skriv inn\nmobilnummeret ditt";
 export const fft_info = "Fast Track Taxi skal sende deg en melding for å verifisere mobilnummeret ditt.\n\nHva er " +

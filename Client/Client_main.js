@@ -5,12 +5,12 @@ import * as Permissions from 'expo-permissions';
 import { getPreciseDistance } from 'geolib'
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-import {book_taxi, basic_price} from '../Common_files/Texts'
+import {book_taxi, basic_price, serverIp} from '../Common_files/Texts'
+import {getToken} from '../Common_files/ourFunctions'
+
 
 export default class Client_main extends React.Component {
     state = {
-        secretKey: '4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15',
-        tokenGotten: '',
         accuracy: '',
         altitude: '',
         heading: '',
@@ -81,51 +81,27 @@ export default class Client_main extends React.Component {
     }
 
     bookingPressed = async () => {
-        const {secretKey, tokenGotten} = this.state;
-        await fetch('http://192.168.1.22:8080/token', {
+        const {secretKey, serverIp, clientPhone, location,latitude,longitude} = this.state;
+        const tokenGotten = await getToken();
+        await fetch('http://192.168.1.22:8080/makeorder', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                secretGotten: secretKey,
+                pnum: clientPhone,
+                latitude: latitude,
+                longitude: longitude,
+                token: tokenGotten,
             }),
         })
             .then((response) => response.text())
             .then((responseData) => {
-                this.setState({
-                    tokenGotten: responseData,
-                    }
-
-                )
+                const orderId = responseData;
+                this.props.navigation.navigate('Booking',
+                    {clientPhone: clientPhone, clientLocation: location, orderId: orderId})
             })
             .catch(error => {
                 console.error(error);
-
             });
-        this.makeOrder();
-    }
-
-    makeOrder = async () => {
-    const {tokenGotten, clientPhone, location,latitude,longitude} = this.state;
-
-    fetch('http://192.168.1.22:8080/makeorder', {
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify({
-            pnum: clientPhone,
-            latitude: latitude,
-            longitude: longitude,
-            token: tokenGotten,
-        }),
-    })
-        .then(response => response.json())
-        .then(responseJson => {
-            this.props.navigation.navigate('Booking',
-                {clientPhone: clientPhone, clientLocation: location})
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
     }
 
     render() {
