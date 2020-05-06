@@ -122,9 +122,6 @@ export default class Client_main extends React.Component {
                                     (location ? ((this.state.distanceBetween === 0) ? 'Trykk for å måle avstand' : `Du er ${distanceBetween} km unna i luftlinje.`) : null)
                                 }</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Driver Stack')}>
-                                <Text style={styles.heading1}>Gå til driver main</Text>
-                            </TouchableOpacity>
                         </View>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity>

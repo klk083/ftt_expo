@@ -111,8 +111,8 @@ class SplashScreen extends React.Component {
               />
             </View>
           </View>
-      )
-    } else {
+      )}
+      else {
         return (
             <View style={styles.MainContainer}>
                 {!this.state.isRegistered && this.props.navigation.navigate('WelcomeScreen')}
@@ -125,9 +125,9 @@ class SplashScreen extends React.Component {
 class Registration_mode extends React.Component {
   render() {
     return (
-        <NavigationContainer>
+        //<NavigationContainer>
           <NewRegistrationStack />
-        </NavigationContainer>
+        //</NavigationContainer>
     )
   }
 }

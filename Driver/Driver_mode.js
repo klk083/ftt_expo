@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import Driver_main from './Driver_main'
@@ -8,41 +8,38 @@ import LogoTitle from "../Common_files/LogoTitle";
 import Client_MenuButton from "../Client/Client_MenuButton";
 import DriverHasOrder from "./DriverHasOrder";
 
-const DriverStack = createStackNavigator();
+const DrawerStack = createDrawerNavigator();
 
-class NewDriverStack extends React.Component {
+class NewDrawerStack extends React.Component {
     render() {
         return (
-            <DriverStack.Navigator>
-                <DriverStack.Screen
+            <DrawerStack.Navigator
+                screenOptions={{
+                    headerLeft: props => <LogoTitle {...props} />,
+                    headerStyle: {
+                        backgroundColor: 'darkseagreen',
+                    },
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontSize: RFPercentage(5),
+                    },
+                    headerRight: props => <Client_MenuButton {...props}/>,
+                }}>
+                <DrawerStack.Screen
                     name='Driver Home'
                     component={Driver_main}
                     options={{
                         title: '',
-                        headerLeft: props => <LogoTitle {...props} />,
-                        headerStyle: {
-                            backgroundColor: 'darkseagreen',
-                        },
-                        headerRight: props => <Client_MenuButton {...props}/>,
                     }}
                 />
-                <DriverStack.Screen
+                <DrawerStack.Screen
                     name='DriverHasOrder'
                     component={DriverHasOrder}
                     options={{
                         title: 'Oppdrag',
-                        headerLeft: props => <LogoTitle {...props} />,
-                        headerStyle: {
-                            backgroundColor: 'darkseagreen',
-                        },
-                        headerTitleAlign: 'center',
-                        headerTitleStyle: {
-                            fontSize: RFPercentage(5),
-                        },
-                        headerRight: props => <Client_MenuButton {...props}/>,
                     }}
                 />
-            </DriverStack.Navigator>
+            </DrawerStack.Navigator>
         )
     }
 }
@@ -52,7 +49,7 @@ class Client_mode extends React.Component {
     render() {
         return (
             <NavigationContainer>
-                <NewDriverStack />
+                <NewDrawerStack />
             </NavigationContainer>
         );
     }

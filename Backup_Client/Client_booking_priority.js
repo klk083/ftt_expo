@@ -1,25 +1,32 @@
-import React from 'react';
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-import {cancel_taxi, looking_for_taxi} from '../Common_files/Texts'
+import {cancel_taxi, looking_for_taxi_priority, priority_price, buy_yourself_out_of_queue} from '../Common_files/Texts'
 
 export default class Client_main extends React.Component {
     render() {
-        const { clientLocation, clientPhone } = this.props.route.params;
-
         return (
             <View style={styles.container}>
                 <View style={styles.info_container}>
-                    <Text>ClientPhone: {clientPhone}</Text>
-                    <Text>ClientLocation: {clientLocation.latitude}, {clientLocation.longitude}</Text>
                     <Text
-                        style={styles.looking_for_taxi}
-                        onPress={() => this.props.navigation.navigate('Client_taxi_confirmation')}>{looking_for_taxi}</Text>
+                        style={styles.looking_for_taxi_priority}
+                        onPress={() => this.props.navigation.navigate('Client_taxi_confirmation')}
+                    >{looking_for_taxi_priority}</Text>
                     <ActivityIndicator size={RFPercentage(10)} color='black' />
                 </View>
+                <View style={styles.priority_buttonContainer}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Booked_priority')}>
+                        <Text
+                            style={styles.priority_button}
+                        >{buy_yourself_out_of_queue}</Text>
+                        <Text
+                            style={styles.priority_button}
+                        >({priority_price})</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.cancel_buttonContainer}>
-                    <TouchableOpacity >
+                    <TouchableOpacity>
                         <Text
                             style={styles.cancel_button}
                             onPress={() => Alert.alert(
@@ -28,7 +35,7 @@ export default class Client_main extends React.Component {
                                 [
                                     {
                                         text: 'Ja',
-                                        onPress: () => this.props.navigation.reset({index: 0, routes: [{name: 'Client Home'}]}),
+                                        onPress: () => this.props.navigation.navigate('Client Home'),
                                     },
                                     {},
                                     {
@@ -41,7 +48,7 @@ export default class Client_main extends React.Component {
                                     cancelable: false
                                 },
                             )}
-                        >{cancel_taxi}</Text>
+                            >{cancel_taxi}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -55,11 +62,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     info_container: {
-      flex: 0.85,
+        flex: 0.5,
+    },
+    looking_for_taxi_priority: {
+        fontSize: RFPercentage(6),
+        marginTop: 50,
+        marginBottom: 50,
+        textAlign: 'center',
+    },
+    priority_buttonContainer: {
+        flex: 0.35,
+        alignItems: 'center',
+        backgroundColor: 'darkseagreen',
+        borderRadius: 15,
+        paddingLeft: 30,
+        paddingRight: 30,
+        marginTop: 100,
+        justifyContent: 'center',
+    },
+    priority_button: {
+        textAlign: 'center',
+        fontSize: RFPercentage(6),
     },
     cancel_buttonContainer: {
         flex: 0.1,
         paddingTop: 100,
+        paddingBottom: 20,
         alignItems: 'center',
     },
     cancel_button: {
@@ -69,10 +97,4 @@ const styles = StyleSheet.create({
         backgroundColor: 'firebrick',
         borderRadius: 15,
     },
-    looking_for_taxi: {
-        fontSize: RFPercentage(6),
-        paddingHorizontal: 15,
-        marginTop: 50,
-        marginBottom: 50,
-    }
 });

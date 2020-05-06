@@ -6,9 +6,9 @@ export default class LogoTitle extends React.Component {
     render() {
         return (
             <Image
-                style={{width: RFPercentage(19)}}
+                style={{width: RFPercentage(20), height: RFPercentage(8)}}
                 source={require('../assets/fast_track_taxi_logo_ferdig.png')}
-                resizeMode='contain'
+                resizeMode='cover'
             />
         );
     }
