@@ -11,7 +11,7 @@ export default class Customer_main extends React.Component {
                 <View style={styles.info_container}>
                     <Text
                         style={styles.looking_for_taxi}
-                        onPress={() => this.props.navigation.navigate('Customer_taxi_confirmation')}>{looking_for_taxi_booked_priority}</Text>
+                        onPress={() => this.props.navigation.navigate('Booking confirmation')}>{looking_for_taxi_booked_priority}</Text>
                     <ActivityIndicator size={RFPercentage(10)} color='black' />
                 </View>
                 <View style={styles.cancel_buttonContainer}>
@@ -24,7 +24,7 @@ export default class Customer_main extends React.Component {
                                 [
                                     {
                                         text: 'Ja',
-                                        onPress: () => this.props.navigation.navigate('customer Home'),
+                                        onPress: () => this.props.navigation.navigate('Home'),
                                     },
                                     {},
                                     {

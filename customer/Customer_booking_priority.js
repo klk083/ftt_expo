@@ -11,12 +11,12 @@ export default class Customer_main extends React.Component {
                 <View style={styles.info_container}>
                     <Text
                         style={styles.looking_for_taxi_priority}
-                        onPress={() => this.props.navigation.navigate('Customer_taxi_confirmation')}
+                        onPress={() => this.props.navigation.navigate('Booking confirmation')}
                     >{looking_for_taxi_priority}</Text>
                     <ActivityIndicator size={RFPercentage(10)} color='black' />
                 </View>
                 <View style={styles.priority_buttonContainer}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Booked_priority')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Booking priority booked')}>
                         <Text
                             style={styles.priority_button}
                         >{buy_yourself_out_of_queue}</Text>
@@ -35,7 +35,7 @@ export default class Customer_main extends React.Component {
                                 [
                                     {
                                         text: 'Ja',
-                                        onPress: () => this.props.navigation.navigate('customer Home'),
+                                        onPress: () => this.props.navigation.navigate('Home'),
                                     },
                                     {},
                                     {

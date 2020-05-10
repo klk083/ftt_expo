@@ -27,7 +27,7 @@ export default class Rating extends React.Component {
                 {},
                 {
                     text: 'Gi vurdering',
-                    onPress: () => {}//this.props.navigation.navigate('customer Home')
+                    onPress: () => this.props.navigation.navigate('Home')
                 },
             ]
         )
@@ -69,7 +69,7 @@ export default class Rating extends React.Component {
                 </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity>
-                        <Text style={styles.no_thanks} onPress={() => this.props.navigation.navigate('customer Home')}>Nei,
+                        <Text style={styles.no_thanks} onPress={() => this.props.navigation.navigate('Home')}>Nei,
                             takk</Text>
                     </TouchableOpacity>
                 </View>

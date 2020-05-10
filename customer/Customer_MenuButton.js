@@ -14,7 +14,7 @@ export default class LogoTitle extends React.Component {
                 style={{
                     backgroundColor: 'darkseagreen',
                 }}
-                onPress={() => this.props.navigation.navigate('')}/>
+                onPress={() => this.props.navigation.openDrawer()}/>
         );
     }
 }

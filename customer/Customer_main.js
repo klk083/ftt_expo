@@ -134,30 +134,39 @@ class Customer_main extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity>
-                                <Text style={styles.button}
-                                      onPress={() => this.props.navigation.navigate('Booking',
-                                          {customerPhone: customerPhone, customerLocation: location})}
-                                >{book_taxi}</Text>
-                                <Text style={styles.button_price}
-                                      onPress={() => this.props.navigation.navigate('Booking_priority',
-                                          {customerLocation: this.state.location}
-                                          )}>({basic_price})</Text>
+                            <TouchableOpacity style={styles.textBookingButtonContainer}>
+                                <View style={styles.textBooking}>
+                                    <Text style={styles.button}
+                                          onPress={() => this.props.navigation.navigate('Booking',
+                                              {customerPhone: customerPhone, customerLocation: location})}
+                                    >{book_taxi}</Text>
+                                    <Text style={styles.button_price}
+                                          /*
+                                                    SKAL SLETTES NÅR SERVEREN KLARER
+                                                    Å SENDE KLIENTEN TIL
+                                                    PRIORITERT BESTILLING
+
+                                          onPress={() => this.props.navigation.navigate('Booking priority',
+                                              {customerLocation: this.state.location}
+                                          )}*/>({basic_price})</Text>
+                                </View>
+
                             </TouchableOpacity>
                         </View>
                     </View>)
                 }
                 {!this.state.isGranted && (
                     <View style={styles.locationContainer}>
-                        <Text style={styles.heading4}>Du må slå på lokasjonen</Text>
-                        <Text style={styles.heading4}>for å bruke appen</Text>
-                        <View style={styles.spaceBetweenViews}>
-                            <View style={styles.buttonContainerLocation}>
-                                <TouchableOpacity onPress={this.getLocationAsync}>
-                                    <Text style={styles.buttonLocation}>Slå på {'\n'}lokasjonen</Text>
-                                </TouchableOpacity>
-                            </View>
+                        <View style={styles.locationInfoContainer}>
+                            <Text style={styles.locationInfo}>Du må slå på lokasjonen</Text>
+                            <Text style={styles.locationInfo}>for å bruke appen</Text>
                         </View>
+                        <View style={styles.buttonLocationContainer}>
+                            <TouchableOpacity style={styles.touchableLocation} onPress={this.getLocationAsync}>
+                                <Text style={styles.buttonLocation}>Slå på {'\n'}lokasjonen</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.spaceBelowButtonLocation}></View>
                     </View>
                 )}
             </View>
@@ -173,41 +182,65 @@ const styles = StyleSheet.create({
     },
     spaceBetweenViews: {
         flex: 0.68,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
     },
     buttonContainer: {
         flex: 0.3,
-        paddingBottom: 40,
         borderRadius: 25,
         backgroundColor: 'darkseagreen',
+        borderWidth: 15,
+        borderColor: 'blue',
+    },
+    textBookingButtonContainer: {
+        flex: 1,
+        justifyContent: 'space-evenly',
+    },
+    textBooking: {
+        flex: 1,
+        justifyContent: 'center',
     },
     button: {
+        flex: 0.9,
         textAlign: 'center',
-        fontSize: RFPercentage(12),
-        paddingHorizontal: 90,
+        fontSize: RFPercentage(10),//12
+        borderWidth: 15,
+        borderColor: 'red',
+        paddingHorizontal: 50
     },
     button_price: {
+        flex: 0.1,
         textAlign: 'center',
-        fontSize: RFPercentage(3),
+        fontSize: RFPercentage(3),//3
+        borderWidth: 15,
+        borderColor: 'yellow',
     },
 
 
     locationContainer: {
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    buttonContainerLocation: {
+    locationInfoContainer: {
+        flex: 0.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonLocationContainer: {
+        flex: 0.2,
         borderRadius: 25,
         backgroundColor: 'firebrick',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    spaceBelowButtonLocation: {
+        flex: 0.3,
     },
     buttonLocation: {
         textAlign: 'center',
         fontSize: RFPercentage(6),
         padding: 15
     },
-
 
     heading1: {
         color: 'gray',
@@ -221,7 +254,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: RFPercentage(2)
     },
-    heading4: {
+    locationInfo: {
         color: 'gray',
         alignItems: 'center',
         fontSize: RFPercentage(5),

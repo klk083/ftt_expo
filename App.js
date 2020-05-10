@@ -13,6 +13,10 @@ import LogoTitle from './common_files/LogoTitle'
 import Customer_MenuButton from './customer/Customer_MenuButton'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import store from "./redux/store";
+import Customer_booking from "./customer/Customer_booking";
+import Customer_booking_priority from "./customer/Customer_booking_priority";
+import Customer_booked_priority from "./customer/Customer_booked_priority";
+import Customer_taxi_confirmation from "./customer/Customer_taxi_confirmation";
 
 
 
@@ -23,8 +27,18 @@ const DriverDrawerStack = createDrawerNavigator()
 class CustomerStack extends React.Component {
     render() {
         return (
-            <CustomerDrawerStack.Navigator initialRouteName='Customer Home'>
-                <CustomerDrawerStack.Screen name='Customer Home' component={Customer_main} />
+            <CustomerDrawerStack.Navigator
+                initialRouteName='Home'
+                drawerPosition='right'
+                drawerStyle={{
+                    width: 200,
+                }}
+            >
+                <CustomerDrawerStack.Screen name='Home' component={Customer_main} options={{drawerLabel: 'Hjem'}}/>
+                <CustomerDrawerStack.Screen name='Booking' component={Customer_booking} options={{drawerLabel: 'Bestilling'}}/>
+                <CustomerDrawerStack.Screen name='Booking priority' component={Customer_booking_priority} options={{drawerLabel: 'Prioritert bestilling'}}/>
+                <CustomerDrawerStack.Screen name='Booking priority booked' component={Customer_booked_priority} options={{drawerLabel: 'Prioritert bestilling bestilt'}}/>
+                <CustomerDrawerStack.Screen name='Booking confirmation' component={Customer_taxi_confirmation} options={{drawerLabel: 'Bekreftelse'}}/>
             </CustomerDrawerStack.Navigator>
         )
     }
@@ -52,7 +66,7 @@ class AppStackScreen extends React.Component {
             <Provider store={store}>
                 <NavigationContainer>
                     <AppStack.Navigator
-                        initialRouteName='Customer Stack'
+                        initialRouteName='Hjem'
                         screenOptions={{
                             headerLeft: props => <LogoTitle {...props} />,
                             headerStyle: {
@@ -75,7 +89,7 @@ class AppStackScreen extends React.Component {
                         />
                         <AppStack.Screen name='Registrering' component={Registrering} options={{headerShown: false}}/>
                         {console.log('er på stacken')}
-                        <AppStack.Screen name='Customer Stack' component={CustomerStack}/>
+                        <AppStack.Screen name='Hjem' component={CustomerStack}/>
                         <AppStack.Screen name='Driver Stack' component={DriverStack}/>
                     </AppStack.Navigator>
                 </NavigationContainer>
@@ -84,5 +98,4 @@ class AppStackScreen extends React.Component {
     }
 }
 export default AppStackScreen
-
 
