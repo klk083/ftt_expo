@@ -227,13 +227,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'firebrick',
         justifyContent: 'center',
     },
-    spaceBelowButtonLocation: {
-        flex: 0.3,
-    },
     buttonLocation: {
         textAlign: 'center',
         fontSize: RFPercentage(6),
         padding: 15
+    },
+    spaceBelowButtonLocation: {
+        flex: 0.3,
     },
 
     heading1: {

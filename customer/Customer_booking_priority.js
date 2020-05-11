@@ -13,10 +13,16 @@ export default class Customer_main extends React.Component {
                         style={styles.looking_for_taxi_priority}
                         onPress={() => this.props.navigation.navigate('Booking confirmation')}
                     >{looking_for_taxi_priority}</Text>
-                    <ActivityIndicator size={RFPercentage(10)} color='black' />
+                </View>
+                <View style={styles.activity_spinner}>
+                    <ActivityIndicator
+                        style={{flex: 1}}
+                        size={RFPercentage(10)}
+                        color='black' />
                 </View>
                 <View style={styles.priority_buttonContainer}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Booking priority booked')}>
+                    <TouchableOpacity style={styles.touchablePriorityContainer}
+                        onPress={() => this.props.navigation.navigate('Booking priority booked')}>
                         <Text
                             style={styles.priority_button}
                         >{buy_yourself_out_of_queue}</Text>
@@ -26,7 +32,7 @@ export default class Customer_main extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.cancel_buttonContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={{flex: 1}}>
                         <Text
                             style={styles.cancel_button}
                             onPress={() => Alert.alert(
@@ -62,33 +68,41 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     info_container: {
-        flex: 0.5,
+        flex: 0.35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
     },
-    looking_for_taxi_priority: {
-        fontSize: RFPercentage(6),
-        marginTop: 50,
-        marginBottom: 50,
-        textAlign: 'center',
+    activity_spinner: {
+        flex: 0.2,
     },
     priority_buttonContainer: {
         flex: 0.35,
         alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
+    touchablePriorityContainer: {
+        flex: 0.5,
+        justifyContent: 'center',
+        padding: 10,
         backgroundColor: 'darkseagreen',
         borderRadius: 15,
-        paddingLeft: 30,
-        paddingRight: 30,
-        marginTop: 100,
-        justifyContent: 'center',
-    },
-    priority_button: {
-        textAlign: 'center',
-        fontSize: RFPercentage(6),
     },
     cancel_buttonContainer: {
         flex: 0.1,
-        paddingTop: 100,
-        paddingBottom: 20,
         alignItems: 'center',
+        justifyContent: 'center',
+    },
+    looking_for_taxi_priority: {
+        flex: 1,
+        fontSize: RFPercentage(6),
+        textAlign: 'center',
+        paddingVertical: 10,
+    },
+    priority_button: {
+        flex: 1,
+        textAlign: 'center',
+        fontSize: RFPercentage(6),
     },
     cancel_button: {
         textAlign: 'center',

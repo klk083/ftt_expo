@@ -53,14 +53,24 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'space-between',
     },
     info_container: {
-      flex: 0.85,
+        flex: 0.9,
+        alignItems: 'center',
+        paddingTop: 50,
     },
     cancel_buttonContainer: {
         flex: 0.1,
-        paddingTop: 100,
+        justifyContent: 'flex-end',
+        paddingBottom: 10,
         alignItems: 'center',
+    },
+    looking_for_taxi: {
+        fontSize: RFPercentage(7),
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        textAlign: 'center',
     },
     cancel_button: {
         textAlign: 'center',
@@ -68,11 +78,5 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: 'firebrick',
         borderRadius: 15,
-    },
-    looking_for_taxi: {
-        fontSize: RFPercentage(6),
-        paddingHorizontal: 15,
-        marginTop: 50,
-        marginBottom: 50,
     }
 });
