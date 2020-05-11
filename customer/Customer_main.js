@@ -189,8 +189,6 @@ const styles = StyleSheet.create({
         flex: 0.3,
         borderRadius: 25,
         backgroundColor: 'darkseagreen',
-        borderWidth: 15,
-        borderColor: 'blue',
     },
     textBookingButtonContainer: {
         flex: 1,
@@ -201,19 +199,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-        flex: 0.9,
+        flex: 0.8,
         textAlign: 'center',
         fontSize: RFPercentage(10),//12
-        borderWidth: 15,
-        borderColor: 'red',
         paddingHorizontal: 50
     },
     button_price: {
         flex: 0.1,
         textAlign: 'center',
         fontSize: RFPercentage(3),//3
-        borderWidth: 15,
-        borderColor: 'yellow',
     },
 
 
