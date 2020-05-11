@@ -12,10 +12,12 @@ export default class Customer_main extends React.Component {
                     <Text
                         style={styles.looking_for_taxi}
                         onPress={() => this.props.navigation.navigate('Booking confirmation')}>{looking_for_taxi_booked_priority}</Text>
-                    <ActivityIndicator size={RFPercentage(10)} color='black' />
+                </View>
+                <View style={styles.activityContainer}>
+                    <ActivityIndicator style={styles.activityIndicator} size={RFPercentage(10)} color='black' />
                 </View>
                 <View style={styles.cancel_buttonContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={styles.touchableCancelButton}>
                         <Text
                             style={styles.cancel_button}
                             onPress={() => Alert.alert(
@@ -49,26 +51,43 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'space-between',
     },
     info_container: {
-        flex: 0.85,
+        flex: 0.2,
+        justifyContent: 'flex-start',
+        paddingVertical: 20,
+    },
+    activityContainer: {
+        flex: 0.6,
+    },
+    activityIndicator: {
+        flex:1,
+        justifyContent: 'flex-start'
     },
     cancel_buttonContainer: {
         flex: 0.1,
-        paddingTop: 100,
         alignItems: 'center',
-    },
-    cancel_button: {
-        textAlign: 'center',
-        fontSize: RFPercentage(4),
         padding: 10,
+        justifyContent: 'center',
+    },
+    touchableCancelButton: {
+        flex: 0.8,
         backgroundColor: 'firebrick',
         borderRadius: 15,
+        paddingHorizontal: 10,
+        justifyContent: 'space-evenly',
+    },
+    cancel_button: {
+        flex: 1,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        fontSize: RFPercentage(4),
     },
     looking_for_taxi: {
+        flex: 1,
+        textAlignVertical: 'center',
         fontSize: RFPercentage(6),
-        margin: 50,
         textAlign: 'center',
-
     }
 });

@@ -27,7 +27,9 @@ export default class Customer_main extends React.Component {
                     <Text style={styles.text}>{taxi_corporation}{'Green Cab'}</Text>
                 </View>
                 {this.state.isReviewed && (
-                    <Rating />
+                    <View style={styles.ratingContainer}>
+                        <Rating />
+                    </View>
                 )}
             </View>
         )
@@ -38,13 +40,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'space-between',
     },
     info_container: {
         flex: 0.4,
-        marginTop: 60,
+        justifyContent: 'center',
         alignItems: 'center',
     },
+    ratingContainer: {
+        flex: 0.6,
+    },
     text: {
+        textAlign: 'center',
+        paddingHorizontal: 10,
         fontSize: RFPercentage(7),
     }
 });

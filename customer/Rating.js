@@ -58,8 +58,10 @@ export default class Rating extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.reviewContainer}>
-                    <Text style={styles.trip_done}>{is_trip_done}</Text>
-                    <Text style={styles.review}>{give_review}</Text>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.trip_done}>{is_trip_done}</Text>
+                        <Text style={styles.review}>{give_review}</Text>
+                    </View>
                     <View style={styles.starsContainer}>
                         <View style={styles.rating_bar}>{rating_bar}</View>
                         <View>
@@ -68,9 +70,11 @@ export default class Rating extends React.Component {
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity>
-                        <Text style={styles.no_thanks} onPress={() => this.props.navigation.navigate('Home')}>Nei,
-                            takk</Text>
+                    <TouchableOpacity style={styles.touchableNoThanksContainer}>
+                        <Text
+                            style={styles.no_thanks}
+                            onPress={() => this.props.navigation.navigate('Home')}
+                        >Nei, takk</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -81,44 +85,59 @@ export default class Rating extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    rating_bar: {
-        margin: 10,
-        flexDirection: 'row'
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     reviewContainer: {
-        flex: 1,
-        marginTop: 80,
+        flex: 0.9,
         alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
+    buttonContainer: {
+        flex: 0.1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+    },
+    textContainer: {
+        flex: 0.5,
+        justifyContent: 'center',
+    },
+    starsContainer: {
+        flex: 0.5,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    touchableNoThanksContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    trip_done: {
+        flex: 0.5,
+        color: 'teal',
+        textAlignVertical: 'center',
+        fontSize: RFPercentage(7),
+    },
+    review: {
+        flex: 0.5,
+        textAlign: 'center',
+        textAlignVertical: 'top',
+        fontSize: RFPercentage(4),
+    },
+    rating_bar: {
+        flexDirection: 'row'
     },
     star: {
         padding: 5
     },
-    trip_done: {
-        color: 'teal',
-        fontSize: RFPercentage(7),
-    },
-    review: {
-        fontSize: RFPercentage(4),
+    starsRate: {
+        fontSize: RFPercentage(2)
     },
     no_thanks: {
         textAlign: 'center',
-        fontSize: RFPercentage(3),
-        padding: 10,
         backgroundColor: 'dodgerblue',
         borderRadius: 15,
-    },
-    starsContainer: {
-        flex: 1,
-        alignItems: 'center'
-    },
-    buttonContainer: {
-        flex: 0.3,
-        alignItems: 'center',
-    },
-    starsRate: {
-        fontSize: RFPercentage(2)
+        fontSize: RFPercentage(3),
+        padding: 10,
     }
 })
