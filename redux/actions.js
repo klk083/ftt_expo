@@ -1,9 +1,17 @@
-import {TOGGLE_IS_DRIVER, TOGGLE_IS_TOKEN, UPDATE_CONTACT, UPDATE_USER, USER_LOCATION} from "./actionTypes";
+import {
+    TOGGLE_IS_DRIVER,
+    TOGGLE_IS_TOKEN,
+    UPDATE_CONTACT,
+    UPDATE_USER,
+    USER_LOCATION,
+    ORDER_ID,
+    DEVICE_ID,
+} from "./actionTypes";
 
 // action creators
 export const updateUser = update => ({
     type: UPDATE_USER,
-    payload: update,
+    update,
 })
 
 export const addContact = newContact => ({
@@ -11,17 +19,29 @@ export const addContact = newContact => ({
     payload: newContact,
 })
 
-export const toggleIsToken= newIsTokenState => ({
+export const toggleIsToken= token => ({
     type: TOGGLE_IS_TOKEN,
-    token: newIsTokenState,
+    token,
 })
 
-export const toggleIsDriver = newIsDriverState => ({
+export const toggleIsDriver = isDriver => ({
     type: TOGGLE_IS_DRIVER,
-    driver: newIsDriverState,
+    isDriver,
 })
 
-export const updateCustomerLocation = newLocation => ({
+export const updateCustomerLocation = user_location => ({
     type: USER_LOCATION,
-    user_location: newLocation,
+    user_location: user_location,
 })
+
+export const updateOrderId = orderId => ({
+    type: ORDER_ID,
+    orderId,
+})
+
+export const updateDeviceId = deviceId => ({
+    type: DEVICE_ID,
+    deviceId,
+})
+
+

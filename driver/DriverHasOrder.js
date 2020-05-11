@@ -6,7 +6,27 @@ import { is_order_accomplished, order_was_canceled, order_is_accomplished, reaso
 
 export default class DriverHasOrder extends React.Component {
     state = {
-        isModalVisible: false
+        isModalVisible: false,
+        isDisabled: true,
+        cancellationMessage: '',
+    }
+
+    handleMsg = text => {
+        this.setState({tlf: text})
+        {
+            (this.state.cancellationMessage.length >= 3) ? this.setState({isDisabled: false}) : this.setState({isDisabled: true})
+        }
+    }
+
+    enableKeyPress = (event) => {
+        {
+            (this.state.cancellationMessage.length >= 3) ? this.verificationTlf(event.nativeEvent.text) : null
+        }
+    }
+
+    submitCancellation = () => {
+        this.setState({isModalVisible: false})
+        this.props.navigation.navigate('Driver Home')
     }
 
     render() {
@@ -16,12 +36,14 @@ export default class DriverHasOrder extends React.Component {
                     <Text style={styles.is_order_accomplished}>{is_order_accomplished}</Text>
                 </View>
                 <View style={styles.accomplished_buttonContainer}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('driver Home')}>
+                    <TouchableOpacity
+                        style={styles.touchableAccomplishedContainer}
+                        onPress={() => this.props.navigation.navigate('Driver Home')}>
                         <Text style={styles.accomplished_button}>{order_is_accomplished}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.orderCancel_buttonContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={styles.touchableCancelButtonContainer}>
                         <Text
                             style={styles.orderCancel_button}
                             onPress={() => Alert.alert(
@@ -30,7 +52,7 @@ export default class DriverHasOrder extends React.Component {
                                 [
                                     {
                                         text: 'Kunden møtte ikke opp',
-                                        onPress: () => this.props.navigation.navigate('driver Home'),
+                                        onPress: () => this.props.navigation.navigate('Driver Home'),
                                     },
                                     {},
                                     {
@@ -64,11 +86,14 @@ export default class DriverHasOrder extends React.Component {
                                 multiline={true}
                                 maxLength={200}
                                 autoFocus={true}
-                                onChangeText={this.handleTlf}
+                                onSubmitEditing={this.enableKeyPress}
+                                onChangeText={this.handleMsg}
                             />
                             <View style={styles.sendReasonButtonContainer}>
                                 <TouchableOpacity>
-                                    <Text style={styles.sendReasonButton}>Send</Text>
+                                    <Text
+                                        style={styles.sendReasonButton}
+                                        onPress={this.submitCancellation}>Send</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -84,36 +109,55 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'space-between',
     },
     info_container: {
-        flex: 0.1,
-    },
-    is_order_accomplished: {
-        fontSize: RFPercentage(7),
-        marginTop: 50,
-        marginBottom: 50,
-        textAlign: 'center',
+        flex: 0.2,
+        justifyContent: 'center',
     },
     accomplished_buttonContainer: {
-        flex: 0.2,
+        flex: 0.5,
         alignItems: 'center',
+        paddingHorizontal: 20,
+        justifyContent: 'flex-start',
+    },
+    orderCancel_buttonContainer: {
+        flex: 0.2,
+        paddingBottom: 20,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(52, 52, 52, 0.8)',
+        borderWidth: 10,
+        borderColor: 'yellow',
+    },
+
+
+    is_order_accomplished: {
+        fontSize: RFPercentage(6),
+        textAlign: 'center',
+    },
+    touchableAccomplishedContainer: {
+        flex: 0.4,
         backgroundColor: 'darkseagreen',
         borderRadius: 15,
-        paddingLeft: 20,
-        paddingRight: 20,
-        marginTop: 100,
-        justifyContent: 'center',
+        paddingHorizontal: 20,
+        justifyContent: 'center'
+    },
+    touchableCancelButtonContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
     },
     accomplished_button: {
         textAlign: 'center',
         fontSize: RFPercentage(5),
     },
-    orderCancel_buttonContainer: {
-        flex: 0.7,
-        paddingBottom: 20,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
+
+
     orderCancel_button: {
         textAlign: 'center',
         fontSize: RFPercentage(3),
@@ -123,12 +167,6 @@ const styles = StyleSheet.create({
     },
 
 
-    modalContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    },
     modalView: {
         margin: 10,
         backgroundColor: "white",

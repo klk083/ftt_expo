@@ -1,4 +1,4 @@
-const NUM_ORDERS = 3
+const NUM_ORDERS = 5
 let num = 0
 
 // generate a random number between min and max

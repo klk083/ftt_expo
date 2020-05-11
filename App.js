@@ -17,6 +17,7 @@ import Customer_booking from "./customer/Customer_booking";
 import Customer_booking_priority from "./customer/Customer_booking_priority";
 import Customer_booked_priority from "./customer/Customer_booked_priority";
 import Customer_taxi_confirmation from "./customer/Customer_taxi_confirmation";
+import DriverHasOrder from "./driver/DriverHasOrder";
 
 
 
@@ -47,8 +48,9 @@ class CustomerStack extends React.Component {
 class DriverStack extends React.Component {
     render() {
         return (
-            <DriverDrawerStack.Navigator initialRouteName='Customer Home'>
+            <DriverDrawerStack.Navigator initialRouteName='Driver Home'>
                 <DriverDrawerStack.Screen name='Driver Home' component={Driver_main} />
+                <DriverDrawerStack.Screen name='Driver Order' component={DriverHasOrder} />
             </DriverDrawerStack.Navigator>
         )
     }
@@ -66,7 +68,7 @@ class AppStackScreen extends React.Component {
             <Provider store={store}>
                 <NavigationContainer>
                     <AppStack.Navigator
-                        initialRouteName='Hjem'
+                        initialRouteName='Customer Stack'
                         screenOptions={{
                             headerLeft: props => <LogoTitle {...props} />,
                             headerStyle: {
@@ -87,9 +89,9 @@ class AppStackScreen extends React.Component {
                             component={SplashScreen}
                             options={{headerShown: false}}
                         />
-                        <AppStack.Screen name='Registrering' component={Registrering} options={{headerShown: false}}/>
+                        <AppStack.Screen name='Registration' component={Registrering} options={{headerShown: false}}/>
                         {console.log('er på stacken')}
-                        <AppStack.Screen name='Hjem' component={CustomerStack}/>
+                        <AppStack.Screen name='Customer Stack' component={CustomerStack}/>
                         <AppStack.Screen name='Driver Stack' component={DriverStack}/>
                     </AppStack.Navigator>
                 </NavigationContainer>

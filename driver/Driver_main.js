@@ -37,10 +37,24 @@ export default class Driver_main extends React.Component {
                 </View>
                 {this.state.isAvailable && (
                     <View style={styles.orderContainer}>
-                        <Text style={styles.priority_order_list} onPress={() => this.props.navigation.navigate("DriverHasOrder")}>{priority_orders}</Text>
-                        <SectionListCustomers contacts={this.state.orders} />
-                        <Text style={styles.basic_order_list}>{orders}</Text>
-                        <SectionListCustomers contacts={this.state.orders}/>
+                        <View style={styles.priorityOrdersContainer}>
+                            <View style={styles.priorityTitleContainer}>
+                                <Text style={styles.priority_order_list}
+                                      onPress={() => this.props.navigation.navigate("Driver Order")}
+                                >{priority_orders}</Text>
+                            </View>
+                            <View style={styles.prioritySectionListContainer}>
+                                <SectionListCustomers contacts={this.state.orders} />
+                            </View>
+                        </View>
+                        <View style={styles.basicOrdersContainer}>
+                            <View style={styles.basicTitleContainer}>
+                                <Text style={styles.basic_order_list}>{orders}</Text>
+                            </View>
+                            <View style={styles.basicSectionListContainer}>
+                                <SectionListCustomers contacts={this.state.orders}/>
+                            </View>
+                        </View>
                     </View>
                 )}
             </View>
@@ -51,34 +65,62 @@ export default class Driver_main extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'space-between',
     },
     availabilityContainer: {
         flex: 0.1,
         justifyContent: 'space-between',
-        margin: 20,
+        paddingHorizontal: 20,
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    availability: {
-        fontSize: RFPercentage(4),
-    },
-    switch: {
-        transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
-    },
-    same_line: {
-        alignItems: 'stretch'
     },
     orderContainer: {
         flex: 0.9,
         alignItems: 'center',
+        justifyContent: 'center',
+    },
+    priorityOrdersContainer: {
+        flex: 1,
+    },
+    basicOrdersContainer: {
+        flex: 1,
+    },
+    priorityTitleContainer: {
+        flex: 0.2,
+        backgroundColor: '#e9e9e9'
+    },
+    basicTitleContainer: {
+        flex: 0.2,
+        backgroundColor: '#e9e9e9',
+    },
+    prioritySectionListContainer: {
+        flex: 0.8,
+        alignItems: 'center',
+    },
+    basicSectionListContainer: {
+        flex: 0.8,
+        alignItems: 'center',
+    },
+    availability: {
+        flex: 0.8,
+        fontSize: RFPercentage(4),
+    },
+    switch: {
+        flex: 0.2,
+        transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
     },
     priority_order_list: {
+        flex: 1,
+        textAlign: 'center',
+        textAlignVertical: 'center',
         fontSize: RFPercentage(5),
         color: 'dodgerblue',
     },
     basic_order_list: {
+        flex: 1,
+        textAlign: 'center',
+        textAlignVertical: 'center',
         fontSize: RFPercentage(5),
         color: 'darkseagreen',
-        marginTop: 10,
     },
 });

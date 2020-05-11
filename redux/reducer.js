@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 
-import {UPDATE_CONTACT, TOGGLE_IS_TOKEN, TOGGLE_IS_DRIVER, USER_LOCATION} from "./actionTypes";
+import {UPDATE_CONTACT, TOGGLE_IS_TOKEN, TOGGLE_IS_DRIVER, USER_LOCATION, ORDER_ID, DEVICE_ID} from "./actionTypes";
 
 const merge = (prev, next) => Object.assign({}, prev, next)
 
@@ -20,7 +20,8 @@ const userReducer = (state = {}, action) => {
     }
 }
 */
-const userReducer = (state = false, action) => {
+
+const userReducer = (state = '', action) => {
     switch (action.type) {
         case TOGGLE_IS_TOKEN:
             return Object.assign({}, state, {token: action.token});
@@ -31,7 +32,7 @@ const userReducer = (state = false, action) => {
     }
 }
 
-const customerLocationReducer = (state = {}, action) => {
+const customerLocationReducer = (state = '', action) => {
     switch (action.type) {
         case USER_LOCATION:
             return Object.assign({}, state, {user_location: action.user_location})
@@ -40,9 +41,29 @@ const customerLocationReducer = (state = {}, action) => {
     }
 }
 
+const orderIdReducer = (state = -1, action) => {
+    switch (action.type) {
+        case ORDER_ID:
+            return Object.assign({}, state, {orderId: action.orderId})
+        default:
+            return state
+    }
+}
+
+const deviceIdReducer = (state = '', action) => {
+    switch (action.type) {
+        case DEVICE_ID:
+            return Object.assign({}, state, {deviceId: action.deviceId})
+        default:
+            return state
+    }
+}
+
 const reducer = combineReducers({
     user: userReducer,
     customerLocation: customerLocationReducer,
+    orderId: orderIdReducer,
+    deviceId: deviceIdReducer,
     //contacts: contactReducer,
 })
 

@@ -7,7 +7,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import {connect} from 'react-redux'
 
 import {book_taxi, basic_price} from '../common_files/Texts'
-import {updateCustomerLocation} from "../redux/actions";
+import {updateCustomerLocation, updateDeviceId, updateOrderId} from "../redux/actions";
 import store from "../redux/store";
 
 class Customer_main extends React.Component {
@@ -26,7 +26,7 @@ class Customer_main extends React.Component {
         distanceBetween: 0,
         customerPhone: '+4712345678',
         secondLocation: {latitude: 63.430487, longitude: 10.394978},
-        deviceId: 'Funker bare på bare react native',
+        deviceId: 'tlf321', //'Funker bare på bare react native',
     }
 
     componentDidMount() {
@@ -83,6 +83,8 @@ class Customer_main extends React.Component {
         ) / 1000).toFixed(2)
         this.setState({distanceBetween: distanceBetween})
         store.dispatch(updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`))
+        store.dispatch(updateDeviceId(`${this.state.deviceId}`))
+        store.dispatch(updateOrderId(98372489))
         console.log(store.getState())
     }
 
@@ -262,6 +264,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     customerLocation: `${state.latitude},${state.longitude}`,
+    orderId: state.customerPhone,
+    deviceId: state.deviceId,
+    user: 'false',
 })
 
 export default connect(mapStateToProps)(Customer_main)

@@ -11,7 +11,7 @@ const FlatListCustomers = props => (
         renderItem={renderItem}
         data={props.contacts}
         keyExtractor={renderItem => renderItem.key.toString()}
-        style={{width: '70%'}}
+        style={{width: 300}}
     />
 )
 
