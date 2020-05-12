@@ -86,6 +86,7 @@ class Customer_main extends React.Component {
         store.dispatch(updateDeviceId(`${this.state.deviceId}`))
         store.dispatch(updateOrderId(98372489))
         console.log(store.getState())
+        this.props.navigation.toggleDrawer()
     }
 
     /* Fungerer bare i bare react native mode

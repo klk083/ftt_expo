@@ -25,6 +25,7 @@ const AppStack = createStackNavigator()
 const CustomerDrawerStack = createDrawerNavigator()
 const DriverDrawerStack = createDrawerNavigator()
 
+
 class CustomerStack extends React.Component {
     render() {
         return (
@@ -57,12 +58,6 @@ class DriverStack extends React.Component {
 }
 
 class AppStackScreen extends React.Component {
-    state = {
-        isLoading: true,
-        isToken: '',
-        isDriver: false,
-    }
-
     render() {
         return (
             <Provider store={store}>
@@ -76,7 +71,6 @@ class AppStackScreen extends React.Component {
                             },
                             headerRight:
                                 props => <Customer_MenuButton {...props}/>,
-                            onPress: () => this.props.navigation.navigate('customer Menu'),
                             headerTitleAlign: 'center',
                             headerTitleStyle: {
                                 color: 'black',
@@ -99,5 +93,6 @@ class AppStackScreen extends React.Component {
         )
     }
 }
+
 export default AppStackScreen
 

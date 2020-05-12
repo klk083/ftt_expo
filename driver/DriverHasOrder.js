@@ -12,15 +12,15 @@ export default class DriverHasOrder extends React.Component {
     }
 
     handleMsg = text => {
-        this.setState({tlf: text})
+        this.setState({cancellationMessage: text})
         {
-            (this.state.cancellationMessage.length >= 3) ? this.setState({isDisabled: false}) : this.setState({isDisabled: true})
+            (this.state.cancellationMessage.length >= 2) ? this.setState({isDisabled: false}) : this.setState({isDisabled: true})
         }
     }
 
     enableKeyPress = (event) => {
         {
-            (this.state.cancellationMessage.length >= 3) ? this.verificationTlf(event.nativeEvent.text) : null
+            (this.state.cancellationMessage.length >= 3) ? this.submitCancellation(event.nativeEvent.text) : null
         }
     }
 
@@ -72,7 +72,7 @@ export default class DriverHasOrder extends React.Component {
                 <Modal
                     animationType="none"
                     transparent={true}
-                    style={{backgroundColor:'blue'}}
+                    //style={{backgroundColor:'blue'}}
                     presentationStyle={'overFullScreen'}
                     onRequestClose={() => {this.setState({isModalVisible: false})}}
                 >
@@ -81,11 +81,13 @@ export default class DriverHasOrder extends React.Component {
                             <Text style={styles.modalText}>{reason_for_the_cancellation}</Text>
                             <TextInput
                                 style={styles.reason}
+                                behavior='padding'
                                 placeholder="Skriv her"
                                 keyboardAppearance="default"
                                 multiline={true}
                                 maxLength={200}
                                 autoFocus={true}
+                                blurOnSubmit={false}
                                 onSubmitEditing={this.enableKeyPress}
                                 onChangeText={this.handleMsg}
                             />
@@ -93,6 +95,7 @@ export default class DriverHasOrder extends React.Component {
                                 <TouchableOpacity>
                                     <Text
                                         style={styles.sendReasonButton}
+                                        disabled={this.state.isDisabled}
                                         onPress={this.submitCancellation}>Send</Text>
                                 </TouchableOpacity>
                             </View>
@@ -132,8 +135,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: 'rgba(52, 52, 52, 0.8)',
-        borderWidth: 10,
-        borderColor: 'yellow',
     },
 
 

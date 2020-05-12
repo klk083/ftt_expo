@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 
-import {UPDATE_CONTACT, TOGGLE_IS_TOKEN, TOGGLE_IS_DRIVER, USER_LOCATION, ORDER_ID, DEVICE_ID} from "./actionTypes";
+import {UPDATE_CONTACT, UPDATE_TOKEN, UPDATE_IS_DRIVER, USER_LOCATION, ORDER_ID, DEVICE_ID} from "./actionTypes";
 
 const merge = (prev, next) => Object.assign({}, prev, next)
 
@@ -23,9 +23,9 @@ const userReducer = (state = {}, action) => {
 
 const userReducer = (state = '', action) => {
     switch (action.type) {
-        case TOGGLE_IS_TOKEN:
+        case UPDATE_TOKEN:
             return Object.assign({}, state, {token: action.token});
-        case TOGGLE_IS_DRIVER:
+        case UPDATE_IS_DRIVER:
             return Object.assign({}, state, {driver: action.driver});
         default:
             return state

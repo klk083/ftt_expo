@@ -1,6 +1,6 @@
 import {
-    TOGGLE_IS_DRIVER,
-    TOGGLE_IS_TOKEN,
+    UPDATE_IS_DRIVER,
+    UPDATE_TOKEN,
     UPDATE_CONTACT,
     UPDATE_USER,
     USER_LOCATION,
@@ -19,13 +19,13 @@ export const addContact = newContact => ({
     payload: newContact,
 })
 
-export const toggleIsToken= token => ({
-    type: TOGGLE_IS_TOKEN,
+export const updateToken= token => ({
+    type: UPDATE_TOKEN,
     token,
 })
 
-export const toggleIsDriver = isDriver => ({
-    type: TOGGLE_IS_DRIVER,
+export const updateIsDriver = isDriver => ({
+    type: UPDATE_IS_DRIVER,
     isDriver,
 })
 
