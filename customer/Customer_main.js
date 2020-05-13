@@ -111,32 +111,6 @@ class Customer_main extends React.Component {
                             <Text style={styles.heading1}>
                                 {geocode ? `${geocode[0].street} ${geocode[0].name}` : ""}
                             </Text>
-                            <Text style={styles.heading2}>
-                                {geocode ? `${geocode[0].postalCode} ${geocode[0].city}` : ""}
-                            </Text>
-                            <Text style={styles.heading2}>
-                                {geocode ? `${geocode[0].region}, ${geocode[0].country}, ${geocode[0].isoCountryCode}` : ""}
-                            </Text>
-                            <Text style={styles.heading2}>
-                                {location ?
-                                `Accuracy (m): ${accuracy} 
-                                \nAltitude (m): ${altitude} 
-                                \nHeading (degrees): ${heading} 
-                                \nLatitude (degrees): ${latitude} 
-                                \nLongitude (degrees): ${longitude} 
-                                \nSpeed (m/s): ${speed}`
-                                : ""}
-                            </Text>
-                            <Text style={styles.heading2}>DeviceId: {this.state.deviceId}</Text>
-                            {console.log('er på klient skjermen')}
-                            <TouchableOpacity onPress={() => this.getDistanceBetweenCustomerAndDriver()}>
-                                <Text style={styles.heading5}>{
-                                    (location ? ((this.state.distanceBetween === 0) ? 'Trykk for å måle avstand' : `Du er ${distanceBetween} km unna i luftlinje.`) : null)
-                                }</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Driver Stack')}>
-                                <Text style={styles.heading1}>Gå til driver main</Text>
-                            </TouchableOpacity>
                         </View>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.textBookingButtonContainer}>

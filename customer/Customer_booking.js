@@ -11,8 +11,6 @@ export default class Customer_main extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.info_container}>
-                    <Text>CustomerPhone: {customerPhone}</Text>
-                    <Text>CustomerLocation: {customerLocation.latitude}, {customerLocation.longitude}</Text>
                     <Text
                         style={styles.looking_for_taxi}
                         onPress={() => this.props.navigation.navigate('Booking priority')}>{looking_for_taxi}</Text>

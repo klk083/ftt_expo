@@ -76,7 +76,7 @@ class AppStackScreen extends React.Component {
     state = {
         isLoading: true,
         isToken: 'ishdf',
-        isDriver: false,
+        isDriver: true,
     }
 
     componentDidMount() {
