@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 
-import {UPDATE_CONTACT, UPDATE_TOKEN, UPDATE_IS_DRIVER, USER_LOCATION, ORDER_ID, DEVICE_ID} from "./actionTypes";
+import {UPDATE_CONTACT, UPDATE_TOKEN, UPDATE_IS_DRIVER, USER_LOCATION, ORDER_ID, DEVICE_ID, UPDATE_IS_LOADING} from "./actionTypes";
 
 const merge = (prev, next) => Object.assign({}, prev, next)
 
@@ -59,11 +59,21 @@ const deviceIdReducer = (state = '', action) => {
     }
 }
 
+const isLoadingReducer = (state = true, action) => {
+    switch (action.type) {
+        case UPDATE_IS_LOADING:
+            return action.isLoading
+        default:
+            return state
+    }
+}
+
 const reducer = combineReducers({
     user: userReducer,
     customerLocation: customerLocationReducer,
     orderId: orderIdReducer,
     deviceId: deviceIdReducer,
+    loading: isLoadingReducer,
     //contacts: contactReducer,
 })
 

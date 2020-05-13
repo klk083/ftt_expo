@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 
 
 import SplashScreen from './common_files/SplashScreen'
+import SplashScreenNew from './SplashScreenNew'
 import Customer_main from './customer/Customer_main'
 import Driver_main from './driver/Driver_main'
 import Registrering from './registration/Registrering'
@@ -18,10 +19,14 @@ import Customer_booking_priority from "./customer/Customer_booking_priority";
 import Customer_booked_priority from "./customer/Customer_booked_priority";
 import Customer_taxi_confirmation from "./customer/Customer_taxi_confirmation";
 import DriverHasOrder from "./driver/DriverHasOrder";
+import WelcomeScreen from "./common_files/WelcomeScreen";
+import Privacy from "./common_files/Privacy";
+import Terms_of_service from "./common_files/Terms_of_service";
 
 
 
 const AppStack = createStackNavigator()
+const SignInStack = createStackNavigator()
 const CustomerDrawerStack = createDrawerNavigator()
 const DriverDrawerStack = createDrawerNavigator()
 
@@ -57,38 +62,61 @@ class DriverStack extends React.Component {
     }
 }
 
+class SingInStackScreen extends React.Component {
+    render() {
+        return (
+            <SignInStack.Navigator>
+                <SignInStack.Screen name='SignIn' component={SplashScreen} ></SignInStack.Screen>
+            </SignInStack.Navigator>
+        )
+    }
+}
+
 class AppStackScreen extends React.Component {
+    state = {
+        isLoading: true,
+        isToken: 'ishdf',
+        isDriver: false,
+    }
+
+    componentDidMount() {
+        store.getState()
+        setTimeout(() => SplashScreenNew, 1000)
+    }
+
     render() {
         return (
             <Provider store={store}>
-                <NavigationContainer>
-                    <AppStack.Navigator
-                        initialRouteName='Customer Stack'
-                        screenOptions={{
-                            headerLeft: props => <LogoTitle {...props} />,
-                            headerStyle: {
-                                backgroundColor: 'darkseagreen',
-                            },
-                            headerRight:
-                                props => <Customer_MenuButton {...props}/>,
-                            headerTitleAlign: 'center',
-                            headerTitleStyle: {
-                                color: 'black',
-                            },
-                        }}
-
-                    >
-                        <AppStack.Screen
-                            name='SplashScreen'
-                            component={SplashScreen}
-                            options={{headerShown: false}}
-                        />
-                        <AppStack.Screen name='Registration' component={Registrering} options={{headerShown: false}}/>
-                        {console.log('er på stacken')}
-                        <AppStack.Screen name='Customer Stack' component={CustomerStack}/>
-                        <AppStack.Screen name='Driver Stack' component={DriverStack}/>
-                    </AppStack.Navigator>
-                </NavigationContainer>
+                {this.state.isToken === '' ? (
+                    <NavigationContainer>
+                        <AppStack.Navigator>
+                            <AppStack.Screen name='Registration' component={SingInStackScreen} options={{headerShown: false}} />
+                        </AppStack.Navigator>
+                    </NavigationContainer>
+                ) : (
+                    <NavigationContainer>
+                        <AppStack.Navigator
+                            screenOptions={{
+                                headerLeft: props => <LogoTitle {...props} />,
+                                headerStyle: {
+                                    backgroundColor: 'darkseagreen',
+                                },
+                                headerRight:
+                                    props => <Customer_MenuButton {...props}/>,
+                                headerTitleAlign: 'center',
+                                headerTitleStyle: {
+                                    color: 'black',
+                                },
+                            }}
+                        >
+                            {this.state.isDriver ? (
+                                <AppStack.Screen name='Driver Stack' component={DriverStack}/>
+                            ) : (
+                                <AppStack.Screen name='Customer Stack' component={CustomerStack}/>
+                            )}
+                        </AppStack.Navigator>
+                    </NavigationContainer>
+                )}
             </Provider>
         )
     }
@@ -96,3 +124,7 @@ class AppStackScreen extends React.Component {
 
 export default AppStackScreen
 
+/*
+    <AppStack.Screen name='SplashScreen' component={SplashScreen} options={{headerShown: false}} />
+    <AppStack.Screen name='Registration' component={Registrering} options={{headerShown: false}}/>
+ */

@@ -10,6 +10,8 @@ import {book_taxi, basic_price} from '../common_files/Texts'
 import {updateCustomerLocation, updateDeviceId, updateOrderId} from "../redux/actions";
 import store from "../redux/store";
 
+
+
 class Customer_main extends React.Component {
     state = {
         accuracy: '',
