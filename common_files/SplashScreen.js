@@ -17,7 +17,7 @@ const RegistrationStack = createStackNavigator();
 class NewRegistrationStack extends React.Component {
   render() {
     return (
-        <RegistrationStack.Navigator>
+        <RegistrationStack.Navigator initial='WelcomeScreen'>
           <RegistrationStack.Screen
               name="SplashScreen"
               component={SplashScreen}

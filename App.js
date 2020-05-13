@@ -6,12 +6,12 @@ import { Provider } from 'react-redux'
 
 
 import SplashScreen from './common_files/SplashScreen'
-import SplashScreenNew from './SplashScreenNew'
+import SplashScreenNew from './common_files/SplashScreenNew'
 import Customer_main from './customer/Customer_main'
 import Driver_main from './driver/Driver_main'
 import Registrering from './registration/Registrering'
 import LogoTitle from './common_files/LogoTitle'
-import Customer_MenuButton from './customer/Customer_MenuButton'
+import Customer_MenuButton from './common_files/MenuButton'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import store from "./redux/store";
 import Customer_booking from "./customer/Customer_booking";
@@ -66,7 +66,9 @@ class SingInStackScreen extends React.Component {
     render() {
         return (
             <SignInStack.Navigator>
-                <SignInStack.Screen name='SignIn' component={SplashScreen} ></SignInStack.Screen>
+                <SignInStack.Screen name='SignIn' component={WelcomeScreen} ></SignInStack.Screen>
+                <SignInStack.Screen name='Privacy' component={Privacy} ></SignInStack.Screen>
+                <SignInStack.Screen name='TermsOfService' component={Terms_of_service} ></SignInStack.Screen>
             </SignInStack.Navigator>
         )
     }
@@ -75,13 +77,13 @@ class SingInStackScreen extends React.Component {
 class AppStackScreen extends React.Component {
     state = {
         isLoading: true,
-        isToken: 'ishdf',
-        isDriver: true,
+        isToken: 'ksd',
+        isDriver: false,
     }
 
     componentDidMount() {
         store.getState()
-        setTimeout(() => SplashScreenNew, 1000)
+        //setTimeout(() => SplashScreenNew, 1000)
     }
 
     render() {
@@ -89,8 +91,8 @@ class AppStackScreen extends React.Component {
             <Provider store={store}>
                 {this.state.isToken === '' ? (
                     <NavigationContainer>
-                        <AppStack.Navigator>
-                            <AppStack.Screen name='Registration' component={SingInStackScreen} options={{headerShown: false}} />
+                        <AppStack.Navigator options={{}}>
+                            <AppStack.Screen name='SignIn' component={SingInStackScreen} options={{headerShown: false}} />
                         </AppStack.Navigator>
                     </NavigationContainer>
                 ) : (
@@ -103,10 +105,7 @@ class AppStackScreen extends React.Component {
                                 },
                                 headerRight:
                                     props => <Customer_MenuButton {...props}/>,
-                                headerTitleAlign: 'center',
-                                headerTitleStyle: {
-                                    color: 'black',
-                                },
+                                headerTitle: false
                             }}
                         >
                             {this.state.isDriver ? (

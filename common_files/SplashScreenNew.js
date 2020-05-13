@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
-import {updateIsLoading} from "./redux/actions";
+import {updateIsLoading} from "../redux/actions";
 
 class SplashScreen extends React.Component {
-    /*performTimeConsumingTask = async () => {
+    performTimeConsumingTask = async () => {
         return new Promise((resolve) =>
             setTimeout(
                 () => {
@@ -25,18 +25,17 @@ class SplashScreen extends React.Component {
             //store.getState()
             this.props.navigation.navigate('Customer');
         }
-    }*/
+    }
 
     render() {
         return (
-            <NavigationContainer>
             <View style={styles.MainContainer}>
                 <Image
-                    source={require('./assets/fast_track_taxi_logo_ferdig.png')}
+                    source={require('../assets/fast_track_taxi_logo_ferdig.png')}
                     style={{width: '100%', height: '100%', resizeMode: 'contain'}}
                 />
             </View>
-            </NavigationContainer>
+
         )
     }
 }

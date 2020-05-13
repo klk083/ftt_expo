@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 
 
 import store from "./redux/store";
-import SplashScreen from './SplashScreenNew';
+import SplashScreen from './common_files/SplashScreenNew';
 import Customer_main from "./customer/Customer_main";
 import Customer_booking from "./customer/Customer_booking";
 import Customer_booking_priority from "./customer/Customer_booking_priority";
@@ -16,7 +16,7 @@ import Driver_main from "./driver/Driver_main";
 import DriverHasOrder from "./driver/DriverHasOrder";
 import {NavigationContainer} from "@react-navigation/native";
 import LogoTitle from "./common_files/LogoTitle";
-import Customer_MenuButton from "./customer/Customer_MenuButton";
+import Customer_MenuButton from "./common_files/MenuButton";
 
 
 const AppStack = createStackNavigator()

@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import LogoTitle from "../common_files/LogoTitle";
-import Customer_MenuButton from "./Customer_MenuButton";
+import Customer_MenuButton from "../common_files/MenuButton";
 import Prices from "../common_files/Prices";
 import Privacy from "../common_files/Privacy";
 import Terms_of_service from "../common_files/Terms_of_service";

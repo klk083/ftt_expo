@@ -5,7 +5,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 
 import Driver_main from './Driver_main'
 import LogoTitle from "../common_files/LogoTitle";
-import Customer_MenuButton from "../customer/Customer_MenuButton";
+import Customer_MenuButton from "../common_files/MenuButton";
 import DriverHasOrder from "./DriverHasOrder";
 
 const DrawerStack = createDrawerNavigator();
