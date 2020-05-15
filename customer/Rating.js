@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Alert, SafeAreaView } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
@@ -55,48 +55,54 @@ export default class Rating extends React.Component {
                 </TouchableOpacity>
             )
         }
+
         return (
-            <View style={styles.container}>
-                <View style={styles.reviewContainer}>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.trip_done}>{is_trip_done}</Text>
-                        <Text style={styles.review}>{give_review}</Text>
-                    </View>
-                    <View style={styles.starsContainer}>
-                        <View style={styles.rating_bar}>{rating_bar}</View>
-                        <View>
-                            <Text style={styles.starsRate}>{this.state.stars} / 5 stjerner</Text>
+            <SafeAreaView style={styles.safeAreaView}>
+                <View style={styles.container}>
+                    <View style={styles.reviewContainer}>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.trip_done}>{is_trip_done}</Text>
+                            <Text style={styles.review}>{give_review}</Text>
+                        </View>
+                        <View style={styles.starsContainer}>
+                            <View style={styles.rating_bar}>{rating_bar}</View>
+                            <View style={styles.starsRateContainer}>
+                                <Text style={styles.starsRate}>{this.state.stars} / 5 stjerner</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.touchableNoThanksContainer}>
-                        <Text
-                            style={styles.no_thanks}
-                            onPress={() => this.props.navigation.navigate('Customer Stack')}
-                        >Nei, takk</Text>
-                    </TouchableOpacity>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.touchableNoThanksContainer}>
+                            <Text
+                                style={styles.no_thanks}
+                                onPress={() => this.props.navigation.navigate('Customer Stack')}
+                            >Nei, takk</Text>
+                        </TouchableOpacity>
                 </View>
             </View>
+            </SafeAreaView>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+    },
     container: {
         flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     reviewContainer: {
-        flex: 0.9,
+        flex: 0.85,
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
     buttonContainer: {
-        flex: 0.1,
+        flex: 0.15,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         padding: 10,
     },
     textContainer: {
@@ -111,6 +117,9 @@ const styles = StyleSheet.create({
     touchableNoThanksContainer: {
         flex: 1,
         justifyContent: 'center',
+        backgroundColor: 'dodgerblue',
+        borderRadius: 15,
+        paddingHorizontal: 10,
     },
     trip_done: {
         flex: 0.5,
@@ -125,19 +134,24 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(4),
     },
     rating_bar: {
-        flexDirection: 'row'
+        flex: 1,
+        flexDirection: 'row',
     },
     star: {
-        padding: 5
+        padding: 5,
+    },
+    starsRateContainer: {
+        flex: 1,
     },
     starsRate: {
-        fontSize: RFPercentage(2)
+        flex: 1,
+        textAlign: 'center',
+        textAlignVertical: 'top',
+        fontSize: RFPercentage(2),
     },
     no_thanks: {
         textAlign: 'center',
-        backgroundColor: 'dodgerblue',
-        borderRadius: 15,
+        textAlignVertical: 'center',
         fontSize: RFPercentage(3),
-        padding: 10,
     }
 })

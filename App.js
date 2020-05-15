@@ -75,8 +75,8 @@ class DriverStack extends React.Component {
 class AppStackScreen extends React.Component {
     state = {
         isLoading: true,
-        isToken: '',
-        isDriver: false,
+        isToken: 'das',
+        isDriver: true,
     }
 
     constructor() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {FlatList, Text} from 'react-native'
+import {FlatList, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types'
 
 import Order from './Order'
@@ -11,12 +11,19 @@ const FlatListCustomers = props => (
         renderItem={renderItem}
         data={props.contacts}
         keyExtractor={renderItem => renderItem.key.toString()}
-        style={{width: 300}}
+        style={styles.flatList}
     />
 )
 
 FlatListCustomers.propTypes = {
   contacts: PropTypes.array,
 }
+
+const styles = StyleSheet.create({
+    flatList: {
+        flex: 1,
+        width: 300,
+    },
+})
 
 export default FlatListCustomers

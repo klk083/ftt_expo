@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { getPreciseDistance } from 'geolib'
@@ -109,11 +109,12 @@ class Customer_main extends React.Component {
         const {location, geocode, customerPhone} = this.state
 
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.safeAreaView}>
+                <View style={styles.container}>
                 {this.state.isGranted && (
-                    <View>
+                    <View style={styles.grantedMainContainer}>
                         <View style={styles.spaceBetweenViews}>
-                            <Text style={styles.heading1}>
+                            <Text style={styles.locationAddress}>
                                 {geocode ? `${geocode[0].street} ${geocode[0].name}` : ""}
                             </Text>
                         </View>
@@ -123,112 +124,120 @@ class Customer_main extends React.Component {
                                     <Text style={styles.button}
                                           onPress={() => this.submitBookingButton()}
                                     >{book_taxi}</Text>
-                                    <Text style={styles.button_price}
-                                          /*
-                                                    SKAL SLETTES NÅR SERVEREN KLARER
-                                                    Å SENDE KLIENTEN TIL
-                                                    PRIORITERT BESTILLING
-
-                                          onPress={() => this.props.navigation.navigate('Booking priority',
-                                              {customerLocation: this.state.location}
-                                          )}*/>({basic_price})</Text>
+                                    <Text style={styles.button_price}>({basic_price})</Text>
                                 </View>
 
                             </TouchableOpacity>
                         </View>
-                    </View>)
-                }
+                    </View>
+                )}
                 {!this.state.isGranted && (
                     <View style={styles.locationContainer}>
                         <View style={styles.locationInfoContainer}>
-                            <Text style={styles.locationInfo}>Du må slå på lokasjonen</Text>
-                            <Text style={styles.locationInfo}>for å bruke appen</Text>
+                            <Text style={styles.locationInfo}>Du må slå på lokasjonen for å bruke appen</Text>
                         </View>
                         <View style={styles.buttonLocationContainer}>
-                            <TouchableOpacity style={styles.touchableLocation} onPress={this.getLocationAsync}>
-                                <Text style={styles.buttonLocation}>Slå på {'\n'}lokasjonen</Text>
+                            <TouchableOpacity style={styles.touchableLocationContainer} onPress={this.getLocationAsync}>
+                                <Text style={styles.buttonLocation}>Slå på lokasjonen</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.spaceBelowButtonLocation}></View>
                     </View>
                 )}
-            </View>
+                </View>
+            </SafeAreaView>
         )
     }
 }
 
 
 const styles = StyleSheet.create({
+    safeAreaView: {
+        flex: 1,
+    },
     container: {
         flex: 1,
         alignItems: 'center',
     },
+    grantedMainContainer: {
+        flex: 1,
+        padding: 20,
+        justifyContent: 'flex-end'
+    },
     spaceBetweenViews: {
-        flex: 0.68,
+        flex: 0.7,
         justifyContent: 'space-evenly',
         alignItems: 'center'
     },
     buttonContainer: {
-        flex: 0.3,
-        borderRadius: 25,
-        backgroundColor: 'darkseagreen',
+        flex: 0.4,
     },
     textBookingButtonContainer: {
         flex: 1,
         justifyContent: 'space-evenly',
+        paddingHorizontal: 40,
+        borderRadius: 25,
+        backgroundColor: 'darkseagreen',
     },
     textBooking: {
         flex: 1,
-        justifyContent: 'center',
+        paddingHorizontal: 20,
     },
     button: {
-        flex: 0.8,
+        flex: 0.9,
         textAlign: 'center',
-        fontSize: RFPercentage(10),//12
-        paddingHorizontal: 50
+        fontSize: RFPercentage(9),
     },
     button_price: {
-        flex: 0.1,
+        flex: 0.2,
         textAlign: 'center',
-        fontSize: RFPercentage(3),//3
+        color: 'gray',
+        textAlignVertical: 'center',
+        fontSize: RFPercentage(3),
     },
 
 
     locationContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: 10,
     },
     locationInfoContainer: {
-        flex: 0.5,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonLocationContainer: {
-        flex: 0.2,
+        flex: 2,
+        justifyContent: 'flex-start',
+        padding: 50,
+    },
+    touchableLocationContainer: {
+        flex: 0.4,
+        justifyContent: 'center',
         borderRadius: 25,
         backgroundColor: 'firebrick',
-        justifyContent: 'center',
     },
     buttonLocation: {
+        flex: 1,
+        justifyContent: 'flex-start',
         textAlign: 'center',
+        textAlignVertical: 'center',
         fontSize: RFPercentage(6),
-        padding: 15
-    },
-    spaceBelowButtonLocation: {
-        flex: 0.3,
+        padding: 15,
     },
 
-    heading1: {
+    locationAddress: {
         color: 'gray',
         fontWeight: 'bold',
-        fontSize: RFPercentage(4),
-        margin: 10
+        fontSize: RFPercentage(3.5),
+        textAlign: 'center',
     },
     locationInfo: {
         color: 'gray',
         alignItems: 'center',
         fontSize: RFPercentage(5),
+        textAlign: 'center',
     },
 });
 
