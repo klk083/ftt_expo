@@ -9,7 +9,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import WelcomeScreen from "./WelcomeScreen";
 import Privacy from "./Privacy";
 import Terms_of_service from "./Terms_of_service";
-import Registrering from "../registration/Registrering";
+import Registrering from "../registration/SignUp";
 import Verifying_mob_num from "../registration/Verifying_mob_num";
 
 const RegistrationStack = createStackNavigator();

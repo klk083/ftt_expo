@@ -10,6 +10,10 @@ export const priority_price = "100kr";
 export const send_ny_sms = "Send kode på nytt";
 export const privacyTitle = 'Personvern'
 export const terms_of_serviceTitle = 'Servicevilkår'
+export const welcome_to = 'Velkommen til'
+export const read_our = 'Les vår '
+export const confirmPrivacyTermsOfService = '. Trykk "Bekreft og fortsett" for å akseptere '
+export const acceptAndContinue = 'Bekreft og fortsett'
 
 
 // customer texts

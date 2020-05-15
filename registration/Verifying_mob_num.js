@@ -1,10 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  TextInput,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native';
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { verifisering_info, send_ny_sms } from '../common_files/Texts'
+import {updateCustomerLocation, updateToken} from "../redux/actions";
+import {connect} from "react-redux";
+import store from "../redux/store";
 
-export default class Verifying_mob_num extends React.Component {
+class Verifying_mob_num extends React.Component {
   state = {
     code: '',
     textInput: '',
@@ -29,85 +42,121 @@ export default class Verifying_mob_num extends React.Component {
 
   verificationCode = (code) => {
     Alert.alert(
-      'Vi sjekker om koden (' + code + ') er riktig.',
-      '',
-      [
-        {},
-        {},
-        {
-          text: 'OK',
-          onPress: () => console.log('OK ble valgt')
-        },
-      ],
-      {cancelable: false},
+        'Vi sjekker om koden (' + code + ') er riktig.',
+        '',
+        [
+          {},
+          {},
+          {
+            text: 'OK',
+            onPress: () => console.log('OK ble valgt')
+          },
+        ],
+        {cancelable: false},
     );
-  };
+  }
+
+  submitSignIn = () => {
+    store.dispatch(updateToken('userConfirmed'))
+    console.log(store.getState())
+  }
 
   render() {
     return (
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.info}>{verifisering_info}{this.props.route.params.tlf}</Text>
-          <Text style={styles.wrongNum} onPress={() => this.props.navigation.navigate('Number_registration')}>Feil nummer?</Text>
-        </View>
-        <View style={styles.row}>
-          <TextInput
-            style={styles.code}
-            placeholder="--- ---"
-            keyboardAppearance="default"
-            keyboardType="number-pad"
-            maxLength={6}
-            autoFocus={true}
-            blurOnSubmit={false}
-            onSubmitEditing={this.enableKeyPress}
-            onChangeText={this.handleCode}
-            ref={input => { this.textInput = input }}
-          />
-        </View>
-        <View>
-          <TouchableOpacity>
-            <Text
-                style={styles.button}
-                onPress={() => this.sendNewCode()}
-                >{send_ny_sms}</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity>
-            <Text
-                style={styles.button}
-                onPress={() => {}}>Ring meg for verifisering</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+        <SafeAreaView style={styles.safeAreaView}>
+          <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}
+                                style={styles.container}>
+            <View style={styles.infoContainer}>
+              <Text style={styles.info}>{verifisering_info}{this.props.route.params.tlf}</Text>
+              <Text style={styles.wrongNum} onPress={() => this.props.navigation.navigate('Number_registration')}>Feil
+                nummer?</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput
+                  style={styles.code}
+                  placeholder="--- ---"
+                  keyboardAppearance="default"
+                  keyboardType="number-pad"
+                  maxLength={6}
+                  autoFocus={true}
+                  blurOnSubmit={false}
+                  onSubmitEditing={this.enableKeyPress}
+                  onChangeText={this.handleCode}
+                  ref={input => {
+                    this.textInput = input
+                  }}
+              />
+            </View>
+            <View style={styles.buttonsContainer}>
+              <View style={styles.confirmButtonContainer}>
+                <TouchableOpacity style={styles.touchableButtonContainer}>
+                  <Text
+                      style={styles.button}
+                      onPress={() => this.submitSignIn()}>BEKREFT</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.sendNewCodeButtonContainer}>
+                <TouchableOpacity style={styles.touchableButtonContainer}>
+                  <Text
+                      style={styles.button}
+                      onPress={() => this.sendNewCode()}
+                  >{send_ny_sms}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{flex:2}} />
+            </View>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'flex-start',
   },
-
-  row: {
+  infoContainer: {
+    flex: 3,
+    justifyContent: 'flex-start',
+  },
+  inputContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    borderBottomColor: '#000000',
-    borderBottomWidth: 1,
-    width: 100,
+  },
+  buttonsContainer: {
+    flex: 5,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 20,
+  },
+  confirmButtonContainer: {
+    flex: 1,
+  },
+  sendNewCodeButtonContainer: {
+    flex: 1,
+    paddingTop: 50
+  },
+  touchableButtonContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    paddingHorizontal: 20
   },
   info: {
-    marginTop: 20,
     fontSize: RFPercentage(4),
     textAlign: 'center',
-    margin: 10,
-    color: '#000000',
+    color: 'black',
   },
   code: {
-    marginTop: 30,
+    flex: 1,
     color: '#3467eb',
-    marginBottom: 5,
     fontSize: RFPercentage(5),
+    padding: 5
   },
   button: {
     alignItems: 'center',
@@ -116,14 +165,26 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: 'darkseagreen',
     padding: 10,
-    marginTop: 20,
+    //marginTop: 20,
   },
   wrongNum: {
-    marginTop: 10,
     fontSize: RFPercentage(4),
     textAlign: 'center',
-    margin: 10,
     color: 'blue',
     textDecorationLine: 'underline',
   },
 });
+
+const mapStateToProps = (state) => ({
+  customerLocation: `${state.latitude},${state.longitude}`,
+  orderId: state.customerPhone,
+  deviceId: state.deviceId,
+  user: state.isGranted,
+})
+
+const mapDispatchToProps = {
+  updateCustomerLocation,
+  updateToken,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Verifying_mob_num)

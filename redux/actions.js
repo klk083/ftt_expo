@@ -19,19 +19,19 @@ export const addContact = newContact => ({
     payload: newContact,
 })
 
-export const updateToken= token => ({
+export const updateToken = token => ({
     type: UPDATE_TOKEN,
     token,
 })
 
-export const updateIsDriver = isDriver => ({
+export const updateUserType = isDriver => ({
     type: UPDATE_IS_DRIVER,
     isDriver,
 })
 
 export const updateCustomerLocation = user_location => ({
     type: USER_LOCATION,
-    user_location: user_location,
+    user_location,
 })
 
 export const updateOrderId = orderId => ({

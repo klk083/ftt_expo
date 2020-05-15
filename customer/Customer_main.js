@@ -7,7 +7,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import {connect} from 'react-redux'
 
 import {book_taxi, basic_price} from '../common_files/Texts'
-import {updateCustomerLocation, updateDeviceId, updateOrderId} from "../redux/actions";
+import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken} from "../redux/actions";
 import store from "../redux/store";
 
 
@@ -34,6 +34,9 @@ class Customer_main extends React.Component {
     componentDidMount() {
         //this.getDeviceId()
         this.getLocationAsync().catch()
+        store.dispatch(updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`))
+        store.dispatch(updateDeviceId(`${this.state.deviceId}`))
+        store.dispatch(updateOrderId(98372489))
     }
 
     getLocationAsync = async () => {
@@ -70,7 +73,6 @@ class Customer_main extends React.Component {
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
         this.setState({location: {latitude, longitude}});
-
     };
 
     getGeocodeAsync = async (location) => {
@@ -84,11 +86,7 @@ class Customer_main extends React.Component {
             this.state.secondLocation
         ) / 1000).toFixed(2)
         this.setState({distanceBetween: distanceBetween})
-        store.dispatch(updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`))
-        store.dispatch(updateDeviceId(`${this.state.deviceId}`))
-        store.dispatch(updateOrderId(98372489))
-        console.log(store.getState())
-        this.props.navigation.toggleDrawer()
+        //this.props.navigation.toggleDrawer()
     }
 
     /* Fungerer bare i bare react native mode
@@ -100,8 +98,15 @@ class Customer_main extends React.Component {
 
      */
 
+    submitBookingButton = () => {
+        store.dispatch(updateToken(''))
+        this.props.navigation.navigate('Booking',
+            {customerPhone: this.state.customerPhone, customerLocation: this.state.location})
+        console.log(store.getState())
+    }
+
     render() {
-        const {location, geocode, accuracy, altitude, heading, latitude, longitude, speed, distanceBetween, customerPhone} = this.state
+        const {location, geocode, customerPhone} = this.state
 
         return (
             <View style={styles.container}>
@@ -116,8 +121,7 @@ class Customer_main extends React.Component {
                             <TouchableOpacity style={styles.textBookingButtonContainer}>
                                 <View style={styles.textBooking}>
                                     <Text style={styles.button}
-                                          onPress={() => this.props.navigation.navigate('Booking',
-                                              {customerPhone: customerPhone, customerLocation: location})}
+                                          onPress={() => this.submitBookingButton()}
                                     >{book_taxi}</Text>
                                     <Text style={styles.button_price}
                                           /*
@@ -221,29 +225,23 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(4),
         margin: 10
     },
-    heading2: {
-        color: 'gray',
-        margin: 5,
-        fontWeight: 'bold',
-        fontSize: RFPercentage(2)
-    },
     locationInfo: {
         color: 'gray',
         alignItems: 'center',
         fontSize: RFPercentage(5),
     },
-    heading5: {
-        fontSize: RFPercentage(4),
-        marginVertical: 10,
-        color: 'red'
-    }
 });
 
 const mapStateToProps = (state) => ({
     customerLocation: `${state.latitude},${state.longitude}`,
     orderId: state.customerPhone,
     deviceId: state.deviceId,
-    user: 'false',
+    user: state.isGranted,
 })
 
-export default connect(mapStateToProps)(Customer_main)
+const mapDispatchToProps = {
+    updateCustomerLocation,
+    updateToken,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)

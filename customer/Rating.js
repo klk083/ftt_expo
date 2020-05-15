@@ -73,7 +73,7 @@ export default class Rating extends React.Component {
                     <TouchableOpacity style={styles.touchableNoThanksContainer}>
                         <Text
                             style={styles.no_thanks}
-                            onPress={() => this.props.navigation.navigate('Home')}
+                            onPress={() => this.props.navigation.navigate('Customer Stack')}
                         >Nei, takk</Text>
                     </TouchableOpacity>
                 </View>

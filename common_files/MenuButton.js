@@ -14,7 +14,7 @@ export default class MenuButton extends React.Component {
                 style={{
                     backgroundColor: 'darkseagreen',
                 }}
-                onPress={() => this.props.navigation.toggleDrawer()}/>
+                onPress={() => {}} /> //this.props.navigation.toggleDrawer()}/>
         );
     }
 }

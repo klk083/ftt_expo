@@ -21,18 +21,16 @@ const userReducer = (state = {}, action) => {
 }
 */
 
-const userReducer = (state = '', action) => {
+const isDriver = (state = false, action) => {
     switch (action.type) {
-        case UPDATE_TOKEN:
-            return Object.assign({}, state, {token: action.token});
         case UPDATE_IS_DRIVER:
-            return Object.assign({}, state, {driver: action.driver});
+            return action.isDriver
         default:
             return state
     }
 }
 
-const customerLocationReducer = (state = '', action) => {
+const user_location = (state = '', action) => {
     switch (action.type) {
         case USER_LOCATION:
             return Object.assign({}, state, {user_location: action.user_location})
@@ -41,7 +39,7 @@ const customerLocationReducer = (state = '', action) => {
     }
 }
 
-const orderIdReducer = (state = -1, action) => {
+const order_id = (state = -1, action) => {
     switch (action.type) {
         case ORDER_ID:
             return Object.assign({}, state, {orderId: action.orderId})
@@ -50,7 +48,7 @@ const orderIdReducer = (state = -1, action) => {
     }
 }
 
-const deviceIdReducer = (state = '', action) => {
+const device_id = (state = '', action) => {
     switch (action.type) {
         case DEVICE_ID:
             return Object.assign({}, state, {deviceId: action.deviceId})
@@ -59,7 +57,7 @@ const deviceIdReducer = (state = '', action) => {
     }
 }
 
-const isLoadingReducer = (state = true, action) => {
+const isLoading = (state = true, action) => {
     switch (action.type) {
         case UPDATE_IS_LOADING:
             return action.isLoading
@@ -68,12 +66,22 @@ const isLoadingReducer = (state = true, action) => {
     }
 }
 
+const token = (state = '', action) => {
+    switch (action.type) {
+        case UPDATE_TOKEN:
+            return action.token
+        default:
+            return state
+    }
+}
+
 const reducer = combineReducers({
-    user: userReducer,
-    customerLocation: customerLocationReducer,
-    orderId: orderIdReducer,
-    deviceId: deviceIdReducer,
-    loading: isLoadingReducer,
+    isDriver,
+    user_location,
+    order_id,
+    device_id,
+    isLoading,
+    token,
     //contacts: contactReducer,
 })
 

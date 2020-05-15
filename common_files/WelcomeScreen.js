@@ -1,71 +1,115 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, Button, TouchableOpacity, SafeAreaView} from 'react-native';
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-import { privacyTitle, terms_of_serviceTitle} from "./Texts";
+import { privacyTitle, terms_of_serviceTitle, welcome_to, read_our, confirmPrivacyTermsOfService, acceptAndContinue} from "./Texts";
 
 export default class WelcomeScreen extends Component {
   render() {
     return (
-        <View style={styles.container}>
-          <View>
-            <Text style={styles.welcome}>Velkommen til</Text>
+        <SafeAreaView style={styles.safeAreaContainer}>
+          <View style={styles.container}>
+            <View style={styles.welcomeTextContainer}>
+              <Text style={styles.welcomeText}>{welcome_to}</Text>
+            </View>
+            <Image
+                source={require('../assets/fast_track_taxi_logo_ferdig.png')}
+                style={styles.logoContainer}
+            />
+            <View style={styles.infoContainer}>
+              <View style={styles.infoTextContainer}>
+              <Text style={styles.instructions}>{read_our}
+              <Text style={styles.linked} onPress={() => this.props.navigation.navigate('Privacy')}
+              >{privacyTitle}</Text>{confirmPrivacyTermsOfService}
+                <Text style={styles.linked}
+                      onPress={() => this.props.navigation.navigate('TermsOfService')}
+                >{terms_of_serviceTitle}</Text>.
+              </Text>
+              </View>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.touchableButtonContainer}>
+                  <Text style={styles.confirmButton} onPress={() => {
+                    this.props.navigation.navigate('Number_registration')
+                  }}>{acceptAndContinue}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-          <Image
-              source={require('../assets/fast_track_taxi_logo_ferdig.png')}
-              style={{width: 380, height: 380}}
-          />
-          <Text style={styles.instructions}>
-            Les vår <Text style={styles.linked} onPress={() => this.props.navigation.navigate('Privacy')}>{privacyTitle}</Text>. Trykk
-            "Bekreft og fortsett" for å akseptere{' '}
-            <Text style={styles.linked} onPress={() => this.props.navigation.navigate('Terms_of_service')}>{terms_of_serviceTitle}</Text>.
-          </Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity>
-              <Text style={styles.confirmButton} onPress={() => {this.props.navigation.navigate('Number_registration')}}>BEKREFT OG FORTSETT</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
-  welcome: {
+  welcomeTextContainer: {
+    flex: 1,
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  logoContainer: {
+    flex: 2,
+    width: 380,
+    height: 380,
+  },
+  infoContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 20,
+  },
+  welcomeText: {
     fontSize: RFPercentage(8),
     textAlign: 'center',
-    color: '#000000',
+    textAlignVertical: 'center',
+    alignItems: 'stretch',
   },
   instructions: {
-    marginHorizontal: 30,
-    lineHeight: 30,
+    flex: 1,
+    //marginHorizontal: 30,
+    //lineHeight: 30,
     textAlign: 'center',
-    color: '#000000',
+    //color: '#000000',
     fontSize: RFPercentage(3),
-    marginBottom: 5,
+    //marginBottom: 5,
   },
   buttonContainer: {
+    flex: 1,
     justifyContent: 'center',
-    borderRadius: 25,
-    backgroundColor: 'darkseagreen',
-    margin: 20,
-    padding: 15,
+    //margin: 20,
+    //padding: 15,
   },
   linked: {
-    marginTop: 10,
+    //marginTop: 10,
     textAlign: 'center',
-    margin: 10,
+    //margin: 10,
     color: 'blue',
     textDecorationLine: 'underline',
   },
-  confirmButton: {
+
+
+  infoTextContainer: {
+    flex: 1,
+    justifyContent: 'space-evenly',
+  },
+  touchableButtonContainer: {
+    flex: 1,
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    fontSize: RFPercentage(5),
+    borderRadius: 25,
+    backgroundColor: 'darkseagreen',
+  },
+  confirmButton: {
+    textTransform: 'uppercase',
+    alignItems: 'center',
+    fontSize: RFPercentage(4),
   },
 });
