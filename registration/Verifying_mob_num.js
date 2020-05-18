@@ -64,7 +64,7 @@ class Verifying_mob_num extends React.Component {
   render() {
     return (
         <SafeAreaView style={styles.safeAreaView}>
-          <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}>
             <View style={styles.infoContainer}>
               <Text style={styles.info}>{verifisering_info}{this.props.route.params.tlf}</Text>
@@ -89,17 +89,15 @@ class Verifying_mob_num extends React.Component {
             </View>
             <View style={styles.buttonsContainer}>
               <View style={styles.confirmButtonContainer}>
-                <TouchableOpacity style={styles.touchableButtonContainer}>
+                <TouchableOpacity style={styles.touchableButtonContainer} onPress={() => this.submitSignIn()}>
                   <Text
-                      style={styles.button}
-                      onPress={() => this.submitSignIn()}>BEKREFT</Text>
+                      style={styles.button}>BEKREFT</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.sendNewCodeButtonContainer}>
-                <TouchableOpacity style={styles.touchableButtonContainer}>
+                <TouchableOpacity style={styles.touchableButtonContainer} onPress={() => this.sendNewCode()}>
                   <Text
                       style={styles.button}
-                      onPress={() => this.sendNewCode()}
                   >{send_ny_sms}</Text>
                 </TouchableOpacity>
               </View>
@@ -144,8 +142,10 @@ const styles = StyleSheet.create({
   },
   touchableButtonContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
-    paddingHorizontal: 20
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    borderRadius: 15,
+    backgroundColor: 'darkseagreen',
   },
   info: {
     fontSize: RFPercentage(4),
@@ -162,10 +162,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: RFPercentage(4),
     textAlign: 'center',
-    borderRadius: 15,
-    backgroundColor: 'darkseagreen',
-    padding: 10,
-    //marginTop: 20,
   },
   wrongNum: {
     fontSize: RFPercentage(4),

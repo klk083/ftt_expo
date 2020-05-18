@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, Modal, SafeAreaView, Platform } from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, Modal, SafeAreaView, Platform, KeyboardAvoidingView } from 'react-native'
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { is_order_accomplished, order_was_canceled, order_is_accomplished, reason_for_the_cancellation } from '../common_files/Texts'
@@ -76,8 +76,9 @@ export default class DriverHasOrder extends React.Component {
                         presentationStyle={'overFullScreen'}
                         onRequestClose={() => {this.setState({isModalVisible: false})}}
                     >
-                        <View style={styles.modalContainer}>
-                            <View style={Platform.OS === 'ios' ? styles.modalView_ios : styles.modalView_android}>
+                        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+                            style={styles.modalContainer}>
+                            <View style={styles.modalView_android}>
                                 <View style={styles.modalTextContainer}>
                                     <Text style={styles.modalText}>{reason_for_the_cancellation}</Text>
                                 </View>
@@ -104,7 +105,7 @@ export default class DriverHasOrder extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                        </View>
+                        </KeyboardAvoidingView>
                     </Modal>
                     }
                 </View>

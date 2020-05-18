@@ -5,6 +5,9 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import {driver_available, driver_not_available, priority_orders, orders } from '../common_files/Texts'
 import Orders, { compareDistKm } from './Orders'
 import SectionListCustomers from "./SectionListCustomers";
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
+import {getPreciseDistance} from "geolib";
 
 export default class Driver_main extends React.Component {
     state = {
@@ -21,6 +24,65 @@ export default class Driver_main extends React.Component {
         this.setState(prevState => ({orders: prevState.orders.sort(compareDistKm)}))
     }
 
+    getLocationAsync = async () => {
+        let {status} = await Permissions.askAsync(Permissions.LOCATION);
+        this.setState({errorMessage: 'granted', isGranted: true})
+        if (status !== 'granted') {
+            this.setState({
+                errorMessage: 'Du må slå på lokasjonen for å bruke appen',
+                isGranted: false,
+            });
+        }
+
+        let location = await Location.getCurrentPositionAsync({
+            accuracy: Location.Accuracy.High
+        });
+
+        await Location.watchPositionAsync({
+                accuracy: Location.Accuracy.High,
+                timeInterval: 1000,
+                distanceInterval: 1
+            },
+            newLocation => {
+                this.setState({
+                    accuracy: newLocation.coords.accuracy,
+                    altitude: newLocation.coords.altitude,
+                    heading: newLocation.coords.heading,
+                    latitude: newLocation.coords.latitude,
+                    longitude: newLocation.coords.longitude,
+                    speed: newLocation.coords.speed,
+                    timestamp: newLocation.timestamp
+                })
+            });
+
+        const {latitude, longitude} = location.coords
+        await this.getGeocodeAsync({latitude, longitude})
+        this.setState({location: {latitude, longitude}});
+    };
+
+    getGeocodeAsync = async (location) => {
+        let geocode = await Location.reverseGeocodeAsync(location)
+        this.setState({geocode})
+    }
+
+    getDistanceBetweenCustomerAndDriver = () => {
+        const distanceBetween = (getPreciseDistance(
+            {latitude: this.state.latitude, longitude: this.state.longitude},
+            this.state.secondLocation
+        ) / 1000).toFixed(2)
+        this.setState({distanceBetween: distanceBetween})
+        //this.props.navigation.toggleDrawer()
+    }
+
+    /* Fungerer bare i bare react native mode
+
+    getDeviceId = () => {
+        let uid = DeviceInfo.getDeviceId()
+        this.setState({ deviceId: uid })
+    }
+
+     */
+
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -32,7 +94,7 @@ export default class Driver_main extends React.Component {
                             thumbColor={this.state.isAvailable ? '#8fbc8f' : 'white'}
                             onValueChange={this.toggleSwitch}
                             value={this.state.isAvailable}
-                            style={Platform.OS == "ios" ? styles.switch_ios : styles.switch_android}
+                            style={Platform.OS === "ios" ? styles.switch_ios : styles.switch_android}
                         />
                     </View>
                     {this.state.isAvailable && (

@@ -49,7 +49,7 @@ export default class SingUp extends React.Component {
   render() {
     return (
         <SafeAreaView style={styles.safeAreaView}>
-          <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
                                 style={styles.container}>
             <View style={styles.topInfoContainer}>
               <Text style={styles.topInfo}>{write_your_num}</Text>
@@ -72,12 +72,12 @@ export default class SingUp extends React.Component {
               />
             </View>
             <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.touchableButtonContainer}>
-              <Text
-                  style={styles.button}
-                  disabled={this.state.isDisabled}
-                  onPress={() => this.verificationTlf(this.state.tlf)}>Neste</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.touchableButtonContainer}>
+                <Text
+                    style={styles.button}
+                    disabled={this.state.isDisabled}
+                    onPress={() => this.verificationTlf(this.state.tlf)}>Neste</Text>
+              </TouchableOpacity>
             </View>
             {this.state.isModalVisible &&
             <Modal
@@ -91,20 +91,20 @@ export default class SingUp extends React.Component {
               <View style={styles.modalContainer}>
                 <View style={styles.modalView}>
                   <View style={styles.textContainer}>
-                    <Text style={styles.modalText}>Vi skal verifisere mobilnummeret ditt:</Text>
-                    <Text style={styles.modalText}>+47 {this.state.tlf} {'\n\n'}Er det OK, eller vil du endre
-                      nummeret?</Text>
+                    <Text style={styles.modalTextInfo}>Vi skal verifisere mobilnummeret ditt:</Text>
+                    <Text style={styles.modalTextNum}>+47 {this.state.tlf}</Text>
+                    <Text style={styles.modalTextQuestion}>Er det OK, eller vil du endre nummeret?</Text>
                   </View>
                   <View style={styles.buttonsContainer}>
                     <View style={styles.changeButtonContainer}>
-                      <TouchableOpacity>
+                      <TouchableOpacity style={styles.touchableChangeButtonContainer}>
                         <Text style={styles.changeButton} onPress={() => {
                           this.setState({isModalVisible: false})
                         }}>Endre</Text>
                       </TouchableOpacity>
                     </View>
                     <View style={styles.okButtonContainer}>
-                      <TouchableOpacity>
+                      <TouchableOpacity style={styles.touchableOkButtonContainer}>
                         <Text style={styles.okButton} onPress={() => this.submit()}>OK</Text>
                       </TouchableOpacity>
                     </View>
@@ -125,14 +125,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
   },
   topInfoContainer: {
     flex: 1,
-  },
-  touchableButtonContainer: {
-    flex: 1,
-    paddingHorizontal: 40,
   },
   rowContainer: {
     flex: 1,
@@ -142,6 +138,16 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  touchableButtonContainer: {
+    flex: 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 15,
+    backgroundColor: 'darkseagreen',
   },
 
   mobnum: {
@@ -161,27 +167,42 @@ const styles = StyleSheet.create({
   },
 
   button: {
+    flex: 1,
     alignItems: 'center',
-    fontSize: RFPercentage(6),
+    fontSize: RFPercentage(5),
     textAlign: 'center',
-    borderRadius: 15,
-    backgroundColor: 'darkseagreen',
+    textAlignVertical: 'center',
+
   },
   modalView: {
     flex: 0.3,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
     borderRadius: 20,
     padding: 15,
   },
-  modalText: {
-    //marginBottom: 15,
+  modalTextInfo: {
+    flex: 0.2,
     textAlign: "center",
+    textAlignVertical: 'center',
     alignItems: 'flex-start',
     fontSize: RFPercentage(3),
   },
-
+  modalTextNum: {
+    flex: 0.2,
+    textAlign: "center",
+    textAlignVertical: 'center',
+    alignItems: 'flex-start',
+    fontSize: RFPercentage(3),
+  },
+  modalTextQuestion: {
+    flex: 0.4,
+    textAlign: "center",
+    textAlignVertical: 'center',
+    alignItems: 'flex-start',
+    fontSize: RFPercentage(3),
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -190,37 +211,42 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   textContainer: {
-    flex: 0.7
+    flex: 0.7,
   },
   buttonsContainer:  {
-    flex: 1,
+    flex: 0.2,
     flexDirection: 'row',
     alignContent: 'space-between',
+    alignItems: 'center',
   },
   changeButtonContainer: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
   },
+  touchableChangeButtonContainer: {
+    backgroundColor: 'dodgerblue',
+    borderRadius: 15,
+  },
   okButtonContainer: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
+  touchableOkButtonContainer: {
+
+    backgroundColor: 'darkseagreen',
+    borderRadius: 15,
+  },
   changeButton: {
     fontSize: RFPercentage(3.5),
-    backgroundColor: 'dodgerblue',
-    borderRadius: 15,
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
   okButton: {
     fontSize: RFPercentage(3.5),
-    backgroundColor: 'darkseagreen',
-    borderRadius: 15,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    textAlign: 'right'
+    textAlign: 'right',
   }
-
 });
