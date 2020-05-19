@@ -1,7 +1,6 @@
 import React from 'react'
 import {Text, TextInput} from 'react-native'
 import {createStackNavigator} from '@react-navigation/stack'
-import {createDrawerNavigator} from '@react-navigation/drawer'
 import {NavigationContainer} from '@react-navigation/native'
 import {connect} from 'react-redux'
 
@@ -14,43 +13,11 @@ import SignUp from './signUp/SignUp'
 import Verifying_mob_num from './signUp/Verifying_mob_num'
 import LogoTitle from './common_files/LogoTitle'
 import MenuButton from './common_files/MenuButton'
-import Customer_main from './customer/Customer_main'
-import Customer_booking from './customer/Customer_booking'
-import Customer_booking_priority from './customer/Customer_booking_priority'
-import Customer_booked_priority from './customer/Customer_booked_priority'
-import Customer_taxi_confirmation from './customer/Customer_taxi_confirmation'
-import Driver_main from './driver/Driver_main'
-import DriverHasOrder from './driver/DriverHasOrder'
+import CustomerStack from './customer/CustomerStack'
+import DriverStack from './driver/DriverStack'
 import store from './redux/store'
 
 const AppStack = createStackNavigator()
-const CustomerDrawerStack = createDrawerNavigator()
-const DriverDrawerStack = createDrawerNavigator()
-
-class CustomerStack extends React.Component {
-    render() {
-        return (
-            <CustomerDrawerStack.Navigator drawerPosition='right' drawerStyle={{width: 200}}>
-                <CustomerDrawerStack.Screen name='Home' component={Customer_main} options={{drawerLabel: 'Hjem'}}/>
-                <CustomerDrawerStack.Screen name='Booking' component={Customer_booking} options={{drawerLabel: 'Bestilling'}}/>
-                <CustomerDrawerStack.Screen name='Booking priority' component={Customer_booking_priority} options={{drawerLabel: 'Prioritert bestilling'}}/>
-                <CustomerDrawerStack.Screen name='Booking priority booked' component={Customer_booked_priority} options={{drawerLabel: 'Prioritert bestilling bestilt'}}/>
-                <CustomerDrawerStack.Screen name='Booking confirmation' component={Customer_taxi_confirmation} options={{drawerLabel: 'Bekreftelse'}}/>
-            </CustomerDrawerStack.Navigator>
-        )
-    }
-}
-
-class DriverStack extends React.Component {
-    render() {
-        return (
-            <DriverDrawerStack.Navigator drawerPosition='right' drawerStyle={{width: 200}}>
-                <DriverDrawerStack.Screen name='Driver Home' component={Driver_main} />
-                <DriverDrawerStack.Screen name='Driver Order' component={DriverHasOrder} />
-            </DriverDrawerStack.Navigator>
-        )
-    }
-}
 
 class AppStackScreen extends React.Component {
     constructor() {

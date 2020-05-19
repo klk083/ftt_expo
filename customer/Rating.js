@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text, Alert, SafeAreaView } from 'r
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import { give_review, is_trip_done, divide_by_5_stars, evaluation, you_have_given, star, stars, change_evaluation, give_evaluation, no_thanks } from '../common_files/Texts'
+import { give_review, is_trip_done, divide_by_5_stars, no_thanks } from '../common_files/Texts'
 
 export default class Rating extends React.Component {
     state = {
@@ -16,18 +16,18 @@ export default class Rating extends React.Component {
     updateStars(key) {
         this.setState({stars: key})
         Alert.alert(
-            {evaluation},
-            {you_have_given} + key + ((key) <= 1 ? {star} : {stars}),
+            'Vurdering',
+            'Du har gitt ' + key + ((key) <= 1 ? ' stjerne.' : ' stjerner.'),
             [
                 {
-                    text: {change_evaluation},
+                    text: 'Endre vurdering',
                     onPress: () => {
                     },
                     style: 'cancel',
                 },
                 {},
                 {
-                    text: {give_evaluation},
+                    text: 'Gi vurdering',
                     onPress: () => this.props.navigation.navigate('Home')
                 },
             ]
@@ -88,7 +88,7 @@ export default class Rating extends React.Component {
 
 const styles = StyleSheet.create({
     safeAreaView: {
-        flex: 1,
+      flex: 1,
     },
     container: {
         flex: 1,
