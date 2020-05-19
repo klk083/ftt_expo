@@ -2,12 +2,12 @@
     Må lastes ned info om taxien og korporasjonen fra serveren.
     Må finne en løsning til å vise vurderingen.
 */
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import React from 'react'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import { confirmation_msg, taxi_num, taxi_corporation, is_trip_done, give_review } from '../common_files/Texts'
-import Rating from "./Rating";
+import { confirmation_msg, taxi_num, taxi_corporation } from '../common_files/Texts'
+import Rating from './Rating'
 
 export default class Customer_main extends React.Component {
     state = {
@@ -15,7 +15,7 @@ export default class Customer_main extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(() => this.setState({isReviewed: true}), 1000)
+        setInterval(() => this.setState({isReviewed: true}), 2000)
     }
 
     render() {
@@ -29,10 +29,10 @@ export default class Customer_main extends React.Component {
                     </View>
                     {this.state.isReviewed && (
                         <View style={styles.ratingContainer}>
-                            <Rating />
+                            <Rating/>
                         </View>
                     )}
-            </View>
+                </View>
             </SafeAreaView>
         )
     }
@@ -59,5 +59,5 @@ const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
         fontSize: RFPercentage(7),
-    }
-});
+    },
+})

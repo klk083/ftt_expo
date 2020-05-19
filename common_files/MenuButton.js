@@ -1,8 +1,7 @@
-import React from 'react';
+import React from 'react'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import Customer_MenuDrawerNavigator from "../customer/Customer_MenuDrawerNavigator";
 
 export default class MenuButton extends React.Component {
     render() {
@@ -14,7 +13,8 @@ export default class MenuButton extends React.Component {
                 style={{
                     backgroundColor: 'darkseagreen',
                 }}
-                onPress={() => {}} /> //this.props.navigation.toggleDrawer()}/>
-        );
+                onPress={() => {}}
+            /> //this.props.navigation.toggleDrawer()}/>
+        )
     }
 }

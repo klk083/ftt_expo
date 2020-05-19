@@ -1,14 +1,14 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { NavigationContainer } from '@react-navigation/native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
 import Driver_main from './Driver_main'
-import LogoTitle from "../common_files/LogoTitle";
-import Customer_MenuButton from "../common_files/MenuButton";
-import DriverHasOrder from "./DriverHasOrder";
+import LogoTitle from '../common_files/LogoTitle'
+import Customer_MenuButton from '../common_files/MenuButton'
+import DriverHasOrder from './DriverHasOrder'
 
-const DrawerStack = createDrawerNavigator();
+const DrawerStack = createDrawerNavigator()
 
 class NewDrawerStack extends React.Component {
     render() {
@@ -24,7 +24,8 @@ class NewDrawerStack extends React.Component {
                         fontSize: RFPercentage(5),
                     },
                     headerRight: props => <Customer_MenuButton {...props}/>,
-                }}>
+                }}
+            >
                 <DrawerStack.Screen
                     name='Driver Home'
                     component={Driver_main}
@@ -45,14 +46,14 @@ class NewDrawerStack extends React.Component {
 }
 
 
-class Customer_mode extends React.Component {
+class Driver_mode extends React.Component {
     render() {
         return (
             <NavigationContainer>
-                <NewDrawerStack />
+                <NewDrawerStack/>
             </NavigationContainer>
-        );
+        )
     }
 }
 
-export default Customer_mode;
+export default Driver_mode

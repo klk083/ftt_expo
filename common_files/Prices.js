@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { basic_price, priority_price } from "./Texts";
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { basic_price, priority_price } from './Texts'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
 export default class Prices extends React.Component {
     render() {
@@ -16,7 +16,7 @@ export default class Prices extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
     },
     text: {
         fontSize: RFPercentage(3),

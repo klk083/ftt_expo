@@ -5,18 +5,18 @@ import {createStackNavigator} from "@react-navigation/stack";
 import { Provider } from 'react-redux'
 
 
-import store from "./redux/store";
-import SplashScreen from './common_files/SplashScreenNew';
-import Customer_main from "./customer/Customer_main";
-import Customer_booking from "./customer/Customer_booking";
-import Customer_booking_priority from "./customer/Customer_booking_priority";
-import Customer_booked_priority from "./customer/Customer_booked_priority";
-import Customer_taxi_confirmation from "./customer/Customer_taxi_confirmation";
-import Driver_main from "./driver/Driver_main";
-import DriverHasOrder from "./driver/DriverHasOrder";
+import store from "../redux/store";
+import SplashScreen from '../common_files/SplashScreen';
+import Customer_main from "../customer/Customer_main";
+import Customer_booking from "../customer/Customer_booking";
+import Customer_booking_priority from "../customer/Customer_booking_priority";
+import Customer_booked_priority from "../customer/Customer_booked_priority";
+import Customer_taxi_confirmation from "../customer/Customer_taxi_confirmation";
+import Driver_main from "../driver/Driver_main";
+import DriverHasOrder from "../driver/DriverHasOrder";
 import {NavigationContainer} from "@react-navigation/native";
-import LogoTitle from "./common_files/LogoTitle";
-import Customer_MenuButton from "./common_files/MenuButton";
+import LogoTitle from "../common_files/LogoTitle";
+import Customer_MenuButton from "../common_files/MenuButton";
 
 
 const AppStack = createStackNavigator()

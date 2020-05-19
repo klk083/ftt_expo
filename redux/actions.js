@@ -6,7 +6,8 @@ import {
     USER_LOCATION,
     ORDER_ID,
     DEVICE_ID, UPDATE_IS_LOADING,
-} from "./actionTypes";
+    MOB_NUM,
+} from './actionTypes'
 
 // action creators
 export const updateUser = update => ({
@@ -47,5 +48,10 @@ export const updateDeviceId = deviceId => ({
 export const updateIsLoading = isLoading => ({
     type: UPDATE_IS_LOADING,
     isLoading,
+})
+
+export const updateMobNum = mob_num => ({
+    type: MOB_NUM,
+    mob_num,
 })
 

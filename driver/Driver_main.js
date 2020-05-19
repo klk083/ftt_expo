@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 import { View, Text, StyleSheet, Switch, SafeAreaView, Platform } from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
 import {driver_available, driver_not_available, priority_orders, orders } from '../common_files/Texts'
 import Orders, { compareDistKm } from './Orders'
-import SectionListCustomers from "./SectionListCustomers";
-import * as Permissions from "expo-permissions";
-import * as Location from "expo-location";
-import {getPreciseDistance} from "geolib";
+import SectionListCustomers from './SectionListCustomers'
+import * as Permissions from 'expo-permissions'
+import * as Location from 'expo-location'
+import {getPreciseDistance} from 'geolib'
 
 export default class Driver_main extends React.Component {
     state = {
@@ -25,18 +25,18 @@ export default class Driver_main extends React.Component {
     }
 
     getLocationAsync = async () => {
-        let {status} = await Permissions.askAsync(Permissions.LOCATION);
+        let {status} = await Permissions.askAsync(Permissions.LOCATION)
         this.setState({errorMessage: 'granted', isGranted: true})
         if (status !== 'granted') {
             this.setState({
                 errorMessage: 'Du må slå på lokasjonen for å bruke appen',
                 isGranted: false,
-            });
+            })
         }
 
         let location = await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.High
-        });
+        })
 
         await Location.watchPositionAsync({
                 accuracy: Location.Accuracy.High,
@@ -53,12 +53,12 @@ export default class Driver_main extends React.Component {
                     speed: newLocation.coords.speed,
                     timestamp: newLocation.timestamp
                 })
-            });
+            })
 
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
-        this.setState({location: {latitude, longitude}});
-    };
+        this.setState({location: {latitude, longitude}})
+    }
 
     getGeocodeAsync = async (location) => {
         let geocode = await Location.reverseGeocodeAsync(location)
@@ -71,7 +71,6 @@ export default class Driver_main extends React.Component {
             this.state.secondLocation
         ) / 1000).toFixed(2)
         this.setState({distanceBetween: distanceBetween})
-        //this.props.navigation.toggleDrawer()
     }
 
     /* Fungerer bare i bare react native mode
@@ -88,13 +87,14 @@ export default class Driver_main extends React.Component {
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
                     <View style={styles.availabilityContainer}>
-                        <Text style={styles.availability}>{this.state.isAvailable ? driver_available : driver_not_available}</Text>
+                        <Text
+                            style={styles.availability}>{this.state.isAvailable ? driver_available : driver_not_available}</Text>
                         <Switch
-                            trackColor={{ false: 'darkgray', true: 'green'}}
+                            trackColor={{false: 'darkgray', true: 'green'}}
                             thumbColor={this.state.isAvailable ? '#8fbc8f' : 'white'}
                             onValueChange={this.toggleSwitch}
                             value={this.state.isAvailable}
-                            style={Platform.OS === "ios" ? styles.switch_ios : styles.switch_android}
+                            style={Platform.OS === 'ios' ? styles.switch_ios : styles.switch_android}
                         />
                     </View>
                     {this.state.isAvailable && (
@@ -102,11 +102,11 @@ export default class Driver_main extends React.Component {
                             <View style={styles.priorityOrdersContainer}>
                                 <View style={styles.priorityTitleContainer}>
                                     <Text style={styles.priority_order_list}
-                                          onPress={() => this.props.navigation.navigate("Driver Order")}
+                                          onPress={() => this.props.navigation.navigate('Driver Order')}
                                     >{priority_orders}</Text>
                                 </View>
                                 <View style={styles.prioritySectionListContainer}>
-                                    <SectionListCustomers contacts={this.state.orders} />
+                                    <SectionListCustomers contacts={this.state.orders}/>
                                 </View>
                             </View>
                             <View style={styles.basicOrdersContainer}>
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     },
     switch_android: {
         flex: 0.1,
-        transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
+        transform: [{scaleX: 1.5}, {scaleY: 1.5}],
     },
     switch_ios: {
         flex: 0.1,
@@ -191,4 +191,4 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(5),
         color: 'darkseagreen',
     },
-});
+})

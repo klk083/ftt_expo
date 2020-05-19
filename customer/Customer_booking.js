@@ -1,13 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform } from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
+import {connect} from 'react-redux'
 
 import {cancel_taxi, looking_for_taxi} from '../common_files/Texts'
 
-export default class Customer_main extends React.Component {
+class Customer_booking extends React.Component {
     render() {
-        const { customerLocation, customerPhone } = this.props.route.params;
-
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -15,7 +14,8 @@ export default class Customer_main extends React.Component {
                         <Text
                             style={styles.looking_for_taxi}
                             onPress={() => this.props.navigation.navigate('Booking priority')}>{looking_for_taxi}</Text>
-                        <ActivityIndicator size={Platform.OS == "ios" ? "large" : RFPercentage(12)} style={styles.activityIndicator} />
+                        <ActivityIndicator size={Platform.OS === 'ios' ? 'large' : RFPercentage(12)}
+                                           style={styles.activityIndicator}/>
                     </View>
                     <View style={styles.cancel_buttonContainer}>
                         <TouchableOpacity style={styles.touchableCancelButtonContainer}>
@@ -51,7 +51,7 @@ export default class Customer_main extends React.Component {
 
 const styles = StyleSheet.create({
     safeAreaView: {
-      flex: 1,
+        flex: 1,
     },
     container: {
         flex: 1,
@@ -86,5 +86,11 @@ const styles = StyleSheet.create({
     cancel_button: {
         textAlign: 'center',
         fontSize: RFPercentage(4),
-    }
-});
+    },
+})
+
+const mapStateToProps = state => ({
+    token: state.token,
+})
+
+export default connect(mapStateToProps)(Customer_booking)

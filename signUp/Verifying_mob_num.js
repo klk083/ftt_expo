@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,13 +9,13 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform
-} from 'react-native';
-import { RFPercentage } from "react-native-responsive-fontsize";
+} from 'react-native'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import { verifisering_info, send_ny_sms } from '../common_files/Texts'
-import {updateCustomerLocation, updateToken} from "../redux/actions";
-import {connect} from "react-redux";
-import store from "../redux/store";
+import { verifisering_info, send_ny_sms, wrong_number, confirm } from '../common_files/Texts'
+import {updateCustomerLocation, updateToken, updateUserType, updateIsLoading} from '../redux/actions'
+import {connect} from 'react-redux'
+import store from '../redux/store'
 
 class Verifying_mob_num extends React.Component {
   state = {
@@ -31,12 +31,14 @@ class Verifying_mob_num extends React.Component {
   enableKeyPress = (event) => {
     {
       (event.nativeEvent.text)
-      //(this.state.code.length === 6) ? this.verificationCode(event.nativeEvent.text) : null
     }
   }
 
   sendNewCode = () => {
-    this.textInput.clear();
+    this.textInput.clear()
+    this.props.updateToken('UserConfirmed')
+    this.props.updateUserType(true)
+    console.log(store.getState())
     //      SEND      NY      KODE
   }
 
@@ -53,30 +55,32 @@ class Verifying_mob_num extends React.Component {
           },
         ],
         {cancelable: false},
-    );
+    )
   }
 
   submitSignIn = () => {
-    store.dispatch(updateToken('userConfirmed'))
+    this.props.updateUserType(false)
+    this.props.updateToken('UserConfirmed')
     console.log(store.getState())
   }
 
   render() {
+    console.log(store.getState())
     return (
         <SafeAreaView style={styles.safeAreaView}>
-          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                                 style={styles.container}>
             <View style={styles.infoContainer}>
-              <Text style={styles.info}>{verifisering_info}{this.props.route.params.tlf}</Text>
-              <Text style={styles.wrongNum} onPress={() => this.props.navigation.navigate('Number_registration')}>Feil
-                nummer?</Text>
+              <Text style={styles.info}>{verifisering_info}{this.props.mobileNumber}</Text>
+              <Text style={styles.wrongNum}
+                    onPress={() => this.props.navigation.navigate('Number_registration')}>{wrong_number}</Text>
             </View>
             <View style={styles.inputContainer}>
               <TextInput
                   style={styles.code}
-                  placeholder="--- ---"
-                  keyboardAppearance="default"
-                  keyboardType="number-pad"
+                  placeholder='--- ---'
+                  keyboardAppearance='default'
+                  keyboardType='number-pad'
                   maxLength={6}
                   autoFocus={true}
                   blurOnSubmit={false}
@@ -91,7 +95,7 @@ class Verifying_mob_num extends React.Component {
               <View style={styles.confirmButtonContainer}>
                 <TouchableOpacity style={styles.touchableButtonContainer} onPress={() => this.submitSignIn()}>
                   <Text
-                      style={styles.button}>BEKREFT</Text>
+                      style={styles.button}>{confirm}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.sendNewCodeButtonContainer}>
@@ -101,11 +105,11 @@ class Verifying_mob_num extends React.Component {
                   >{send_ny_sms}</Text>
                 </TouchableOpacity>
               </View>
-              <View style={{flex:2}} />
+              <View style={{flex: 2}}/>
             </View>
           </KeyboardAvoidingView>
         </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -169,18 +173,17 @@ const styles = StyleSheet.create({
     color: 'blue',
     textDecorationLine: 'underline',
   },
-});
+})
 
 const mapStateToProps = (state) => ({
-  customerLocation: `${state.latitude},${state.longitude}`,
-  orderId: state.customerPhone,
-  deviceId: state.deviceId,
-  user: state.isGranted,
+  mobileNumber: state.mobileNumber,
 })
 
 const mapDispatchToProps = {
   updateCustomerLocation,
   updateToken,
+  updateUserType,
+  updateIsLoading,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Verifying_mob_num)

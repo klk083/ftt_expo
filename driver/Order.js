@@ -1,7 +1,9 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import call from 'react-native-phone-call'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
+
+import {accept, km} from '../common_files/Texts'
 
 class Order extends React.Component {
     call = (phoneNumber) => {
@@ -9,12 +11,12 @@ class Order extends React.Component {
         const args = {
             number: phoneNumber,
             prompt: false,
-        };
-        call(args).catch(console.error);
+        }
+        call(args).catch(console.error)
     }
 
     componentDidMount() {
-      console.log(this.props)
+        console.log(this.props)
     }
 
     render() {
@@ -26,8 +28,8 @@ class Order extends React.Component {
                         style={styles.row}
                         onPress={() => this.call(this.props.phoneNumber)}
                     >
-                        <Text style={styles.customerData}>Aksepter</Text>
-                        <Text style={styles.customerData}>{this.props.distKm} km</Text>
+                        <Text style={styles.customerData}>{accept}</Text>
+                        <Text style={styles.customerData}>{this.props.distKm}{km}</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: RFPercentage(3),
         textAlign: 'center',
-    }
+    },
 })
 
 export default Order

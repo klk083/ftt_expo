@@ -1,20 +1,20 @@
 import React from 'react'
 import { View, ScrollView, Text, StyleSheet, SafeAreaView } from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import {privacyText} from "./Texts";
+import {privacyText} from './Texts'
 
 export default class Privacy extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
-            <View style={styles.container}>
-                <ScrollView>
-                    <Text style={styles.text}>{privacyText}</Text>
-                </ScrollView>
-            </View>
+                <View style={styles.container}>
+                    <ScrollView>
+                        <Text style={styles.text}>{privacyText}</Text>
+                    </ScrollView>
+                </View>
             </SafeAreaView>
-        );
+        )
     }
 }
 
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
         marginTop: 20,
         fontSize: RFPercentage(3)
     }
-});
+})

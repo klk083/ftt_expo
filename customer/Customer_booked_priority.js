@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform} from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
 import {cancel_taxi, looking_for_taxi_booked_priority} from '../common_files/Texts'
 
@@ -16,7 +16,7 @@ export default class Customer_main extends React.Component {
                     </View>
                     <View style={styles.activityContainer}>
                         <ActivityIndicator
-                            size={Platform.OS == "ios" ? "large" : RFPercentage(12)}
+                            size={Platform.OS === 'ios' ? 'large' : RFPercentage(12)}
                             style={styles.activityIndicator}
                         />
                     </View>
@@ -35,7 +35,8 @@ export default class Customer_main extends React.Component {
                                         {},
                                         {
                                             text: 'Nei',
-                                            onPress: () => {},
+                                            onPress: () => {
+                                            },
                                             style: 'cancel',
                                         },
                                     ],
@@ -43,10 +44,10 @@ export default class Customer_main extends React.Component {
                                         cancelable: false
                                     },
                                 )}
-                                >{cancel_taxi}</Text>
+                            >{cancel_taxi}</Text>
                         </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
             </SafeAreaView>
         )
     }
@@ -95,5 +96,5 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
         fontSize: RFPercentage(6),
         textAlign: 'center',
-    }
-});
+    },
+})

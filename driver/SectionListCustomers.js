@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Order from './Order'
 
-const renderItem = ({item}) => <Order {...item}/>
+const renderItem = ({item}) => <Order {...item} />
 
 const FlatListCustomers = props => (
     <FlatList
@@ -16,7 +16,7 @@ const FlatListCustomers = props => (
 )
 
 FlatListCustomers.propTypes = {
-  contacts: PropTypes.array,
+    contacts: PropTypes.array,
 }
 
 const styles = StyleSheet.create({

@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform} from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
 import {cancel_taxi, looking_for_taxi_priority, priority_price, buy_yourself_out_of_queue} from '../common_files/Texts'
 
@@ -17,8 +17,8 @@ export default class Customer_main extends React.Component {
                     </View>
                     <View style={styles.activity_spinner}>
                         <ActivityIndicator
-                            size={Platform.OS == "ios" ? "large" : RFPercentage(12)}
-                            style={styles.activityIndicator} />
+                            size={Platform.OS === 'ios' ? 'large' : RFPercentage(12)}
+                            style={styles.activityIndicator}/>
                     </View>
                     <View style={styles.priority_buttonContainer}>
                         <TouchableOpacity
@@ -43,7 +43,8 @@ export default class Customer_main extends React.Component {
                                         {},
                                         {
                                             text: 'Nei',
-                                            onPress: () => {},
+                                            onPress: () => {
+                                            },
                                             style: 'cancel',
                                         },
                                     ],
@@ -51,9 +52,9 @@ export default class Customer_main extends React.Component {
                                         cancelable: false
                                     },
                                 )}
-                                >{cancel_taxi}</Text>
+                            >{cancel_taxi}</Text>
                         </TouchableOpacity>
-                </View>
+                    </View>
                 </View>
             </SafeAreaView>
         )
@@ -129,4 +130,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: RFPercentage(4),
     },
-});
+})

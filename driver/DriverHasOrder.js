@@ -1,8 +1,8 @@
 import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, Modal, SafeAreaView, Platform, KeyboardAvoidingView } from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import { is_order_accomplished, order_was_canceled, order_is_accomplished, reason_for_the_cancellation } from '../common_files/Texts'
+import { is_order_accomplished, order_was_canceled, order_is_accomplished, reason_for_the_cancellation, send } from '../common_files/Texts'
 
 export default class DriverHasOrder extends React.Component {
     state = {
@@ -58,7 +58,9 @@ export default class DriverHasOrder extends React.Component {
                                         {},
                                         {
                                             text: 'Noe annet',
-                                            onPress: () => {this.setState({isModalVisible: true})},
+                                            onPress: () => {
+                                                this.setState({isModalVisible: true})
+                                            },
                                             style: 'cancel',
                                         },
                                     ],
@@ -66,18 +68,20 @@ export default class DriverHasOrder extends React.Component {
                                         cancelable: false
                                     },
                                 )}
-                                >{order_was_canceled}</Text>
+                            >{order_was_canceled}</Text>
                         </TouchableOpacity>
                     </View>
                     {this.state.isModalVisible &&
                     <Modal
-                        animationType="none"
+                        animationType='none'
                         transparent={true}
                         presentationStyle={'overFullScreen'}
-                        onRequestClose={() => {this.setState({isModalVisible: false})}}
+                        onRequestClose={() => {
+                            this.setState({isModalVisible: false})
+                        }}
                     >
-                        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-                            style={styles.modalContainer}>
+                        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                                              style={styles.modalContainer}>
                             <View style={styles.modalView_android}>
                                 <View style={styles.modalTextContainer}>
                                     <Text style={styles.modalText}>{reason_for_the_cancellation}</Text>
@@ -86,8 +90,8 @@ export default class DriverHasOrder extends React.Component {
                                     <TextInput
                                         style={styles.reason}
                                         behavior='padding'
-                                        placeholder="Skriv her"
-                                        keyboardAppearance="default"
+                                        placeholder='Skriv her'
+                                        keyboardAppearance='default'
                                         multiline={true}
                                         maxLength={150}
                                         autoFocus={true}
@@ -101,7 +105,7 @@ export default class DriverHasOrder extends React.Component {
                                         <Text
                                             style={styles.sendReasonButton}
                                             disabled={this.state.isDisabled}
-                                            onPress={this.submitCancellation}>Send</Text>
+                                            onPress={this.submitCancellation}>{send}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -206,7 +210,7 @@ const styles = StyleSheet.create({
         padding: 20,
         textAlignVertical: 'center',
     },
-    sendReasonButtonContainer:  {
+    sendReasonButtonContainer: {
         flex: 0.15,
         justifyContent: 'flex-end',
         padding: 10,
@@ -214,7 +218,6 @@ const styles = StyleSheet.create({
     modalText: {
         flex: 1,
         padding: 20,
-        //alignItems: 'center',
         fontSize: RFPercentage(3.5),
         textAlign: 'center',
         textAlignVertical: 'center',
@@ -236,5 +239,5 @@ const styles = StyleSheet.create({
     sendReasonButton: {
         fontSize: RFPercentage(3.5),
         textAlignVertical: 'center',
-    }
-});
+    },
+})

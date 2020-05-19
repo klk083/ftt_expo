@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image, Button, TouchableOpacity, SafeAreaView} from 'react-native';
-import { RFPercentage } from "react-native-responsive-fontsize";
+import React, {Component} from 'react'
+import {StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView} from 'react-native'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import { privacyTitle, terms_of_serviceTitle, welcome_to, read_our, confirmPrivacyTermsOfService, acceptAndContinue} from "./Texts";
+import { privacyTitle, terms_of_serviceTitle, welcome_to, read_our, confirmPrivacyTermsOfService, acceptAndContinue} from './Texts'
+
 
 export default class WelcomeScreen extends Component {
   render() {
@@ -18,13 +19,13 @@ export default class WelcomeScreen extends Component {
             />
             <View style={styles.infoContainer}>
               <View style={styles.infoTextContainer}>
-              <Text style={styles.instructions}>{read_our}
-              <Text style={styles.linked} onPress={() => this.props.navigation.navigate('Privacy')}
-              >{privacyTitle}</Text>{confirmPrivacyTermsOfService}
-                <Text style={styles.linked}
-                      onPress={() => this.props.navigation.navigate('TermsOfService')}
-                >{terms_of_serviceTitle}</Text>.
-              </Text>
+                <Text style={styles.instructions}>{read_our}
+                  <Text style={styles.linked} onPress={() => this.props.navigation.navigate('Privacy')}
+                  >{privacyTitle}</Text>{confirmPrivacyTermsOfService}
+                  <Text style={styles.linked}
+                        onPress={() => this.props.navigation.navigate('TermsOfService')}
+                  >{terms_of_serviceTitle}</Text>.
+                </Text>
               </View>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.touchableButtonContainer}>
@@ -36,7 +37,7 @@ export default class WelcomeScreen extends Component {
             </View>
           </View>
         </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -74,23 +75,15 @@ const styles = StyleSheet.create({
   },
   instructions: {
     flex: 1,
-    //marginHorizontal: 30,
-    //lineHeight: 30,
     textAlign: 'center',
-    //color: '#000000',
     fontSize: RFPercentage(3),
-    //marginBottom: 5,
   },
   buttonContainer: {
     flex: 1,
     justifyContent: 'center',
-    //margin: 20,
-    //padding: 15,
   },
   linked: {
-    //marginTop: 10,
     textAlign: 'center',
-    //margin: 10,
     color: 'blue',
     textDecorationLine: 'underline',
   },
@@ -112,4 +105,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: RFPercentage(4),
   },
-});
+})

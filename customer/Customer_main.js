@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location'
+import * as Permissions from 'expo-permissions'
 import { getPreciseDistance } from 'geolib'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
-import {book_taxi, basic_price} from '../common_files/Texts'
-import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken} from "../redux/actions";
-import store from "../redux/store";
+import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation} from '../common_files/Texts'
+import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken} from '../redux/actions'
+import store from '../redux/store'
 
 
 
@@ -23,7 +23,7 @@ class Customer_main extends React.Component {
         timestamp: '',
         location: '',
         geocode: '',
-        errorMessage: "",
+        errorMessage: '',
         isGranted: true,
         distanceBetween: 0,
         customerPhone: '+4712345678',
@@ -32,26 +32,26 @@ class Customer_main extends React.Component {
     }
 
     componentDidMount() {
-        //this.getDeviceId()
+        //this.getDeviceId()            KAN FJERNES ETTERHVERT
         this.getLocationAsync().catch()
-        store.dispatch(updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`))
-        store.dispatch(updateDeviceId(`${this.state.deviceId}`))
-        store.dispatch(updateOrderId(98372489))
+        this.props.updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`)
+        this.props.updateDeviceId(`${this.state.deviceId}`)
+        this.props.updateOrderId(98372489)
     }
 
     getLocationAsync = async () => {
-        let {status} = await Permissions.askAsync(Permissions.LOCATION);
+        let {status} = await Permissions.askAsync(Permissions.LOCATION)
         this.setState({errorMessage: 'granted', isGranted: true})
         if (status !== 'granted') {
             this.setState({
-                errorMessage: 'Du må slå på lokasjonen for å bruke appen',
+                errorMessage: {turn_on_location_explanation},
                 isGranted: false,
-            });
+            })
         }
 
         let location = await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.High
-        });
+        })
 
         await Location.watchPositionAsync({
                 accuracy: Location.Accuracy.High,
@@ -68,12 +68,12 @@ class Customer_main extends React.Component {
                     speed: newLocation.coords.speed,
                     timestamp: newLocation.timestamp
                 })
-            });
+            })
 
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
-        this.setState({location: {latitude, longitude}});
-    };
+        this.setState({location: {latitude, longitude}})
+    }
 
     getGeocodeAsync = async (location) => {
         let geocode = await Location.reverseGeocodeAsync(location)
@@ -86,7 +86,6 @@ class Customer_main extends React.Component {
             this.state.secondLocation
         ) / 1000).toFixed(2)
         this.setState({distanceBetween: distanceBetween})
-        //this.props.navigation.toggleDrawer()
     }
 
     /* Fungerer bare i bare react native mode
@@ -99,50 +98,49 @@ class Customer_main extends React.Component {
      */
 
     submitBookingButton = () => {
-        store.dispatch(updateToken(''))
-        this.props.navigation.navigate('Booking',
-            {customerPhone: this.state.customerPhone, customerLocation: this.state.location})
+        this.props.updateCustomerLocation({latitude: this.state.latitude, longitude: this.state.longitude})
+        this.props.navigation.navigate('Booking')
         console.log(store.getState())
     }
 
     render() {
-        const {location, geocode, customerPhone} = this.state
+        const {geocode} = this.state
 
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
-                {this.state.isGranted && (
-                    <View style={styles.grantedMainContainer}>
-                        <View style={styles.spaceBetweenViews}>
-                            <Text style={styles.locationAddress}>
-                                {geocode ? `${geocode[0].street} ${geocode[0].name}` : ""}
-                            </Text>
+                    {this.state.isGranted && (
+                        <View style={styles.grantedMainContainer}>
+                            <View style={styles.spaceBetweenViews}>
+                                <Text style={styles.locationAddress}>
+                                    {geocode ? `${geocode[0].street} ${geocode[0].name}` : ''}
+                                </Text>
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity style={styles.textBookingButtonContainer}>
+                                    <View style={styles.textBooking}>
+                                        <Text style={styles.button}
+                                              onPress={() => this.submitBookingButton()}
+                                        >{book_taxi}</Text>
+                                        <Text style={styles.button_price}>({basic_price})</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.textBookingButtonContainer}>
-                                <View style={styles.textBooking}>
-                                    <Text style={styles.button}
-                                          onPress={() => this.submitBookingButton()}
-                                    >{book_taxi}</Text>
-                                    <Text style={styles.button_price}>({basic_price})</Text>
-                                </View>
-
-                            </TouchableOpacity>
+                    )}
+                    {!this.state.isGranted && (
+                        <View style={styles.locationContainer}>
+                            <View style={styles.locationInfoContainer}>
+                                <Text style={styles.locationInfo}>{turn_on_location_explanation}</Text>
+                            </View>
+                            <View style={styles.buttonLocationContainer}>
+                                <TouchableOpacity style={styles.touchableLocationContainer}
+                                                  onPress={this.getLocationAsync}>
+                                    <Text style={styles.buttonLocation}>{turn_on_location}</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                )}
-                {!this.state.isGranted && (
-                    <View style={styles.locationContainer}>
-                        <View style={styles.locationInfoContainer}>
-                            <Text style={styles.locationInfo}>Du må slå på lokasjonen for å bruke appen</Text>
-                        </View>
-                        <View style={styles.buttonLocationContainer}>
-                            <TouchableOpacity style={styles.touchableLocationContainer} onPress={this.getLocationAsync}>
-                                <Text style={styles.buttonLocation}>Slå på lokasjonen</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                )}
+                    )}
                 </View>
             </SafeAreaView>
         )
@@ -239,18 +237,21 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(5),
         textAlign: 'center',
     },
-});
+})
 
 const mapStateToProps = (state) => ({
     customerLocation: `${state.latitude},${state.longitude}`,
     orderId: state.customerPhone,
     deviceId: state.deviceId,
     user: state.isGranted,
+    token: state.token,
 })
 
 const mapDispatchToProps = {
     updateCustomerLocation,
     updateToken,
+    updateOrderId,
+    updateDeviceId,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)

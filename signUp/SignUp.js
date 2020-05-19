@@ -1,15 +1,17 @@
-import React from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, TextInput, Modal, SafeAreaView, KeyboardAvoidingView } from 'react-native';
-import { RFPercentage } from "react-native-responsive-fontsize";
+import React from 'react'
+import { Platform, StyleSheet, Text, View, TouchableOpacity, TextInput, Modal, SafeAreaView, KeyboardAvoidingView } from 'react-native'
+import { RFPercentage } from 'react-native-responsive-fontsize'
+import {connect} from 'react-redux'
 
-import {write_your_num, fft_info, reason_for_the_cancellation} from "../common_files/Texts";
+import {write_your_num, fft_info, country_code, next, confirming_mob_num, wants_change_num, change, ok} from '../common_files/Texts'
+import {updateMobNum} from '../redux/actions'
 
-export default class SingUp extends React.Component {
+class SignUp extends React.Component {
   state = {
     tlf: '',
     isDisabled: true,
     isModalVisible: false,
-  };
+  }
 
   handleTlf = text => {
     this.setState({tlf: text})
@@ -24,45 +26,32 @@ export default class SingUp extends React.Component {
     }
   }
 
-  verificationTlf = (tlfnr) => {
+  verificationTlf = () => {
     this.setState({isModalVisible: true})
-    /*Alert.alert(
-      'Vi skal verifisere mobilnummeret ditt:',
-      '+47 ' + tlfnr + '\n\nEr det OK, eller vil du endre numeret?',
-      [
-        {
-          text: 'Endre',
-          style: 'cancel',
-        },
-        {},
-        {text: 'OK', onPress: () => {
-          this.props.navigation.navigate('Number_verification', {tlf: tlfnr})}},
-      ],
-      {cancelable: false, onDismiss: () => {}},
-    );*/
   }
   submit = () => {
     this.setState({isModalVisible: false})
-    this.props.navigation.navigate('Number_verification', {tlf: this.state.tlf})
+    this.props.navigation.navigate('Number_verification')
+    this.props.updateMobNum(this.state.tlf.toString())
   }
 
   render() {
     return (
         <SafeAreaView style={styles.safeAreaView}>
-          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                                 style={styles.container}>
             <View style={styles.topInfoContainer}>
               <Text style={styles.topInfo}>{write_your_num}</Text>
               <Text style={styles.fft_info}>{fft_info}</Text>
             </View>
             <View style={styles.rowContainer}>
-              <Text style={styles.mobnum}>+47 </Text>
+              <Text style={styles.mobnum}>{country_code}</Text>
               <TextInput
                   style={styles.mobnum}
                   behavior='padding'
-                  placeholder="mobilnummer"
-                  keyboardAppearance="default"
-                  keyboardType="number-pad"
+                  placeholder='mobilnummer'
+                  keyboardAppearance='default'
+                  keyboardType='number-pad'
                   maxLength={8}
                   returnKeyType='next'
                   autoFocus={true}
@@ -76,12 +65,12 @@ export default class SingUp extends React.Component {
                 <Text
                     style={styles.button}
                     disabled={this.state.isDisabled}
-                    onPress={() => this.verificationTlf(this.state.tlf)}>Neste</Text>
+                    onPress={() => this.verificationTlf(this.state.tlf)}>{next}</Text>
               </TouchableOpacity>
             </View>
             {this.state.isModalVisible &&
             <Modal
-                animationType="none"
+                animationType='none'
                 transparent={true}
                 presentationStyle={'overFullScreen'}
                 onRequestClose={() => {
@@ -91,21 +80,21 @@ export default class SingUp extends React.Component {
               <View style={styles.modalContainer}>
                 <View style={styles.modalView}>
                   <View style={styles.textContainer}>
-                    <Text style={styles.modalTextInfo}>Vi skal verifisere mobilnummeret ditt:</Text>
-                    <Text style={styles.modalTextNum}>+47 {this.state.tlf}</Text>
-                    <Text style={styles.modalTextQuestion}>Er det OK, eller vil du endre nummeret?</Text>
+                    <Text style={styles.modalTextInfo}>{confirming_mob_num}</Text>
+                    <Text style={styles.modalTextNum}>{country_code}{this.state.tlf}</Text>
+                    <Text style={styles.modalTextQuestion}>{wants_change_num}</Text>
                   </View>
                   <View style={styles.buttonsContainer}>
                     <View style={styles.changeButtonContainer}>
                       <TouchableOpacity style={styles.touchableChangeButtonContainer}>
                         <Text style={styles.changeButton} onPress={() => {
                           this.setState({isModalVisible: false})
-                        }}>Endre</Text>
+                        }}>{change}</Text>
                       </TouchableOpacity>
                     </View>
                     <View style={styles.okButtonContainer}>
                       <TouchableOpacity style={styles.touchableOkButtonContainer}>
-                        <Text style={styles.okButton} onPress={() => this.submit()}>OK</Text>
+                        <Text style={styles.okButton} onPress={() => this.submit()}>{ok}</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -115,9 +104,10 @@ export default class SingUp extends React.Component {
             }
           </KeyboardAvoidingView>
         </SafeAreaView>
-    );
+    )
   }
 }
+
 
 const styles = StyleSheet.create({
   safeAreaView: {
@@ -160,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(5),
     color: 'dodgerblue',
   },
-  fft_info:{
+  fft_info: {
     textAlign: 'center',
     fontSize: RFPercentage(3),
     paddingHorizontal: 10,
@@ -172,48 +162,47 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(5),
     textAlign: 'center',
     textAlignVertical: 'center',
-
   },
   modalView: {
     flex: 0.3,
-    backgroundColor: "white",
-    alignItems: "center",
+    backgroundColor: 'white',
+    alignItems: 'center',
     justifyContent: 'flex-start',
     borderRadius: 20,
     padding: 15,
   },
   modalTextInfo: {
     flex: 0.2,
-    textAlign: "center",
+    textAlign: 'center',
     textAlignVertical: 'center',
     alignItems: 'flex-start',
     fontSize: RFPercentage(3),
   },
   modalTextNum: {
     flex: 0.2,
-    textAlign: "center",
+    textAlign: 'center',
     textAlignVertical: 'center',
     alignItems: 'flex-start',
     fontSize: RFPercentage(3),
   },
   modalTextQuestion: {
     flex: 0.4,
-    textAlign: "center",
+    textAlign: 'center',
     textAlignVertical: 'center',
     alignItems: 'flex-start',
     fontSize: RFPercentage(3),
   },
   modalContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
     paddingHorizontal: 10
   },
   textContainer: {
     flex: 0.7,
   },
-  buttonsContainer:  {
+  buttonsContainer: {
     flex: 0.2,
     flexDirection: 'row',
     alignContent: 'space-between',
@@ -248,5 +237,11 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
     textAlign: 'right',
-  }
-});
+  },
+})
+
+const mapDispatchToProps = ({
+  updateMobNum,
+})
+
+export default connect(null, mapDispatchToProps)(SignUp)

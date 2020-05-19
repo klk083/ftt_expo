@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image } from 'react-native'
-import { RFPercentage } from "react-native-responsive-fontsize"
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
 export default class LogoTitle extends React.Component {
     render() {
@@ -10,6 +10,6 @@ export default class LogoTitle extends React.Component {
                 source={require('../assets/fast_track_taxi_logo_ferdig.png')}
                 resizeMode='cover'
             />
-        );
+        )
     }
 }

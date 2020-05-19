@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text, Alert, SafeAreaView } from 'r
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import { give_review, is_trip_done } from "../common_files/Texts"
+import { give_review, is_trip_done, divide_by_5_stars, evaluation, you_have_given, star, stars, change_evaluation, give_evaluation, no_thanks } from '../common_files/Texts'
 
 export default class Rating extends React.Component {
     state = {
@@ -16,17 +16,18 @@ export default class Rating extends React.Component {
     updateStars(key) {
         this.setState({stars: key})
         Alert.alert(
-            'Vurdering',
-            'Du har gitt ' + key + ((key) <= 1 ? ' stjerne.' : ' stjerner.'),
+            {evaluation},
+            {you_have_given} + key + ((key) <= 1 ? {star} : {stars}),
             [
                 {
-                    text: 'Endre vurdering',
-                    onPress: () => {},
+                    text: {change_evaluation},
+                    onPress: () => {
+                    },
                     style: 'cancel',
                 },
                 {},
                 {
-                    text: 'Gi vurdering',
+                    text: {give_evaluation},
                     onPress: () => this.props.navigation.navigate('Home')
                 },
             ]
@@ -67,7 +68,7 @@ export default class Rating extends React.Component {
                         <View style={styles.starsContainer}>
                             <View style={styles.rating_bar}>{rating_bar}</View>
                             <View style={styles.starsRateContainer}>
-                                <Text style={styles.starsRate}>{this.state.stars} / 5 stjerner</Text>
+                                <Text style={styles.starsRate}>{this.state.stars}{divide_by_5_stars}</Text>
                             </View>
                         </View>
                     </View>
@@ -76,10 +77,10 @@ export default class Rating extends React.Component {
                             <Text
                                 style={styles.no_thanks}
                                 onPress={() => this.props.navigation.navigate('Customer Stack')}
-                            >Nei, takk</Text>
+                            >{no_thanks}</Text>
                         </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
             </SafeAreaView>
         )
     }
@@ -87,7 +88,7 @@ export default class Rating extends React.Component {
 
 const styles = StyleSheet.create({
     safeAreaView: {
-      flex: 1,
+        flex: 1,
     },
     container: {
         flex: 1,
@@ -153,5 +154,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
         fontSize: RFPercentage(3),
-    }
+    },
 })

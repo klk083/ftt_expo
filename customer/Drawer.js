@@ -1,42 +1,24 @@
-import * as React from 'react'
+import React from 'react'
 import { Button, View } from 'react-native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import LogoTitle from "../common_files/LogoTitle";
-import Customer_MenuButton from "../common_files/MenuButton";
-import Prices from "../common_files/Prices";
-import Privacy from "../common_files/Privacy";
-import Terms_of_service from "../common_files/Terms_of_service";
-import Customer_main from "./Customer_main";
+import LogoTitle from '../common_files/LogoTitle'
+import Customer_MenuButton from '../common_files/MenuButton'
+import Prices from '../common_files/Prices'
+import Privacy from '../common_files/Privacy'
+import Terms_of_service from '../common_files/Terms_of_service'
+import Customer_main from './Customer_main'
 
-function HomeScreen({ navigation }) {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button
-                onPress={() => navigation.navigate('Notifications')}
-                title="Go to notifications"
-            />
-        </View>
-    );
-}
 
-function NotificationsScreen({ navigation }) {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button onPress={() => navigation.goBack()} title="Go back home" />
-        </View>
-    );
-}
+const Drawer = createDrawerNavigator()
 
-const Drawer = createDrawerNavigator();
-
-export default function App() {
+export default function Drawer() {
     return (
         <NavigationContainer>
             <Drawer.Navigator
-                initialRouteName="Customer Home"
+                initialRouteName='Customer Home'
                 drawerPosition='left'
                 drawerType='slide'
                 drawerStyle={{
@@ -106,5 +88,5 @@ export default function App() {
                     }}/>
             </Drawer.Navigator>
         </NavigationContainer>
-    );
+    )
 }
