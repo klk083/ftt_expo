@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
 import * as Location from 'expo-location'
-import * as Permissions from 'expo-permissions'
 import { getPreciseDistance } from 'geolib'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
@@ -40,11 +39,13 @@ class Customer_main extends React.Component {
     }
 
     getLocationAsync = async () => {
-        let {status} = await Permissions.askAsync(Permissions.LOCATION)
-        this.setState({errorMessage: 'granted', isGranted: true})
+        let {status} = await Location.requestPermissionsAsync()
+        if (status === 'granted'){
+            this.setState({errorMessage: 'granted', isGranted: true})
+        }
         if (status !== 'granted') {
             this.setState({
-                errorMessage: {turn_on_location_explanation},
+                errorMessage: 'Du må slå på lokasjonen for å bruke appen',
                 isGranted: false,
             })
         }

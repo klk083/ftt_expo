@@ -3,10 +3,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import Driver_main from './Driver_main'
+import Driver_main from '../driver/Driver_main'
 import LogoTitle from '../common_files/LogoTitle'
 import Customer_MenuButton from '../common_files/MenuButton'
-import DriverHasOrder from './DriverHasOrder'
+import DriverHasOrder from '../driver/DriverHasOrder'
 
 const DrawerStack = createDrawerNavigator()
 

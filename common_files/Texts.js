@@ -42,16 +42,9 @@ export const priority_orders = 'Prioritert bestilling'
 
 export const give_review = 'Gi vurdering'
 export const divide_by_5_stars = ' / 5 stjerner'
-export const evaluation = 'Vurdering'
-export const you_have_given = 'Du har gitt '
 export const star = ' stjerne.'
 export const stars = ' stjerner.'
-export const change_evaluation = 'Endre vurdering'
-export const give_evaluation = 'Gi vurdering'
 export const no_thanks = 'Nei, takk'
-export const cancellation = 'Avbestilling'
-export const cancellation_anyway = 'Vil du avbestille taxi likevel?'
-export const yes = 'Ja'
 export const no = 'Nei'
 
 

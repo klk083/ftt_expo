@@ -2,8 +2,8 @@ import React from 'react'
 import WelcomeScreen from "../common_files/WelcomeScreen";
 import Privacy from "../common_files/Privacy";
 import Terms_of_service from "../common_files/Terms_of_service";
-import SignUp from "./SignUp";
-import Verifying_mob_num from "./Verifying_mob_num";
+import SignUp from "../signUp/SignUp";
+import Verifying_mob_num from "../signUp/Verifying_mob_num";
 
 class SignUpStack extends React.Component{
     redner(){
