@@ -9,7 +9,7 @@ import Customer_MenuButton from '../common_files/MenuButton'
 import Prices from '../common_files/Prices'
 import Privacy from '../common_files/Privacy'
 import Terms_of_service from '../common_files/Terms_of_service'
-import Customer_main from './Customer_main'
+import Customer_main from '../customer/Customer_main'
 
 
 const Drawer = createDrawerNavigator()
