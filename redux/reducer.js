@@ -9,6 +9,7 @@ import {
     DEVICE_ID,
     UPDATE_IS_LOADING,
     MOB_NUM,
+    PERMISSION,
 } from './actionTypes'
 
 const merge = (prev, next) => Object.assign({}, prev, next)
@@ -38,7 +39,7 @@ const mobileNumber = (state = '', action) => {
 const user_location = (state = '', action) => {
     switch (action.type) {
         case USER_LOCATION:
-            return Object.assign({}, state, {user_location: action.user_location})
+            return action.user_location
         default:
             return state
     }
@@ -80,6 +81,15 @@ const token = (state = '', action) => {
     }
 }
 
+const permission = (state = {errorMessage: 'Du må slå på lokasjonen for å bruke appen'}, action) => {
+    switch (action.type) {
+        case PERMISSION:
+            return action.permission
+        default:
+            return state
+    }
+}
+
 const reducer = combineReducers({
     userType,
     user_location,
@@ -88,6 +98,7 @@ const reducer = combineReducers({
     loading,
     token,
     mobileNumber,
+    permission,
 })
 
 export default reducer

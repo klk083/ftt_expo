@@ -13,7 +13,7 @@ import {
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
 import { verifisering_info, send_ny_sms, wrong_number, confirm } from '../common_files/Texts'
-import {updateCustomerLocation, updateToken, updateUserType, updateIsLoading} from '../redux/actions'
+import {updateCustomerLocation, updateToken, updateUserType} from '../redux/actions'
 import {connect} from 'react-redux'
 import store from '../redux/store'
 
@@ -21,11 +21,15 @@ class Verifying_mob_num extends React.Component {
   state = {
     code: '',
     textInput: '',
-    isModalVisible: false
+    isModalVisible: false,
+    isDisabled: true,
   }
 
   handleCode = text => {
-    this.setState({code: text})
+    this.setState({code: text.replace(/[^0-9]/g, '')})
+    {
+      (this.state.code.length === 5) ? this.setState({isDisabled: false}) : this.setState({isDisabled: true})
+    }
   }
 
   enableKeyPress = (event) => {
@@ -34,34 +38,18 @@ class Verifying_mob_num extends React.Component {
     }
   }
 
+  submitSignIn = () => {
+    this.props.updateUserType(false)
+    this.props.updateToken('UserConfirmed')
+    console.log(store.getState())
+  }
+
   sendNewCode = () => {
     this.textInput.clear()
     this.props.updateToken('UserConfirmed')
     this.props.updateUserType(true)
     console.log(store.getState())
     //      SEND      NY      KODE
-  }
-
-  verificationCode = (code) => {
-    Alert.alert(
-        'Vi sjekker om koden (' + code + ') er riktig.',
-        '',
-        [
-          {},
-          {},
-          {
-            text: 'OK',
-            onPress: () => console.log('OK ble valgt')
-          },
-        ],
-        {cancelable: false},
-    )
-  }
-
-  submitSignIn = () => {
-    this.props.updateUserType(false)
-    this.props.updateToken('UserConfirmed')
-    console.log(store.getState())
   }
 
   render() {
@@ -86,14 +74,14 @@ class Verifying_mob_num extends React.Component {
                   blurOnSubmit={false}
                   onSubmitEditing={this.enableKeyPress}
                   onChangeText={this.handleCode}
-                  ref={input => {
-                    this.textInput = input
-                  }}
+                  value={this.state.code}
               />
             </View>
             <View style={styles.buttonsContainer}>
               <View style={styles.confirmButtonContainer}>
-                <TouchableOpacity style={styles.touchableButtonContainer} onPress={() => this.submitSignIn()}>
+                <TouchableOpacity style={styles.touchableButtonContainer}
+                                  disabled={this.state.isDisabled}
+                                  onPress={() => this.submitSignIn()}>
                   <Text
                       style={styles.button}>{confirm}</Text>
                 </TouchableOpacity>
@@ -183,7 +171,6 @@ const mapDispatchToProps = {
   updateCustomerLocation,
   updateToken,
   updateUserType,
-  updateIsLoading,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Verifying_mob_num)

@@ -7,3 +7,4 @@ export const ORDER_ID = -1
 export const DEVICE_ID = -1
 export const UPDATE_IS_LOADING = true
 export const MOB_NUM = 'MOB_NUM'
+export const PERMISSION = 'PERMISSION'

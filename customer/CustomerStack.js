@@ -1,4 +1,5 @@
 import React from 'react'
+import {StyleSheet} from 'react-native'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 
 import Customer_main from './Customer_main'
@@ -13,7 +14,7 @@ const CustomerDrawerStack = createDrawerNavigator()
 class CustomerStack extends React.Component {
     render() {
         return (
-            <CustomerDrawerStack.Navigator drawerPosition='right' drawerStyle={{width: 200}}>
+            <CustomerDrawerStack.Navigator drawerPosition='right' drawerStyle={styles.mainContainer}>
                 <CustomerDrawerStack.Screen name='Home' component={Customer_main} options={{drawerLabel: 'Hjem'}}/>
                 <CustomerDrawerStack.Screen name='Booking' component={Customer_booking} options={{drawerLabel: 'Bestilling'}}/>
                 <CustomerDrawerStack.Screen name='Booking priority' component={Customer_booking_priority} options={{drawerLabel: 'Prioritert bestilling'}}/>
@@ -23,5 +24,11 @@ class CustomerStack extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    mainContainer: {
+        width: 200
+    }
+})
 
 export default CustomerStack
