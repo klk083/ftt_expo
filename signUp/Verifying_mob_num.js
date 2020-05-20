@@ -52,10 +52,6 @@ class Verifying_mob_num extends React.Component {
     //      SEND      NY      KODE
   }
 
-  componentWillUnmount() {
-    alert('unmounted verifying')
-  }
-
   render() {
     console.log(store.getState())
     return (
