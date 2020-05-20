@@ -5,12 +5,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
-import {connect} from 'react-redux'
 
 import { confirmation_msg, taxi_num, taxi_corporation } from '../common_files/Texts'
 import Rating from './Rating'
 
-class Customer_taxi_confirmation extends React.Component {
+export default class Customer_main extends React.Component {
     state = {
         isReviewed: false,
     }
@@ -25,8 +24,8 @@ class Customer_taxi_confirmation extends React.Component {
                 <View style={styles.container}>
                     <View style={styles.info_container}>
                         <Text style={styles.text}>{confirmation_msg}</Text>
-                        <Text style={styles.text}>{taxi_num}{this.props.taxiNumber}</Text>
-                        <Text style={styles.text}>{taxi_corporation}{this.props.companyName}</Text>
+                        <Text style={styles.text}>{taxi_num}{'U-746'}</Text>
+                        <Text style={styles.text}>{taxi_corporation}{'Green Cab'}</Text>
                     </View>
                     {this.state.isReviewed && (
                         <View style={styles.ratingContainer}>
@@ -59,13 +58,6 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        fontSize: RFPercentage(6),
+        fontSize: RFPercentage(7),
     },
 })
-
-const mapStateToProps = (state) => ({
-    companyName: state.order.companyName,
-    taxiNumber: state.order.taxiNumber,
-})
-
-export default connect(mapStateToProps)(Customer_taxi_confirmation)
