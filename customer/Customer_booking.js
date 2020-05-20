@@ -15,7 +15,6 @@ class Customer_booking extends React.Component {
 
     componentDidUpdate() {
         clearInterval(this.interval);
-
     }
 
     searchForDriver = async  () => {
@@ -40,7 +39,6 @@ class Customer_booking extends React.Component {
                     console.log(store.getState())
                 }else{
                     console.log('did try to get taxinumber but failed')
-
                 }
                 })
             .catch(error => {
@@ -48,7 +46,7 @@ class Customer_booking extends React.Component {
             });
     }
 
-    submitCancelationButton = async () => {
+    submitCancellationButton = async () => {
         const tokenGotten = await getToken();
         await fetch(serverIp+ '/cancelOrder', {
             method: 'POST',
@@ -90,7 +88,7 @@ class Customer_booking extends React.Component {
                                     [
                                         {
                                             text: 'Ja',
-                                            onPress: () => this.submitCancelationButton(),
+                                            onPress: () => this.submitCancellationButton(),
                                         },
                                         {},
                                         {
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     token: state.token,
-    orderId: state.order_id.orderId,
+    orderId: state.order.orderId,
 })
 
 export default connect(mapStateToProps)(Customer_booking)

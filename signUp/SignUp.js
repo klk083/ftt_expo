@@ -14,7 +14,7 @@ class SignUp extends React.Component {
   }
 
   handleTlf = text => {
-    this.setState({tlf: text})
+    this.setState({tlf: text.replace(/[^0-9]/g, '')})
     {
       (this.state.tlf.length === 7) ? this.setState({isDisabled: false}) : this.setState({isDisabled: true})
     }
@@ -58,6 +58,7 @@ class SignUp extends React.Component {
                   blurOnSubmit={false}
                   onSubmitEditing={this.enableKeyPress}
                   onChangeText={this.handleTlf}
+                  value={this.state.tlf}
               />
             </View>
             <View style={styles.buttonContainer}>

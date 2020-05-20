@@ -6,7 +6,8 @@ import {
     USER_LOCATION,
     ORDER_ID,
     DEVICE_ID, UPDATE_IS_LOADING,
-    MOB_NUM,
+    MOB_NUM, PERMISSION,
+    ORDER_DATA,
 } from './actionTypes'
 
 // action creators
@@ -32,12 +33,17 @@ export const updateUserType = isDriver => ({
 
 export const updateCustomerLocation = user_location => ({
     type: USER_LOCATION,
-    user_location,
+    user_location: {latitude: user_location.latitude, longitude: user_location.longitude},
 })
 
 export const updateOrderId = orderId => ({
     type: ORDER_ID,
     orderId,
+})
+
+export const updateOrder = order_data => ({
+    type: ORDER_DATA,
+    order_data: {companyName: order_data.companyName, taxiNumber: order_data.taxiNumber}
 })
 
 export const updateDeviceId = deviceId => ({
@@ -53,5 +59,10 @@ export const updateIsLoading = isLoading => ({
 export const updateMobNum = mob_num => ({
     type: MOB_NUM,
     mob_num,
+})
+
+export const updatePermission = permission => ({
+    type: PERMISSION,
+    permission: {errorMessage: permission.errorMessage}
 })
 
