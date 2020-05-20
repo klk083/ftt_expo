@@ -5,7 +5,8 @@ import { getPreciseDistance } from 'geolib'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
-import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation} from '../common_files/Texts'
+import {getToken} from '../common_files/ourFunctions'
+import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation, serverIp} from '../common_files/Texts'
 import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken} from '../redux/actions'
 import store from '../redux/store'
 
@@ -28,6 +29,7 @@ class Customer_main extends React.Component {
         customerPhone: '+4712345678',
         secondLocation: {latitude: 63.430487, longitude: 10.394978},
         deviceId: 'tlf321', //'Funker bare på bare react native',
+        orderId: '',
     }
 
     componentDidMount() {
@@ -98,10 +100,30 @@ class Customer_main extends React.Component {
 
      */
 
-    submitBookingButton = () => {
+    submitBookingButton = async () => {
+
         this.props.updateCustomerLocation({latitude: this.state.latitude, longitude: this.state.longitude})
-        this.props.navigation.navigate('Booking')
-        console.log(store.getState())
+
+        const tokenGotten = await getToken();
+        await fetch(serverIp+ '/makeorder', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                deviceId: this.state.deviceId,
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.text())
+            .then((responseData) => {
+                this.props.updateOrderId(responseData)
+                this.props.navigation.navigate('Booking')
+                console.log(store.getState())
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     render() {
