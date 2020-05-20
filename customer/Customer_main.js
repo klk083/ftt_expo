@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     customerLocation: state.user_location,
-    orderId: state.customerPhone,
+    orderId: state.order,
     deviceId: state.deviceId,
     user: state.isGranted,
     token: state.token,
