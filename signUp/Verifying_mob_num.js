@@ -52,6 +52,10 @@ class Verifying_mob_num extends React.Component {
     //      SEND      NY      KODE
   }
 
+  componentWillUnmount() {
+    alert('unmounted verifying')
+  }
+
   render() {
     console.log(store.getState())
     return (
@@ -66,6 +70,7 @@ class Verifying_mob_num extends React.Component {
             <View style={styles.inputContainer}>
               <TextInput
                   style={styles.code}
+                  behavior='padding'
                   placeholder='--- ---'
                   keyboardAppearance='default'
                   keyboardType='number-pad'

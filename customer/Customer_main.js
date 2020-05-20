@@ -5,15 +5,13 @@ import * as Permissions from 'expo-permissions'
 import { getPreciseDistance } from 'geolib'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
-import store from "../redux/store";
+import store from '../redux/store'
 
 import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation} from '../common_files/Texts'
 import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission} from '../redux/actions'
 
 
-
 class Customer_main extends React.Component {
-
     state = {
         accuracy: '',
         altitude: '',

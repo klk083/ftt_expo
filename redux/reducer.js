@@ -10,6 +10,8 @@ import {
     UPDATE_IS_LOADING,
     MOB_NUM,
     PERMISSION,
+    ORDER_COMPANY_NAME,
+    ORDER_TAXI_NUMBER,
 } from './actionTypes'
 
 const merge = (prev, next) => Object.assign({}, prev, next)
@@ -49,6 +51,8 @@ const order_id = (state = -1, action) => {
     switch (action.type) {
         case ORDER_ID:
             return Object.assign({}, state, {orderId: action.orderId})
+        case ORDER_COMPANY_NAME:
+            return action
         default:
             return state
     }
