@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
 import * as Location from 'expo-location'
+import * as Permissions from 'expo-permissions'
 import { getPreciseDistance } from 'geolib'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
@@ -10,6 +11,8 @@ import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation, 
 import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken} from '../redux/actions'
 import store from '../redux/store'
 
+import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation} from '../common_files/Texts'
+import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission, updateOrder} from '../redux/actions'
 
 
 class Customer_main extends React.Component {
@@ -33,23 +36,17 @@ class Customer_main extends React.Component {
     }
 
     componentDidMount() {
-        //this.getDeviceId()            KAN FJERNES ETTERHVERT
+        //this.getDeviceId()         <=   KAN FJERNES ETTERHVERT
         this.getLocationAsync().catch()
+        this.props.updateOrderId(-1)
+        this.props.updateOrder({companyName: 'TRØNDER TAXI', taxiNumber: 'U-101'})
         this.props.updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`)
-        this.props.updateDeviceId(`${this.state.deviceId}`)
-        this.props.updateOrderId(98372489)
     }
 
     getLocationAsync = async () => {
-        let {status} = await Location.requestPermissionsAsync()
+        let {status} = await Permissions.askAsync(Permissions.LOCATION)
         if (status === 'granted'){
-            this.setState({errorMessage: 'granted', isGranted: true})
-        }
-        if (status !== 'granted') {
-            this.setState({
-                errorMessage: 'Du må slå på lokasjonen for å bruke appen',
-                isGranted: false,
-            })
+            this.props.updatePermission({errorMessage: 'granted'})
         }
 
         let location = await Location.getCurrentPositionAsync({
@@ -75,7 +72,8 @@ class Customer_main extends React.Component {
 
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
-        this.setState({location: {latitude, longitude}})
+        //this.setState({location: {latitude, longitude}})
+        this.props.updateCustomerLocation({latitude: latitude, longitude: longitude})
     }
 
     getGeocodeAsync = async (location) => {
@@ -263,11 +261,13 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => ({
-    customerLocation: `${state.latitude},${state.longitude}`,
+    customerLocation: state.user_location,
     orderId: state.customerPhone,
     deviceId: state.deviceId,
     user: state.isGranted,
     token: state.token,
+    mobileNumber: state.mobileNumber,
+    permission: state.updatePermission
 })
 
 const mapDispatchToProps = {
@@ -275,6 +275,8 @@ const mapDispatchToProps = {
     updateToken,
     updateOrderId,
     updateDeviceId,
+    updatePermission,
+    updateOrder,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)

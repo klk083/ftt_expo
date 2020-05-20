@@ -9,6 +9,8 @@ import {
     DEVICE_ID,
     UPDATE_IS_LOADING,
     MOB_NUM,
+    PERMISSION,
+    ORDER_DATA,
 } from './actionTypes'
 
 const merge = (prev, next) => Object.assign({}, prev, next)
@@ -38,16 +40,18 @@ const mobileNumber = (state = '', action) => {
 const user_location = (state = '', action) => {
     switch (action.type) {
         case USER_LOCATION:
-            return Object.assign({}, state, {user_location: action.user_location})
+            return action.user_location
         default:
             return state
     }
 }
 
-const order_id = (state = -1, action) => {
+const order = (state = ORDER_DATA, action) => {
     switch (action.type) {
         case ORDER_ID:
             return Object.assign({}, state, {orderId: action.orderId})
+        case ORDER_DATA:
+            return action.order_data
         default:
             return state
     }
@@ -80,14 +84,24 @@ const token = (state = '', action) => {
     }
 }
 
+const permission = (state = {errorMessage: 'Du må slå på lokasjonen for å bruke appen'}, action) => {
+    switch (action.type) {
+        case PERMISSION:
+            return action.permission
+        default:
+            return state
+    }
+}
+
 const reducer = combineReducers({
     userType,
     user_location,
-    order_id,
+    order,
     device_id,
     loading,
     token,
     mobileNumber,
+    permission,
 })
 
 export default reducer

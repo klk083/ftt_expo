@@ -21,18 +21,18 @@ const AppStack = createStackNavigator()
 
 class AppStackScreen extends React.Component {
     constructor() {
-        super();
-        Text.defaultProps = Text.defaultProps || {};
+        super()
+        Text.defaultProps = Text.defaultProps || {}
         // Ignore dynamic type scaling
-        Text.defaultProps.allowFontScaling = false;
-        TextInput.defaultProps = TextInput.defaultProps || {};
+        Text.defaultProps.allowFontScaling = false
+        TextInput.defaultProps = TextInput.defaultProps || {}
         // Ignore dynamic type scaling
-        TextInput.defaultProps.allowFontScaling = false;
+        TextInput.defaultProps.allowFontScaling = false
     }
 
     componentDidMount() {
         store.getState() // kan fjernes etterhvert
-        setTimeout(() => SplashScreen, 1000)
+        //setTimeout(() => SplashScreen, 1000)
     }
 
     render() {
