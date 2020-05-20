@@ -26,6 +26,10 @@ export const km = ' km'
 export const wrong_number = 'Feil nummer?'
 export const confirm = 'BEKREFT'
 
+//all texts
+export const secretKey = '4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15'
+export const serverIp = 'http://192.168.1.12:8080' // local sever kenneth
+//export const severIp = 'ftt.idi.ntnu.no:443' // server at ntnu
 
 // customer texts
 export const book_taxi = 'Bestill\ntaxi'
