@@ -122,6 +122,7 @@ class Customer_main extends React.Component {
 
     render() {
         const {geocode} = this.state
+        console.log(this.props)
 
         return (
             <SafeAreaView style={styles.safeAreaView}>
