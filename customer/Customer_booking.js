@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 
 import {cancel_taxi, looking_for_taxi, serverIp} from '../common_files/Texts'
 import {getToken} from "../common_files/ourFunctions";
+import {updateOrder} from "../redux/actions"
 import store from "../redux/store";
 
 class Customer_booking extends React.Component {
@@ -31,8 +32,8 @@ class Customer_booking extends React.Component {
             .then((json) => {
                 console.log(json)
                 if (json.length) {
-                    console.log(json[0].taxiNumber) // these should be stored
-                    console.log(json[0].companyName) // these should be stored
+                    // this line needs to be corrrected, look if mapStateToProps is correct
+                    //this.props.updateOrder(json[0].taxiNumber, json[0].companyName)
                     clearInterval(this.interval);
                     console.log('try to navigate to booking confimataion')
                     this.props.navigation.navigate('Booking confirmation')
@@ -153,6 +154,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     token: state.token,
     orderId: state.order.orderId,
+    //taxiNumber: state.order_data.taxiNumber,
+    //companyName: state.order_data.companyName,
 })
 
 export default connect(mapStateToProps)(Customer_booking)
