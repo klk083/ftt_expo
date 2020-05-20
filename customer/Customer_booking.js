@@ -32,6 +32,8 @@ class Customer_booking extends React.Component {
             .then((json) => {
                 console.log(json)
                 if (json.length) {
+                    console.log(json[0].taxiNumber) // these should be stored
+                    console.log(json[0].companyName) // these should be stored
                     clearInterval(this.interval);
                     console.log('try to navigate to booking confimataion')
                     this.props.navigation.navigate('Booking confirmation')

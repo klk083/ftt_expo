@@ -24,8 +24,8 @@ export default class Customer_main extends React.Component {
                 <View style={styles.container}>
                     <View style={styles.info_container}>
                         <Text style={styles.text}>{confirmation_msg}</Text>
-                        <Text style={styles.text}>{taxi_num}{'U-746'}</Text>
-                        <Text style={styles.text}>{taxi_corporation}{'Green Cab'}</Text>
+                        <Text style={styles.text}>{taxi_num}{'U-746'}</Text> // should get the taxi number form props
+                        <Text style={styles.text}>{taxi_corporation}{'Green Cab'}</Text> // should get the taxi number form props
                     </View>
                     {this.state.isReviewed && (
                         <View style={styles.ratingContainer}>
