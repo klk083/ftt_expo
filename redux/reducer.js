@@ -10,8 +10,7 @@ import {
     UPDATE_IS_LOADING,
     MOB_NUM,
     PERMISSION,
-    ORDER_COMPANY_NAME,
-    ORDER_TAXI_NUMBER,
+    ORDER_DATA,
 } from './actionTypes'
 
 const merge = (prev, next) => Object.assign({}, prev, next)
@@ -47,12 +46,12 @@ const user_location = (state = '', action) => {
     }
 }
 
-const order_id = (state = -1, action) => {
+const order = (state = ORDER_DATA, action) => {
     switch (action.type) {
         case ORDER_ID:
             return Object.assign({}, state, {orderId: action.orderId})
-        case ORDER_COMPANY_NAME:
-            return action
+        case ORDER_DATA:
+            return action.order_data
         default:
             return state
     }
@@ -97,7 +96,7 @@ const permission = (state = {errorMessage: 'Du må slå på lokasjonen for å br
 const reducer = combineReducers({
     userType,
     user_location,
-    order_id,
+    order,
     device_id,
     loading,
     token,

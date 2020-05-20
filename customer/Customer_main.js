@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import store from '../redux/store'
 
 import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation} from '../common_files/Texts'
-import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission} from '../redux/actions'
+import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission, updateOrder} from '../redux/actions'
 
 
 class Customer_main extends React.Component {
@@ -31,8 +31,10 @@ class Customer_main extends React.Component {
     }
 
     componentDidMount() {
-        //this.getDeviceId()            KAN FJERNES ETTERHVERT
+        //this.getDeviceId()         <=   KAN FJERNES ETTERHVERT
         this.getLocationAsync().catch()
+        this.props.updateOrderId(-1)
+        this.props.updateOrder({companyName: 'TRØNDER TAXI', taxiNumber: 'U-101'})
         this.props.updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`)
     }
 
@@ -249,6 +251,7 @@ const mapDispatchToProps = {
     updateOrderId,
     updateDeviceId,
     updatePermission,
+    updateOrder,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)
