@@ -8,11 +8,8 @@ import {connect} from 'react-redux'
 
 import {getToken} from '../common_files/ourFunctions'
 import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation, serverIp} from '../common_files/Texts'
-import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken} from '../redux/actions'
-import store from '../redux/store'
-
-import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation} from '../common_files/Texts'
 import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission} from '../redux/actions'
+import store from '../redux/store'
 
 
 class Customer_main extends React.Component {
