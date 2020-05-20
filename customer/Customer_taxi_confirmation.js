@@ -30,7 +30,7 @@ class Customer_taxi_confirmation extends React.Component {
                     </View>
                     {this.state.isReviewed && (
                         <View style={styles.ratingContainer}>
-                            <Rating/>
+                            <Rating {...this.props} />
                         </View>
                     )}
                 </View>
