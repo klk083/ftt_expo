@@ -7,7 +7,6 @@ import {
     ORDER_ID,
     DEVICE_ID, UPDATE_IS_LOADING,
     MOB_NUM, PERMISSION,
-    ORDER_DATA,
 } from './actionTypes'
 
 // action creators
@@ -39,11 +38,6 @@ export const updateCustomerLocation = user_location => ({
 export const updateOrderId = orderId => ({
     type: ORDER_ID,
     orderId,
-})
-
-export const updateOrder = order_data => ({
-    type: ORDER_DATA,
-    order_data: {companyName: order_data.companyName, taxiNumber: order_data.taxiNumber}
 })
 
 export const updateDeviceId = deviceId => ({
