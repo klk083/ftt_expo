@@ -3,9 +3,70 @@ import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, Saf
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
-import {cancel_taxi, looking_for_taxi} from '../common_files/Texts'
+import {cancel_taxi, looking_for_taxi, serverIp} from '../common_files/Texts'
+import {getToken} from "../common_files/ourFunctions";
+import store from "../redux/store";
 
 class Customer_booking extends React.Component {
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.searchForDriver(), 10000);
+    }
+
+    componentDidUpdate() {
+        clearInterval(this.interval);
+
+    }
+
+    searchForDriver = async  () => {
+        const tokenGotten = await getToken();
+        await fetch(serverIp+ '/getOrderTaxiNum', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                orderId: this.props.orderId,
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json)
+                if (json.length) {
+                    clearInterval(this.interval);
+                    console.log('try to navigate to booking confimataion')
+                    this.props.navigation.navigate('Booking confirmation')
+                    console.log(store.getState())
+                }else{
+                    console.log('did try to get taxinumber but failed')
+
+                }
+                })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    submitCancelationButton = async () => {
+        const tokenGotten = await getToken();
+        await fetch(serverIp+ '/cancelOrder', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                orderId: this.props.orderId,
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.text())
+            .then((responseData) => {
+                clearInterval(this.interval);
+                this.props.navigation.navigate('Home')
+                console.log(store.getState())
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -27,7 +88,7 @@ class Customer_booking extends React.Component {
                                     [
                                         {
                                             text: 'Ja',
-                                            onPress: () => this.props.navigation.navigate('Home')//reset({index: 0, routes: [{name: 'Home'}]}),
+                                            onPress: () => this.submitCancelationButton(),
                                         },
                                         {},
                                         {
@@ -91,6 +152,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     token: state.token,
+    orderId: state.order_id.orderId,
 })
 
 export default connect(mapStateToProps)(Customer_booking)
