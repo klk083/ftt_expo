@@ -4,7 +4,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize'
 
 import {cancel_taxi, looking_for_taxi_priority, priority_price, buy_yourself_out_of_queue} from '../common_files/Texts'
 
-export default class Customer_main extends React.Component {
+export default class Customer_booking_priority extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -38,13 +38,15 @@ export default class Customer_main extends React.Component {
                                     [
                                         {
                                             text: 'Ja',
-                                            onPress: () => this.props.navigation.navigate('Home'),
+                                            onPress: () => this.props.navigation.reset({
+                                                index: 0,
+                                                routes: [{name: 'Home'}]
+                                            }),
                                         },
                                         {},
                                         {
                                             text: 'Nei',
-                                            onPress: () => {
-                                            },
+                                            onPress: () => {},
                                             style: 'cancel',
                                         },
                                     ],

@@ -30,13 +30,15 @@ export default class Customer_main extends React.Component {
                                     [
                                         {
                                             text: 'Ja',
-                                            onPress: () => this.props.navigation.navigate('Home'),
+                                            onPress: () => this.props.navigation.reset({
+                                                index: 0,
+                                                routes: [{name: 'Home'}]
+                                            }),
                                         },
                                         {},
                                         {
                                             text: 'Nei',
-                                            onPress: () => {
-                                            },
+                                            onPress: () => {},
                                             style: 'cancel',
                                         },
                                     ],
