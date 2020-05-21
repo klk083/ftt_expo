@@ -9,10 +9,10 @@ install:
   stage: build
   script:
     - npm install
-  # Keep node_modules-folder for the following stages:
-  #artifacts:
-   # paths:
-    #  - node_modules
+#   Keep node_modules-folder for the following stages:
+#  artifacts:
+#    paths:
+#      - node_modules
 
 test:
   stage: test # Job test will run in parallel with the job flow
@@ -35,8 +35,8 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - apt-get update
     - apt-get install --assume-yes rsync
-    - ssh app@10.52.229.34 systemctl --user restart app
-    - rsync --archive --delete --exclude='.git' --exclude='node_modules' . app@10.52.229.34:app
+#    - ssh app@10.52.229.34 systemctl --user restart app
+#    - rsync --archive --delete --exclude='.git' --exclude='node_modules' . app@10.52.229.34:app
 
   only:
     - master
