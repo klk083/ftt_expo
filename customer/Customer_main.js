@@ -39,6 +39,10 @@ class Customer_main extends React.Component {
         this.props.updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`)
     }
 
+    componentWillUnmount() {
+        this.getLocationAsync().catch()
+    }
+
     getLocationAsync = async () => {
         let {status} = await Permissions.askAsync(Permissions.LOCATION)
         if (status === 'granted'){
