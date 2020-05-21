@@ -1,14 +1,22 @@
 import React from 'react'
-import { View, Text, StyleSheet, Switch, SafeAreaView, Platform } from 'react-native'
+import {View, Text, StyleSheet, Switch, SafeAreaView, Platform, TouchableOpacity} from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import {driver_available, driver_not_available, priority_orders, orders, serverIp} from '../common_files/Texts'
+import {
+    driver_available,
+    driver_not_available,
+    priority_orders,
+    orders,
+    serverIp,
+    book_taxi, basic_price
+} from '../common_files/Texts'
 import Orders, { compareDistKm } from './Orders'
 import SectionListCustomers from './SectionListCustomers'
 import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
 import {getPreciseDistance} from 'geolib'
 import {getToken} from "../common_files/ourFunctions";
+import {getOrders} from "./OrdersFromServer";
 import store from "../redux/store";
 
 export default class Driver_main extends React.Component {
@@ -83,34 +91,6 @@ export default class Driver_main extends React.Component {
     }
 
      */
-
-    getOrders = async  () => {
-        const tokenGotten = await getToken();
-        await fetch(serverIp+ '/getorders', {
-            method: 'GET',
-            headers: {'content-type': 'application/json'},
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json)
-
-                if (json.length) {
-                    console.log(json[0].taxiNumber) // these should be stored
-                    console.log(json[0].companyName) // these should be stored
-                    clearInterval(this.interval);
-                    console.log('try to navigate to booking confimataion')
-                    this.props.navigation.navigate('Booking confirmation')
-                    console.log(store.getState())
-                }else{
-                    console.log('did try to get taxinumber but failed')
-
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-
 
 
 

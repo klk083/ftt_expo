@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 
 import {cancel_taxi, looking_for_taxi, serverIp} from '../common_files/Texts'
 import {getToken} from "../common_files/ourFunctions";
-import {updateOrder} from "../redux/actions"
+import {updateOrder} from "../redux/actions";
 import store from "../redux/store";
 
 class Customer_booking extends React.Component {
