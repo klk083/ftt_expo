@@ -59,7 +59,10 @@ class Customer_booking extends React.Component {
             .then((response) => response.text())
             .then((responseData) => {
                 clearInterval(this.interval);
-                this.props.navigation.navigate('Home')
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Home'}]
+                })
                 console.log(store.getState())
             })
             .catch(error => {

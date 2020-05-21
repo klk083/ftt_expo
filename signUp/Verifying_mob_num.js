@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert,
   TextInput,
   SafeAreaView,
   KeyboardAvoidingView,

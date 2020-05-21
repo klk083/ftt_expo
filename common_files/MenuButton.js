@@ -1,7 +1,6 @@
 import React from 'react'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import { RFPercentage } from 'react-native-responsive-fontsize'
-import {DrawerActions} from "react-navigation";
 
 
 export default class MenuButton extends React.Component {

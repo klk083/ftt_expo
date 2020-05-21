@@ -20,6 +20,7 @@ class Customer_taxi_confirmation extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -30,7 +31,7 @@ class Customer_taxi_confirmation extends React.Component {
                     </View>
                     {this.state.isReviewed && (
                         <View style={styles.ratingContainer}>
-                            <Rating/>
+                            <Rating {...this.props} />
                         </View>
                     )}
                 </View>

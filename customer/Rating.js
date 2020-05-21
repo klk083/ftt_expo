@@ -21,14 +21,16 @@ export default class Rating extends React.Component {
             [
                 {
                     text: 'Endre vurdering',
-                    onPress: () => {
-                    },
+                    onPress: () => {},
                     style: 'cancel',
                 },
                 {},
                 {
                     text: 'Gi vurdering',
-                    onPress: () => this.props.navigation.navigate('Home')
+                    onPress: () => this.props.navigation.reset({
+                        index: 0,
+                        routes: [{name: 'Home'}]
+                    }),
                 },
             ]
         )
@@ -76,7 +78,10 @@ export default class Rating extends React.Component {
                         <TouchableOpacity style={styles.touchableNoThanksContainer}>
                             <Text
                                 style={styles.no_thanks}
-                                onPress={() => this.props.navigation.navigate('Customer Stack')}
+                                onPress={() => this.props.navigation.reset({
+                                    index: 0,
+                                    routes: [{name: 'Home'}]
+                                })}
                             >{no_thanks}</Text>
                         </TouchableOpacity>
                     </View>
