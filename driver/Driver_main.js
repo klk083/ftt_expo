@@ -1,13 +1,23 @@
 import React from 'react'
-import { View, Text, StyleSheet, Switch, SafeAreaView, Platform } from 'react-native'
+import {View, Text, StyleSheet, Switch, SafeAreaView, Platform, TouchableOpacity} from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 
-import {driver_available, driver_not_available, priority_orders, orders } from '../common_files/Texts'
+import {
+    driver_available,
+    driver_not_available,
+    priority_orders,
+    orders,
+    serverIp,
+    book_taxi, basic_price
+} from '../common_files/Texts'
 import Orders, { compareDistKm } from './Orders'
 import SectionListCustomers from './SectionListCustomers'
 import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
 import {getPreciseDistance} from 'geolib'
+import {getToken} from "../common_files/ourFunctions";
+import {getOrders} from "./OrdersFromServer";
+import store from "../redux/store";
 
 export default class Driver_main extends React.Component {
     state = {
@@ -81,6 +91,8 @@ export default class Driver_main extends React.Component {
     }
 
      */
+
+
 
     render() {
         return (
