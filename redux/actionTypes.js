@@ -13,6 +13,7 @@ export const DEVICE_ID = 'DEVICE_ID'
 export const UPDATE_IS_LOADING = 'UPDATE_IS_LOADING'
 export const MOBILE_NUMBER = 'MOBILE_NUMBER'
 export const PERMISSION = 'PERMISSION'
+export const DRIVER_IS_AVAILABLE = 'DRIVER_IS_AVAILABLE'
 
 
 //(latitude, longitude, orderId, priority) og lager en ordreList som skal inneholde listen av ordre objekter

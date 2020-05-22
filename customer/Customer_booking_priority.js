@@ -17,7 +17,6 @@ class Customer_booking_priority extends React.Component {
 
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.cancellationAlert)
-        NavigationActions.addEventListener('toggleDrawer', this.menuPressToggleDrawer)
     }
 
     componentDidUpdate() {
@@ -26,11 +25,6 @@ class Customer_booking_priority extends React.Component {
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.cancellationAlert)
-        NavigationActions.removeEventListener('toggleDrawer', this.menuPressToggleDrawer)
-    }
-
-    menuPressToggleDrawer = () => {
-        this.props.navigation.toggleDrawer()
     }
 
 

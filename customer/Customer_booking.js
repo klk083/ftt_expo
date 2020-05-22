@@ -37,7 +37,7 @@ class Customer_booking extends React.Component {
                 console.log(json)
                 if (json.length) {
                     clearInterval(this.interval);
-                    console.log('try to navigate to booking confimataion')
+                    console.log('try to navigate to booking confirmation')
                     this.props.navigation.navigate('Booking confirmation')
                 }else{
                     console.log('did try to get taxinumber but failed')

@@ -1,14 +1,8 @@
 import {
-    UPDATE_IS_DRIVER,
-    UPDATE_TOKEN,
-    UPDATE_CONTACT,
-    UPDATE_USER,
-    USER_LOCATION,
-    ORDER_ID,
-    DEVICE_ID, UPDATE_IS_LOADING,
-    MOBILE_NUMBER, PERMISSION,
-    ORDER_DATA, PRIORITY, ORDER_LIST_DATA,
+    UPDATE_IS_DRIVER, UPDATE_TOKEN, UPDATE_CONTACT, UPDATE_USER, USER_LOCATION, ORDER_ID, DEVICE_ID, UPDATE_IS_LOADING,
+    MOBILE_NUMBER, PERMISSION, ORDER_DATA, PRIORITY, ORDER_LIST_DATA, DRIVER_IS_AVAILABLE,
 } from './actionTypes'
+import {isAvailable} from "expo/build/AR";
 
 // action creators
 export const updateUser = update => ({
@@ -76,3 +70,7 @@ export const updatePermission = permission => ({
     permission: {location: permission.location}
 })
 
+export const driver_is_available = driver_is_available => ({
+    type: DRIVER_IS_AVAILABLE,
+    driver_is_available,
+})

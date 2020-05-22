@@ -24,7 +24,7 @@ const contactReducer = (state = [], action) => {
     return state
 }
 
-const initial_userType = false
+const initial_userType = 'true'
 const userType = (state = initial_userType, action) => {
     switch (action.type) {
         case UPDATE_IS_DRIVER:
@@ -74,11 +74,13 @@ const updatePriority = (state = initial_updatePriority, action) => {
     }
 }
 
-const initial_updateOrderList = []
-const updateOrderList = (state = initial_updateOrderList, action) => {
+const initial_updateOrderList = [{latitude: 99.99999, longitude: 99.99999, orderId: 999, priority: 0}, {latitude: 66.66666, longitude: 66.666666, orderId: 666, priority: 1}]
+const orderList = (state = initial_updateOrderList, action) => {
     switch (action.type) {
         case ORDER_LIST_DATA:
-            return action.orderListData
+            return [action.orderListData]
+        default:
+            return state
     }
 }
 
@@ -92,7 +94,7 @@ const device_id = (state = initial_device_id, action) => {
     }
 }
 
-const initial_loading = true
+const initial_loading = 'true'
 const loading = (state = initial_loading, action) => {
     switch (action.type) {
         case UPDATE_IS_LOADING:
@@ -132,6 +134,7 @@ const reducer = combineReducers({
     mobileNumber,
     permission,
     updatePriority,
+    orderList
 })
 
 export default reducer
