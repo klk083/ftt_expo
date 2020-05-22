@@ -153,7 +153,7 @@ class Customer_main extends React.Component {
                                 <Text style={styles.locationAddress}>
                                     {geocode ? `${geocode[0].street} ${geocode[0].name}` : ''}
                                 </Text>
-                                <Text style={styles.locationAddress} onPress={() => this.props.navigation.toggleDrawer()}>TOGGLE DRAWER</Text>
+                                <Text style={styles.locationAddress} onPress={() => this.props.navigation.toggleDrawer()}>{this.props.route.name}</Text>
                             </View>
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity style={styles.textBookingButtonContainer}>

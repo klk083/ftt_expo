@@ -1,6 +1,10 @@
 import React from 'react'
 import {View, Text, StyleSheet, Switch, SafeAreaView, Platform, TouchableOpacity} from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
+import * as Permissions from 'expo-permissions'
+import * as Location from 'expo-location'
+import {getPreciseDistance} from 'geolib'
+import {connect} from 'react-redux'
 
 import {
     driver_available,
@@ -19,7 +23,8 @@ import {getToken} from "../common_files/ourFunctions";
 import {getOrders} from "./OrdersFromServer";
 import store from "../redux/store";
 
-export default class Driver_main extends React.Component {
+
+class Driver_main extends React.Component {
     state = {
         isAvailable: false,
         orders: Orders,
@@ -95,6 +100,7 @@ export default class Driver_main extends React.Component {
 
 
     render() {
+        console.log('HER ER LISTA: ' + this.props.orderList[0].latitude)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -109,6 +115,28 @@ export default class Driver_main extends React.Component {
                             style={Platform.OS === 'ios' ? styles.switch_ios : styles.switch_android}
                         />
                     </View>
+
+
+
+
+                    {!this.state.isAvailable && (
+                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center',borderWidth:5, borderColor: 'red'}}>
+                        <Text>HER ER LISTA HENTET FRA MOBILEN{`\n`}{`\n`}</Text>
+                        <Text>Det første objektet{`\n`}</Text>
+                        <Text>Latitude: {this.props.orderList[0].latitude}</Text>
+                        <Text>Longitude: {this.props.orderList[0].longitude}</Text>
+                        <Text>OrderId: {this.props.orderList[0].orderId}</Text>
+                        <Text>Priority: {this.props.orderList[0].priority}{`\n`}{`\n`}</Text>
+                        <Text>Det andre objektet{`\n`}</Text>
+                        <Text>Latitude: {this.props.orderList[1].latitude}</Text>
+                        <Text>Longitude: {this.props.orderList[1].longitude}</Text>
+                        <Text>OrderId: {this.props.orderList[1].orderId}</Text>
+                        <Text>Priority: {this.props.orderList[1].priority}</Text>
+                    </View>)}
+
+
+
+
                     {this.state.isAvailable && (
                         <View style={styles.orderContainer}>
                             <View style={styles.priorityOrdersContainer}>
@@ -117,7 +145,7 @@ export default class Driver_main extends React.Component {
                                           onPress={() => this.props.navigation.navigate('Driver Order')}
                                     >{priority_orders}</Text>
                                 </View>
-                                <View style={styles.prioritySectionListContainer}>
+                                <View style={styles.basicSectionListContainer}>
                                     <SectionListCustomers contacts={this.state.orders}/>
                                 </View>
                             </View>
@@ -204,3 +232,13 @@ const styles = StyleSheet.create({
         color: 'darkseagreen',
     },
 })
+
+const mapStateToProps = (state) => ({
+    orderList: state.orderList,
+})
+
+const mapDispatchToProps = ({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Driver_main)

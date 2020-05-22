@@ -36,7 +36,7 @@ class AppStackScreen extends React.Component {
     }
 
     render() {
-        if (this.props.isLoading) return <SplashScreen/>
+        if (this.props.isLoading === 'true') return <SplashScreen/>
         return (
             <NavigationContainer>
                 {this.props.token === '' ? (
@@ -66,7 +66,7 @@ class AppStackScreen extends React.Component {
                             headerTitle: false,
                         }}
                     >
-                        {this.props.driver ? (
+                        {this.props.driver === 'true' ? (
                             <AppStack.Screen name='Driver Stack' component={DriverStack}/>
                         ) : (
                             <AppStack.Screen name='Customer Stack' component={CustomerStack}/>
