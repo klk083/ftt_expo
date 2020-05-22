@@ -8,10 +8,14 @@ import {
     ORDER_ID,
     DEVICE_ID,
     UPDATE_IS_LOADING,
-    MOB_NUM,
+    MOBILE_NUMBER,
     PERMISSION,
-    ORDER_DATA
+    ORDER_DATA,
+    ORDER_LIST_DATA,
+    COMPANY_NAME,
+    TAXI_NUMBER, PRIORITY,
 } from './actionTypes'
+import {updateOrderId} from "./actions";
 
 const merge = (prev, next) => Object.assign({}, prev, next)
 
@@ -20,7 +24,8 @@ const contactReducer = (state = [], action) => {
     return state
 }
 
-const userType = (state = false, action) => {
+const initial_userType = false
+const userType = (state = initial_userType, action) => {
     switch (action.type) {
         case UPDATE_IS_DRIVER:
             return action.isDriver
@@ -28,16 +33,19 @@ const userType = (state = false, action) => {
             return state
     }
 }
-const mobileNumber = (state = '', action) => {
+
+const initial_mobileNumber = '-1'
+const mobileNumber = (state = initial_mobileNumber, action) => {
     switch (action.type) {
-        case MOB_NUM:
-            return action.mob_num
+        case MOBILE_NUMBER:
+            return action.mobileNumber
         default:
             return state
     }
 }
 
-const user_location = (state = '', action) => {
+const initial_user_location = {latitude: 63.430487, longitude: 10.394978}
+const user_location = (state = initial_user_location, action) => {
     switch (action.type) {
         case USER_LOCATION:
             return action.user_location
@@ -46,10 +54,9 @@ const user_location = (state = '', action) => {
     }
 }
 
-const order = (state = ORDER_DATA, action) => {
+const initial_order = {companyName: 'COMPANY_NAME', taxiNumber: 'TAXI_NUMBER'}
+const order = (state = initial_order, action) => {
     switch (action.type) {
-        case ORDER_ID:
-            return Object.assign({}, state, {orderId: action.orderId})
         case ORDER_DATA:
             return action.order_data
         default:
@@ -57,7 +64,26 @@ const order = (state = ORDER_DATA, action) => {
     }
 }
 
-const device_id = (state = '', action) => {
+const initial_updatePriority = 0
+const updatePriority = (state = initial_updatePriority, action) => {
+    switch (action.type) {
+        case PRIORITY:
+            return action.priority
+        default:
+            return state
+    }
+}
+
+const initial_updateOrderList = []
+const updateOrderList = (state = initial_updateOrderList, action) => {
+    switch (action.type) {
+        case ORDER_LIST_DATA:
+            return action.orderListData
+    }
+}
+
+const initial_device_id = {deviceId: '0'}
+const device_id = (state = initial_device_id, action) => {
     switch (action.type) {
         case DEVICE_ID:
             return Object.assign({}, state, {deviceId: action.deviceId})
@@ -66,7 +92,8 @@ const device_id = (state = '', action) => {
     }
 }
 
-const loading = (state = true, action) => {
+const initial_loading = true
+const loading = (state = initial_loading, action) => {
     switch (action.type) {
         case UPDATE_IS_LOADING:
             return action.isLoading
@@ -75,7 +102,8 @@ const loading = (state = true, action) => {
     }
 }
 
-const token = (state = '', action) => {
+const initial_token = '0'
+const token = (state = initial_token, action) => {
     switch (action.type) {
         case UPDATE_TOKEN:
             return action.token
@@ -84,7 +112,8 @@ const token = (state = '', action) => {
     }
 }
 
-const permission = (state = {errorMessage: 'Du må slå på lokasjonen for å bruke appen'}, action) => {
+const initial_permission = {location: 'none'}
+const permission = (state = initial_permission, action) => {
     switch (action.type) {
         case PERMISSION:
             return action.permission
@@ -102,6 +131,7 @@ const reducer = combineReducers({
     token,
     mobileNumber,
     permission,
+    updatePriority,
 })
 
 export default reducer

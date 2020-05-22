@@ -36,7 +36,6 @@ class Customer_booking extends React.Component {
                     clearInterval(this.interval);
                     console.log('try to navigate to booking confimataion')
                     this.props.navigation.navigate('Booking confirmation')
-                    console.log(store.getState())
                 }else{
                     console.log('did try to get taxinumber but failed')
                 }
@@ -63,7 +62,6 @@ class Customer_booking extends React.Component {
                     index: 0,
                     routes: [{name: 'Home'}]
                 })
-                console.log(store.getState())
             })
             .catch(error => {
                 console.error(error);
@@ -71,6 +69,9 @@ class Customer_booking extends React.Component {
     }
 
     render() {
+        console.log('CUSTOMER_BOOKING: ')
+        console.log(store.getState())
+
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
