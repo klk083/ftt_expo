@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform, BackHandler } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
@@ -11,10 +11,15 @@ class Customer_booking extends React.Component {
 
     componentDidMount() {
         this.interval = setInterval(() => this.searchForDriver(), 10000);
+        BackHandler.addEventListener('hardwareBackPress', this.cancellationAlert)
     }
 
     componentDidUpdate() {
         clearInterval(this.interval);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.cancellationAlert)
     }
 
     searchForDriver = async  () => {
@@ -43,6 +48,29 @@ class Customer_booking extends React.Component {
             });
     }
 
+    cancellationAlert = () => {
+        Alert.alert(
+            'Avbestilling',
+            'Vil du avbestille taxi likevel?',
+            [
+                {
+                    text: 'Nei',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {},
+                {
+                    text: 'Ja',
+                    onPress: () => this.submitCancellationButton(),
+                },
+            ],
+            {
+                cancelable: false
+            },
+        )
+        return true
+    }
+
     submitCancellationButton = async () => {
         const tokenGotten = await getToken();
         await fetch(serverIp+ '/cancelOrder', {
@@ -67,8 +95,8 @@ class Customer_booking extends React.Component {
     }
 
     render() {
-        console.log('CUSTOMER_BOOKING: ')
-        console.log(store.getState())
+        //console.log('CUSTOMER_BOOKING: ')
+        //console.log(store.getState())
 
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -84,25 +112,7 @@ class Customer_booking extends React.Component {
                         <TouchableOpacity style={styles.touchableCancelButtonContainer}>
                             <Text
                                 style={styles.cancel_button}
-                                onPress={() => Alert.alert(
-                                    'Avbestilling',
-                                    'Vil du avbestille taxi likevel?',
-                                    [
-                                        {
-                                            text: 'Ja',
-                                            onPress: () => this.submitCancellationButton(),
-                                        },
-                                        {},
-                                        {
-                                            text: 'Nei',
-                                            onPress: () => {},
-                                            style: 'cancel',
-                                        },
-                                    ],
-                                    {
-                                        cancelable: false
-                                    },
-                                )}
+                                onPress={() => this.cancellationAlert()}
                             >{cancel_taxi}</Text>
                         </TouchableOpacity>
                     </View>

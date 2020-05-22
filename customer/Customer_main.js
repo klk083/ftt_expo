@@ -58,6 +58,7 @@ class Customer_main extends React.Component {
 
     componentWillUnmount() {
         this.mounted_Customer_main = false
+        BackHandler.removeEventListener('hardwareBackPress', this.backAction)
     }
 
     getLocationAsync = async () => {
