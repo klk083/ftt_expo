@@ -16,9 +16,6 @@ import {
 } from '../common_files/Texts'
 import Orders, { compareDistKm } from './Orders'
 import SectionListCustomers from './SectionListCustomers'
-import * as Permissions from 'expo-permissions'
-import * as Location from 'expo-location'
-import {getPreciseDistance} from 'geolib'
 import {getToken} from "../common_files/ourFunctions";
 import {getOrders} from "./OrdersFromServer";
 import store from "../redux/store";
