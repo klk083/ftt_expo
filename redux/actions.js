@@ -1,14 +1,8 @@
 import {
-    UPDATE_IS_DRIVER,
-    UPDATE_TOKEN,
-    UPDATE_CONTACT,
-    UPDATE_USER,
-    USER_LOCATION,
-    ORDER_ID,
-    DEVICE_ID, UPDATE_IS_LOADING,
-    MOB_NUM, PERMISSION,
-    ORDER_DATA,
+    UPDATE_IS_DRIVER, UPDATE_TOKEN, UPDATE_CONTACT, UPDATE_USER, USER_LOCATION, ORDER_ID, DEVICE_ID, UPDATE_IS_LOADING,
+    MOBILE_NUMBER, PERMISSION, ORDER_DATA, PRIORITY, ORDER_LIST_DATA, DRIVER_IS_AVAILABLE,
 } from './actionTypes'
+import {isAvailable} from "expo/build/AR";
 
 // action creators
 export const updateUser = update => ({
@@ -43,7 +37,17 @@ export const updateOrderId = orderId => ({
 
 export const updateOrder = order_data => ({
     type: ORDER_DATA,
-    order_data: {companyName: order_data.companyName, taxiNumber: order_data.taxiNumber}
+    order_data,
+})
+
+export const updateOrderList = orderListData => ({
+    type: ORDER_LIST_DATA,
+    orderListData
+})
+
+export const updatePriority = priority => ({
+    type: PRIORITY,
+    priority,
 })
 
 export const updateDeviceId = deviceId => ({
@@ -56,13 +60,17 @@ export const updateIsLoading = isLoading => ({
     isLoading,
 })
 
-export const updateMobNum = mob_num => ({
-    type: MOB_NUM,
-    mob_num,
+export const updateMobNum = mobileNumber => ({
+    type: MOBILE_NUMBER,
+    mobileNumber,
 })
 
 export const updatePermission = permission => ({
     type: PERMISSION,
-    permission: {errorMessage: permission.errorMessage}
+    permission: {location: permission.location}
 })
 
+export const driver_is_available = driver_is_available => ({
+    type: DRIVER_IS_AVAILABLE,
+    driver_is_available,
+})

@@ -1,10 +1,81 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform} from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert,
+    SafeAreaView,
+    Platform,
+    BackHandler
+} from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
+import {connect} from 'react-redux'
 
-import {cancel_taxi, looking_for_taxi_booked_priority} from '../common_files/Texts'
+import {cancel_taxi, looking_for_taxi_booked_priority, serverIp} from '../common_files/Texts'
+import {getToken} from "../common_files/ourFunctions";
 
-export default class Customer_main extends React.Component {
+
+class Customer_booked_priority extends React.Component {
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.cancellationAlert)
+    }
+
+    componentDidUpdate() {
+        clearInterval(this.interval);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.cancellationAlert)
+    }
+
+
+    cancellationAlert = () => {
+        Alert.alert(
+            'Avbestilling',
+            'Vil du avbestille taxi likevel?',
+            [
+                {
+                    text: 'Nei',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {},
+                {
+                    text: 'Ja',
+                    onPress: () => this.submitCancellationButton(),
+                },
+            ],
+            {
+                cancelable: false
+            },
+        )
+        return true
+    }
+
+    submitCancellationButton = async () => {
+        const tokenGotten = await getToken();
+        await fetch(serverIp+ '/cancelOrder', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                orderId: this.props.orderId,
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.text())
+            .then((responseData) => {
+                clearInterval(this.interval);
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Home'}]
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -30,13 +101,15 @@ export default class Customer_main extends React.Component {
                                     [
                                         {
                                             text: 'Ja',
-                                            onPress: () => this.props.navigation.navigate('Home'),
+                                            onPress: () => this.props.navigation.reset({
+                                                index: 0,
+                                                routes: [{name: 'Home'}]
+                                            }),
                                         },
                                         {},
                                         {
                                             text: 'Nei',
-                                            onPress: () => {
-                                            },
+                                            onPress: () => {},
                                             style: 'cancel',
                                         },
                                     ],
@@ -98,3 +171,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 })
+
+const mapStateToProps = state => ({
+    token: state.token,
+    orderId: state.order.orderId,
+})
+
+export default connect(mapStateToProps)(Customer_booked_priority)

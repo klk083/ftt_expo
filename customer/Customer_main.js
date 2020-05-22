@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, BackHandler, Alert } from 'react-native'
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
 import { getPreciseDistance } from 'geolib'
@@ -8,11 +8,12 @@ import {connect} from 'react-redux'
 
 import {getToken} from '../common_files/ourFunctions'
 import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation, serverIp} from '../common_files/Texts'
-import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission, updateOrder} from '../redux/actions'
+import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission, updateOrder, updatePriority} from '../redux/actions'
 import store from '../redux/store'
 
 class Customer_main extends React.Component {
     state = {
+        mounted_Customer_main: false,
         accuracy: '',
         altitude: '',
         heading: '',
@@ -27,21 +28,42 @@ class Customer_main extends React.Component {
         distanceBetween: 0,
         customerPhone: '+4712345678',
         secondLocation: {latitude: 63.430487, longitude: 10.394978},
-        deviceId: 'tlf321', //'Funker bare på bare react native',
+        //deviceId: 'tlf321', //'Funker bare på bare react native',
         orderId: '',
     }
 
+
+    backAction = () => {
+        Alert.alert('Avslutte appen', 'Vil du lukke appen?', [
+            {
+                text: 'Nei',
+                onPress: () => null,
+                style: 'cancel'
+            },
+            {},
+            {text: 'Lukk', onPress: () => BackHandler.exitApp()}
+        ])
+        return true;
+    }
+
+
+
     componentDidMount() {
+        this.mounted_Customer_main = true
         //this.getDeviceId()            KAN FJERNES ETTERHVERT
         this.getLocationAsync().catch()
-        this.props.updateOrder({companyName: 'TRØNDER TAXI', taxiNumber: 'U-101'})
-        this.props.updateCustomerLocation(`${this.state.latitude}, ${this.state.longitude}`)
+        BackHandler.addEventListener('hardwareBackPress', this.backAction)
+    }
+
+    componentWillUnmount() {
+        this.mounted_Customer_main = false
+        BackHandler.removeEventListener('hardwareBackPress', this.backAction)
     }
 
     getLocationAsync = async () => {
         let {status} = await Permissions.askAsync(Permissions.LOCATION)
         if (status === 'granted'){
-            this.props.updatePermission({errorMessage: 'granted'})
+            this.props.updatePermission({location: 'granted'})
         }
 
         let location = await Location.getCurrentPositionAsync({
@@ -67,7 +89,6 @@ class Customer_main extends React.Component {
 
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
-        //this.setState({location: {latitude, longitude}})
         this.props.updateCustomerLocation({latitude: latitude, longitude: longitude})
     }
 
@@ -102,9 +123,9 @@ class Customer_main extends React.Component {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
-                deviceId: this.state.deviceId,
-                latitude: this.state.latitude,
-                longitude: this.state.longitude,
+                deviceId: this.props.deviceId,
+                latitude: this.props.customerLocation.latitude,
+                longitude: this.props.customerLocation.longitude,
                 token: tokenGotten,
             }),
         })
@@ -112,7 +133,6 @@ class Customer_main extends React.Component {
             .then((responseData) => {
                 this.props.updateOrderId(responseData)
                 this.props.navigation.navigate('Booking')
-                console.log(store.getState())
             })
             .catch(error => {
                 console.error(error);
@@ -121,6 +141,8 @@ class Customer_main extends React.Component {
 
     render() {
         const {geocode} = this.state
+        console.log('CUSTOMER_MAIN:')
+        console.log(store.getState())
 
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -131,6 +153,7 @@ class Customer_main extends React.Component {
                                 <Text style={styles.locationAddress}>
                                     {geocode ? `${geocode[0].street} ${geocode[0].name}` : ''}
                                 </Text>
+                                <Text style={styles.locationAddress} onPress={() => this.props.navigation.toggleDrawer()}>{this.props.route.name}</Text>
                             </View>
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity style={styles.textBookingButtonContainer}>
@@ -257,12 +280,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     customerLocation: state.user_location,
-    orderId: state.order_id,
+    orderId: state.order.orderId,
     deviceId: state.deviceId,
     user: state.isGranted,
     token: state.token,
     mobileNumber: state.mobileNumber,
-    permission: state.updatePermission
+    permission: state.updatePermission,
+    priority: state.updatePriority,
 })
 
 const mapDispatchToProps = {
@@ -272,6 +296,7 @@ const mapDispatchToProps = {
     updateDeviceId,
     updatePermission,
     updateOrder,
+    updatePriority,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)

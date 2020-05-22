@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform, BackHandler } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
@@ -12,10 +12,15 @@ class Customer_booking extends React.Component {
 
     componentDidMount() {
         this.interval = setInterval(() => this.searchForDriver(), 10000);
+        BackHandler.addEventListener('hardwareBackPress', this.cancellationAlert)
     }
 
     componentDidUpdate() {
         clearInterval(this.interval);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.cancellationAlert)
     }
 
     searchForDriver = async  () => {
@@ -34,9 +39,8 @@ class Customer_booking extends React.Component {
                 if (json.length) {
                     this.props.updateOrder({companyNumber: json[0].companyNumber, taxiNumber: json[0].taxiNumber})
                     clearInterval(this.interval);
-                    console.log('try to navigate to booking confimataion')
+                    console.log('try to navigate to booking confirmation')
                     this.props.navigation.navigate('Booking confirmation')
-                    console.log(store.getState())
                 }else{
                     console.log('did try to get taxinumber but failed')
                 }
@@ -44,6 +48,29 @@ class Customer_booking extends React.Component {
             .catch(error => {
                 console.error(error);
             });
+    }
+
+    cancellationAlert = () => {
+        Alert.alert(
+            'Avbestilling',
+            'Vil du avbestille taxi likevel?',
+            [
+                {
+                    text: 'Nei',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {},
+                {
+                    text: 'Ja',
+                    onPress: () => this.submitCancellationButton(),
+                },
+            ],
+            {
+                cancelable: false
+            },
+        )
+        return true
     }
 
     submitCancellationButton = async () => {
@@ -59,8 +86,10 @@ class Customer_booking extends React.Component {
             .then((response) => response.text())
             .then((responseData) => {
                 clearInterval(this.interval);
-                this.props.navigation.navigate('Home')
-                console.log(store.getState())
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Home'}]
+                })
             })
             .catch(error => {
                 console.error(error);
@@ -68,6 +97,9 @@ class Customer_booking extends React.Component {
     }
 
     render() {
+        //console.log('CUSTOMER_BOOKING: ')
+        //console.log(store.getState())
+
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -82,25 +114,7 @@ class Customer_booking extends React.Component {
                         <TouchableOpacity style={styles.touchableCancelButtonContainer}>
                             <Text
                                 style={styles.cancel_button}
-                                onPress={() => Alert.alert(
-                                    'Avbestilling',
-                                    'Vil du avbestille taxi likevel?',
-                                    [
-                                        {
-                                            text: 'Ja',
-                                            onPress: () => this.submitCancellationButton(),
-                                        },
-                                        {},
-                                        {
-                                            text: 'Nei',
-                                            onPress: () => {},
-                                            style: 'cancel',
-                                        },
-                                    ],
-                                    {
-                                        cancelable: false
-                                    },
-                                )}
+                                onPress={() => this.cancellationAlert()}
                             >{cancel_taxi}</Text>
                         </TouchableOpacity>
                     </View>

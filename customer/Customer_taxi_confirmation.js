@@ -3,7 +3,7 @@
     Må finne en løsning til å vise vurderingen.
 */
 import React from 'react'
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import {View, Text, StyleSheet, SafeAreaView, BackHandler, Alert} from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
@@ -17,9 +17,25 @@ class Customer_taxi_confirmation extends React.Component {
 
     componentDidMount() {
         setInterval(() => this.setState({isReviewed: true}), 2000)
+        BackHandler.addEventListener('hardwareBackPress', this.backAction)
+    }
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backAction)
+    }
+
+    backAction = () => {
+        Alert.alert('Avbestilling ikke mulig', 'Du kan ikke avbestille taxi nå.', [
+            {
+                text: 'OK',
+                onPress: () => null,
+                style: 'cancel'
+            },
+        ])
+        return true;
     }
 
     render() {
+        //console.log(this.props)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -30,7 +46,7 @@ class Customer_taxi_confirmation extends React.Component {
                     </View>
                     {this.state.isReviewed && (
                         <View style={styles.ratingContainer}>
-                            <Rating/>
+                            <Rating {...this.props} />
                         </View>
                     )}
                 </View>
@@ -59,7 +75,7 @@ const styles = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        fontSize: RFPercentage(6),
+        fontSize: RFPercentage(5),
     },
 })
 
