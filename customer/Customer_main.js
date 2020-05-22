@@ -11,7 +11,6 @@ import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation, 
 import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission, updateOrder, updatePriority} from '../redux/actions'
 import store from '../redux/store'
 
-
 class Customer_main extends React.Component {
     state = {
         mounted_Customer_main: false,
