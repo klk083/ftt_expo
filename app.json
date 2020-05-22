@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "expoFastTrackTaxi",
-    "slug": "expoFastTrackTaxi",
+    "name": "Fast Track Taxi",
+    "slug": "FTT",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/fast_track_taxi_logo_ferdig_icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/fast_track_taxi_logo_ferdig.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8fbc8f"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
