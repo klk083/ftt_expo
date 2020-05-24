@@ -1,16 +1,37 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, BackHandler, Alert } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    SafeAreaView,
+    BackHandler,
+    Alert,
+} from 'react-native'
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
-import { getPreciseDistance } from 'geolib'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {getPreciseDistance} from 'geolib'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
 import {getToken} from '../common_files/ourFunctions'
-import {book_taxi, basic_price, turn_on_location, turn_on_location_explanation, serverIp} from '../common_files/Texts'
-import {updateCustomerLocation, updateDeviceId, updateOrderId, updateToken, updatePermission, updateOrder, updatePriority} from '../redux/actions'
+import {
+    book_taxi,
+    basic_price,
+    turn_on_location,
+    turn_on_location_explanation,
+    serverIp,
+} from '../common_files/Texts'
+import {
+    updateCustomerLocation,
+    updateDeviceId,
+    updateOrderId,
+    updateToken,
+    updatePermission,
+    updateOrder,
+    updatePriority,
+} from '../redux/actions'
 import store from '../redux/store'
-
 
 class Customer_main extends React.Component {
     state = {
@@ -33,21 +54,18 @@ class Customer_main extends React.Component {
         orderId: '',
     }
 
-
     backAction = () => {
         Alert.alert('Avslutte appen', 'Vil du lukke appen?', [
             {
                 text: 'Nei',
                 onPress: () => null,
-                style: 'cancel'
+                style: 'cancel',
             },
             {},
-            {text: 'Lukk', onPress: () => BackHandler.exitApp()}
+            {text: 'Lukk', onPress: () => BackHandler.exitApp()},
         ])
-        return true;
+        return true
     }
-
-
 
     componentDidMount() {
         this.mounted_Customer_main = true
@@ -63,20 +81,21 @@ class Customer_main extends React.Component {
 
     getLocationAsync = async () => {
         let {status} = await Permissions.askAsync(Permissions.LOCATION)
-        if (status === 'granted'){
+        if (status === 'granted') {
             this.props.updatePermission({location: 'granted'})
         }
 
         let location = await Location.getCurrentPositionAsync({
-            accuracy: Location.Accuracy.High
+            accuracy: Location.Accuracy.High,
         })
 
-        await Location.watchPositionAsync({
+        await Location.watchPositionAsync(
+            {
                 accuracy: Location.Accuracy.High,
                 timeInterval: 1000,
-                distanceInterval: 1
+                distanceInterval: 1,
             },
-            newLocation => {
+            (newLocation) => {
                 this.setState({
                     accuracy: newLocation.coords.accuracy,
                     altitude: newLocation.coords.altitude,
@@ -84,13 +103,17 @@ class Customer_main extends React.Component {
                     latitude: newLocation.coords.latitude,
                     longitude: newLocation.coords.longitude,
                     speed: newLocation.coords.speed,
-                    timestamp: newLocation.timestamp
+                    timestamp: newLocation.timestamp,
                 })
-            })
+            }
+        )
 
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
-        this.props.updateCustomerLocation({latitude: latitude, longitude: longitude})
+        this.props.updateCustomerLocation({
+            latitude: latitude,
+            longitude: longitude,
+        })
     }
 
     getGeocodeAsync = async (location) => {
@@ -99,10 +122,15 @@ class Customer_main extends React.Component {
     }
 
     getDistanceBetweenCustomerAndDriver = () => {
-        const distanceBetween = (getPreciseDistance(
-            {latitude: this.state.latitude, longitude: this.state.longitude},
-            this.state.secondLocation
-        ) / 1000).toFixed(2)
+        const distanceBetween = (
+            getPreciseDistance(
+                {
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
+                },
+                this.state.secondLocation
+            ) / 1000
+        ).toFixed(2)
         this.setState({distanceBetween: distanceBetween})
     }
 
@@ -116,11 +144,13 @@ class Customer_main extends React.Component {
      */
 
     submitBookingButton = async () => {
+        this.props.updateCustomerLocation({
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+        })
 
-        this.props.updateCustomerLocation({latitude: this.state.latitude, longitude: this.state.longitude})
-
-        const tokenGotten = await getToken();
-        await fetch(serverIp+ '/makeorder', {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/makeorder', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -135,9 +165,9 @@ class Customer_main extends React.Component {
                 this.props.updateOrderId(responseData)
                 this.props.navigation.navigate('Booking')
             })
-            .catch(error => {
-                console.error(error);
-            });
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     render() {
@@ -152,17 +182,35 @@ class Customer_main extends React.Component {
                         <View style={styles.grantedMainContainer}>
                             <View style={styles.spaceBetweenViews}>
                                 <Text style={styles.locationAddress}>
-                                    {geocode ? `${geocode[0].street} ${geocode[0].name}` : ''}
+                                    {geocode
+                                        ? `${geocode[0].street} ${geocode[0].name}`
+                                        : ''}
                                 </Text>
-                                <Text style={styles.locationAddress} onPress={() => this.props.navigation.toggleDrawer()}>{this.props.route.name}</Text>
+                                <Text
+                                    style={styles.locationAddress}
+                                    onPress={() =>
+                                        this.props.navigation.toggleDrawer()
+                                    }
+                                >
+                                    {this.props.route.name}
+                                </Text>
                             </View>
                             <View style={styles.buttonContainer}>
-                                <TouchableOpacity style={styles.textBookingButtonContainer}>
+                                <TouchableOpacity
+                                    style={styles.textBookingButtonContainer}
+                                >
                                     <View style={styles.textBooking}>
-                                        <Text style={styles.button}
-                                              onPress={() => this.submitBookingButton()}
-                                        >{book_taxi}</Text>
-                                        <Text style={styles.button_price}>({basic_price})</Text>
+                                        <Text
+                                            style={styles.button}
+                                            onPress={() =>
+                                                this.submitBookingButton()
+                                            }
+                                        >
+                                            {book_taxi}
+                                        </Text>
+                                        <Text style={styles.button_price}>
+                                            ({basic_price})
+                                        </Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -171,12 +219,18 @@ class Customer_main extends React.Component {
                     {!this.state.isGranted && (
                         <View style={styles.locationContainer}>
                             <View style={styles.locationInfoContainer}>
-                                <Text style={styles.locationInfo}>{turn_on_location_explanation}</Text>
+                                <Text style={styles.locationInfo}>
+                                    {turn_on_location_explanation}
+                                </Text>
                             </View>
                             <View style={styles.buttonLocationContainer}>
-                                <TouchableOpacity style={styles.touchableLocationContainer}
-                                                  onPress={this.getLocationAsync}>
-                                    <Text style={styles.buttonLocation}>{turn_on_location}</Text>
+                                <TouchableOpacity
+                                    style={styles.touchableLocationContainer}
+                                    onPress={this.getLocationAsync}
+                                >
+                                    <Text style={styles.buttonLocation}>
+                                        {turn_on_location}
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -186,7 +240,6 @@ class Customer_main extends React.Component {
         )
     }
 }
-
 
 const styles = StyleSheet.create({
     safeAreaView: {
@@ -199,12 +252,12 @@ const styles = StyleSheet.create({
     grantedMainContainer: {
         flex: 1,
         padding: 20,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
     spaceBetweenViews: {
         flex: 0.7,
         justifyContent: 'space-evenly',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonContainer: {
         flex: 0.4,
@@ -232,7 +285,6 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         fontSize: RFPercentage(3),
     },
-
 
     locationContainer: {
         flex: 1,
