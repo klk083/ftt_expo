@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
 import {connect} from 'react-redux'
 
-
 import SplashScreen from './common_files/SplashScreen'
 import WelcomeScreen from './common_files/WelcomeScreen'
 import Privacy from './common_files/Privacy'
@@ -36,40 +35,62 @@ class AppStackScreen extends React.Component {
     }
 
     render() {
-        if (this.props.isLoading === 'true') return <SplashScreen/>
+        if (this.props.isLoading === 'true') return <SplashScreen />
         return (
             <NavigationContainer>
                 {this.props.token === '' ? (
-                    <AppStack.Navigator screenOptions={{
-                        headerTitleAlign: 'center',
-                    }}>
-                        <AppStack.Screen name='SignIn' component={WelcomeScreen}
-                                         options={{headerShown: false, headerTitle: ''}}/>
-                        <AppStack.Screen name='Privacy' component={Privacy}
-                                         options={{headerTitle: 'Personvern'}}/>
-                        <AppStack.Screen name='TermsOfService' component={Terms_of_service}
-                                         options={{headerTitle: 'Servicevilkår'}}/>
-                        <AppStack.Screen name='Number_registration' component={SignUp}
-                                         options={{headerTitle: 'Registrer mobilnummer'}}/>
-                        <AppStack.Screen name='Number_verification' component={Verifying_mob_num}
-                                         options={{headerTitle: 'Verifisering'}}/>
+                    <AppStack.Navigator
+                        screenOptions={{
+                            headerTitleAlign: 'center',
+                        }}
+                    >
+                        <AppStack.Screen
+                            name="SignIn"
+                            component={WelcomeScreen}
+                            options={{headerShown: false, headerTitle: ''}}
+                        />
+                        <AppStack.Screen
+                            name="Privacy"
+                            component={Privacy}
+                            options={{headerTitle: 'Personvern'}}
+                        />
+                        <AppStack.Screen
+                            name="TermsOfService"
+                            component={Terms_of_service}
+                            options={{headerTitle: 'Servicevilkår'}}
+                        />
+                        <AppStack.Screen
+                            name="Number_registration"
+                            component={SignUp}
+                            options={{headerTitle: 'Registrer mobilnummer'}}
+                        />
+                        <AppStack.Screen
+                            name="Number_verification"
+                            component={Verifying_mob_num}
+                            options={{headerTitle: 'Verifisering'}}
+                        />
                     </AppStack.Navigator>
                 ) : (
                     <AppStack.Navigator
                         screenOptions={{
-                            headerLeft: props => <LogoTitle {...props} />,
+                            headerLeft: (props) => <LogoTitle {...props} />,
                             headerStyle: {
                                 backgroundColor: 'darkseagreen',
                             },
-                            headerRight:
-                                props => <MenuButton {...props} />,
+                            headerRight: (props) => <MenuButton {...props} />,
                             headerTitle: false,
                         }}
                     >
                         {this.props.driver === 'true' ? (
-                            <AppStack.Screen name='Driver Stack' component={DriverStack}/>
+                            <AppStack.Screen
+                                name="Driver Stack"
+                                component={DriverStack}
+                            />
                         ) : (
-                            <AppStack.Screen name='Customer Stack' component={CustomerStack}/>
+                            <AppStack.Screen
+                                name="Customer Stack"
+                                component={CustomerStack}
+                            />
                         )}
                     </AppStack.Navigator>
                 )}

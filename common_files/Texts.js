@@ -1,8 +1,10 @@
 // Common texts
 export const write_your_num = 'Skriv inn\nmobilnummeret ditt'
-export const fft_info = 'Fast Track Taxi skal sende deg en melding for å verifisere mobilnummeret ditt.\n\nHva er ' +
+export const fft_info =
+    'Fast Track Taxi skal sende deg en melding for å verifisere mobilnummeret ditt.\n\nHva er ' +
     'nummeret ditt?'
-export const verifisering_info = 'Venter på en melding med engangskode sendt til\n+47 '
+export const verifisering_info =
+    'Venter på en melding med engangskode sendt til\n+47 '
 export const basic_price = '30kr'
 export const priority_price = '100kr'
 export const send_ny_sms = 'Send kode på nytt'
@@ -10,7 +12,8 @@ export const privacyTitle = 'Personvern'
 export const terms_of_serviceTitle = 'Servicevilkår'
 export const welcome_to = 'Velkommen til'
 export const read_our = 'Les vår '
-export const confirmPrivacyTermsOfService = '. Trykk "Bekreft og fortsett" for å akseptere '
+export const confirmPrivacyTermsOfService =
+    '. Trykk "Bekreft og fortsett" for å akseptere '
 export const acceptAndContinue = 'Bekreft og fortsett'
 export const country_code = '+47 '
 export const next = 'Neste'
@@ -18,7 +21,8 @@ export const confirming_mob_num = 'Vi skal verifisere mobilnummeret ditt:'
 export const wants_change_num = 'Er det OK, eller vil du endre nummeret?'
 export const change = 'Endre'
 export const ok = 'OK'
-export const turn_on_location_explanation = 'Du må slå på lokasjonen for å bruke appen'
+export const turn_on_location_explanation =
+    'Du må slå på lokasjonen for å bruke appen'
 export const turn_on_location = 'Slå på lokasjonen'
 export const send = 'Send'
 export const accept = 'Aksepter'
@@ -27,7 +31,8 @@ export const wrong_number = 'Feil nummer?'
 export const confirm = 'BEKREFT'
 
 //all texts
-export const secretKey = '4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15'
+export const secretKey =
+    '4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15'
 //export const serverIp = 'http://192.168.1.12:8080' // local sever kenneth
 export const serverIp = 'https://ftt.idi.ntnu.no:443' // server at ntnu
 
@@ -35,8 +40,10 @@ export const serverIp = 'https://ftt.idi.ntnu.no:443' // server at ntnu
 export const book_taxi = 'Bestill\ntaxi'
 export const cancel_taxi = 'Avbestill taxi'
 export const looking_for_taxi = 'Leter etter en ledig taxi'
-export const looking_for_taxi_booked_priority = 'Leter etter en ledig prioritert taxi'
-export const looking_for_taxi_priority = 'Ingen ledig taxi funnet for øyeblikket, men vi leter fortsatt.'
+export const looking_for_taxi_booked_priority =
+    'Leter etter en ledig prioritert taxi'
+export const looking_for_taxi_priority =
+    'Ingen ledig taxi funnet for øyeblikket, men vi leter fortsatt.'
 export const buy_yourself_out_of_queue = 'Kjøp deg ut av køen'
 export const confirmation_msg = 'En taxi er på vei.'
 export const taxi_num = 'Taxinr: '
@@ -51,7 +58,6 @@ export const stars = ' stjerner.'
 export const no_thanks = 'Nei, takk'
 export const no = 'Nei'
 
-
 // driver texts
 export const driver_available = 'Du er tilgjengelig'
 export const driver_not_available = 'Du er ikke tilgjengelig'
@@ -61,8 +67,8 @@ export const order_is_accomplished = 'Oppdraget utført'
 export const order_was_canceled = 'Turen ble kansellert'
 export const reason_for_the_cancellation = 'Hva er grunnen til kanselleringen?'
 
-
-export const terms_of_service = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tortor libero. ' +
+export const terms_of_service =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tortor libero. ' +
     'Nullam quis ante ut velit gravida porttitor. Curabitur gravida accumsan nisl. Integer sit amet dui gravida, ' +
     'scelerisque massa eu, venenatis sem. Sed posuere augue non diam ornare venenatis non vel tellus. Suspendisse a ' +
     'metus imperdiet, ornare nibh non, gravida dui. Nulla facilisi. Vivamus convallis ac felis at dignissim. Integer ' +
@@ -95,7 +101,8 @@ export const terms_of_service = 'Lorem ipsum dolor sit amet, consectetur adipisc
     'erat. Suspendisse condimentum ex velit, ut pharetra magna faucibus in. Maecenas congue lacus massa, ac tincidunt' +
     'erat viverra condimentum.'
 
-export const privacyText = 'Jf. tidligere lov 14. april 2000 nr. 31. – Jf. EØS-avtalen vedlegg XI nr. 5e (forordning ' +
+export const privacyText =
+    'Jf. tidligere lov 14. april 2000 nr. 31. – Jf. EØS-avtalen vedlegg XI nr. 5e (forordning ' +
     '(EU) 2016/679 – personvernforordningen, også omtalt som GDPR og PVF).\n' +
     'Kapittel 1. Personvernforordningen\n' +
     '§ 1.Gjennomføring av personvernforordningen\n' +

@@ -1,8 +1,25 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, Modal, SafeAreaView, Platform, KeyboardAvoidingView } from 'react-native'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Alert,
+    TextInput,
+    Modal,
+    SafeAreaView,
+    Platform,
+    KeyboardAvoidingView,
+} from 'react-native'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 
-import { is_order_accomplished, order_was_canceled, order_is_accomplished, reason_for_the_cancellation, send } from '../common_files/Texts'
+import {
+    is_order_accomplished,
+    order_was_canceled,
+    order_is_accomplished,
+    reason_for_the_cancellation,
+    send,
+} from '../common_files/Texts'
 
 export default class DriverHasOrder extends React.Component {
     state = {
@@ -11,16 +28,20 @@ export default class DriverHasOrder extends React.Component {
         cancellationMessage: '',
     }
 
-    handleMsg = text => {
+    handleMsg = (text) => {
         this.setState({cancellationMessage: text})
         {
-            (this.state.cancellationMessage.length >= 2) ? this.setState({isDisabled: false}) : this.setState({isDisabled: true})
+            this.state.cancellationMessage.length >= 2
+                ? this.setState({isDisabled: false})
+                : this.setState({isDisabled: true})
         }
     }
 
     enableKeyPress = (event) => {
         {
-            (this.state.cancellationMessage.length >= 3) ? this.submitCancellation(event.nativeEvent.text) : null
+            this.state.cancellationMessage.length >= 3
+                ? this.submitCancellation(event.nativeEvent.text)
+                : null
         }
     }
 
@@ -34,84 +55,121 @@ export default class DriverHasOrder extends React.Component {
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
                     <View style={styles.info_container}>
-                        <Text style={styles.is_order_accomplished}>{is_order_accomplished}</Text>
+                        <Text style={styles.is_order_accomplished}>
+                            {is_order_accomplished}
+                        </Text>
                     </View>
                     <View style={styles.accomplished_buttonContainer}>
                         <TouchableOpacity
                             style={styles.touchableAccomplishedContainer}
-                            onPress={() => this.props.navigation.navigate('Driver Home')}>
-                            <Text style={styles.accomplished_button}>{order_is_accomplished}</Text>
+                            onPress={() =>
+                                this.props.navigation.navigate('Driver Home')
+                            }
+                        >
+                            <Text style={styles.accomplished_button}>
+                                {order_is_accomplished}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.orderCancel_buttonContainer}>
-                        <TouchableOpacity style={styles.touchableCancelButtonContainer}>
+                        <TouchableOpacity
+                            style={styles.touchableCancelButtonContainer}
+                        >
                             <Text
                                 style={styles.orderCancel_button}
-                                onPress={() => Alert.alert(
-                                    'Hva er grunnen til kanselleringen?',
-                                    '',
-                                    [
-                                        {
-                                            text: 'Kunden møtte ikke opp',
-                                            onPress: () => this.props.navigation.navigate('Driver Home'),
-                                        },
-                                        {},
-                                        {
-                                            text: 'Noe annet',
-                                            onPress: () => {
-                                                this.setState({isModalVisible: true})
+                                onPress={() =>
+                                    Alert.alert(
+                                        'Hva er grunnen til kanselleringen?',
+                                        '',
+                                        [
+                                            {
+                                                text: 'Kunden møtte ikke opp',
+                                                onPress: () =>
+                                                    this.props.navigation.navigate(
+                                                        'Driver Home'
+                                                    ),
                                             },
-                                            style: 'cancel',
-                                        },
-                                    ],
-                                    {
-                                        cancelable: false
-                                    },
-                                )}
-                            >{order_was_canceled}</Text>
+                                            {},
+                                            {
+                                                text: 'Noe annet',
+                                                onPress: () => {
+                                                    this.setState({
+                                                        isModalVisible: true,
+                                                    })
+                                                },
+                                                style: 'cancel',
+                                            },
+                                        ],
+                                        {
+                                            cancelable: false,
+                                        }
+                                    )
+                                }
+                            >
+                                {order_was_canceled}
+                            </Text>
                         </TouchableOpacity>
                     </View>
-                    {this.state.isModalVisible &&
-                    <Modal
-                        animationType='none'
-                        transparent={true}
-                        presentationStyle={'overFullScreen'}
-                        onRequestClose={() => {
-                            this.setState({isModalVisible: false})
-                        }}
-                    >
-                        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                                              style={styles.modalContainer}>
-                            <View style={styles.modalView_android}>
-                                <View style={styles.modalTextContainer}>
-                                    <Text style={styles.modalText}>{reason_for_the_cancellation}</Text>
+                    {this.state.isModalVisible && (
+                        <Modal
+                            animationType="none"
+                            transparent={true}
+                            presentationStyle={'overFullScreen'}
+                            onRequestClose={() => {
+                                this.setState({isModalVisible: false})
+                            }}
+                        >
+                            <KeyboardAvoidingView
+                                behavior={
+                                    Platform.OS === 'ios' ? 'padding' : 'height'
+                                }
+                                style={styles.modalContainer}
+                            >
+                                <View style={styles.modalView_android}>
+                                    <View style={styles.modalTextContainer}>
+                                        <Text style={styles.modalText}>
+                                            {reason_for_the_cancellation}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.reasonContainer}>
+                                        <TextInput
+                                            style={styles.reason}
+                                            behavior="padding"
+                                            placeholder="Skriv her"
+                                            keyboardAppearance="default"
+                                            multiline={true}
+                                            maxLength={150}
+                                            autoFocus={true}
+                                            blurOnSubmit={false}
+                                            onSubmitEditing={
+                                                this.enableKeyPress
+                                            }
+                                            onChangeText={this.handleMsg}
+                                        />
+                                    </View>
+                                    <View
+                                        style={styles.sendReasonButtonContainer}
+                                    >
+                                        <TouchableOpacity
+                                            style={
+                                                styles.touchableSendReasonButtonContainer
+                                            }
+                                        >
+                                            <Text
+                                                style={styles.sendReasonButton}
+                                                disabled={this.state.isDisabled}
+                                                onPress={
+                                                    this.submitCancellation
+                                                }
+                                            >
+                                                {send}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
-                                <View style={styles.reasonContainer}>
-                                    <TextInput
-                                        style={styles.reason}
-                                        behavior='padding'
-                                        placeholder='Skriv her'
-                                        keyboardAppearance='default'
-                                        multiline={true}
-                                        maxLength={150}
-                                        autoFocus={true}
-                                        blurOnSubmit={false}
-                                        onSubmitEditing={this.enableKeyPress}
-                                        onChangeText={this.handleMsg}
-                                    />
-                                </View>
-                                <View style={styles.sendReasonButtonContainer}>
-                                    <TouchableOpacity style={styles.touchableSendReasonButtonContainer}>
-                                        <Text
-                                            style={styles.sendReasonButton}
-                                            disabled={this.state.isDisabled}
-                                            onPress={this.submitCancellation}>{send}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </KeyboardAvoidingView>
-                    </Modal>
-                    }
+                            </KeyboardAvoidingView>
+                        </Modal>
+                    )}
                 </View>
             </SafeAreaView>
         )
@@ -142,7 +200,7 @@ const styles = StyleSheet.create({
         flex: 0.2,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        padding: 10
+        padding: 10,
     },
     modalContainer: {
         flex: 1,
@@ -152,7 +210,6 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingHorizontal: 10,
     },
-
 
     is_order_accomplished: {
         flex: 1,
@@ -164,7 +221,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'darkseagreen',
         borderRadius: 15,
         paddingHorizontal: 20,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     touchableCancelButtonContainer: {
         flex: 0.3,
@@ -178,13 +235,10 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(5),
     },
 
-
     orderCancel_button: {
         textAlign: 'center',
         fontSize: RFPercentage(3),
-
     },
-
 
     modalView_ios: {
         flex: 0.6,

@@ -1,6 +1,13 @@
 import React from 'react'
-import {View, Text, StyleSheet, Switch, SafeAreaView, Platform, TouchableOpacity} from 'react-native'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {
+    View,
+    Text,
+    StyleSheet,
+    Switch,
+    SafeAreaView,
+    Platform,
+} from 'react-native'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
 import {getPreciseDistance} from 'geolib'
@@ -11,10 +18,8 @@ import {
     driver_not_available,
     priority_orders,
     orders,
-    serverIp,
-    book_taxi, basic_price
 } from '../common_files/Texts'
-import Orders, { compareDistKm } from './Orders'
+import Orders, {compareDistKm} from './Orders'
 import SectionListCustomers from './SectionListCustomers'
 import {getToken} from "../common_files/ourFunctions";
 import {getOrders} from "./OrdersFromServer";
@@ -33,7 +38,9 @@ class Driver_main extends React.Component {
     }
 
     sort = () => {
-        this.setState(prevState => ({orders: prevState.orders.sort(compareDistKm)}))
+        this.setState((prevState) => ({
+            orders: prevState.orders.sort(compareDistKm),
+        }))
     }
 
     getLocationAsync = async () => {
@@ -47,15 +54,16 @@ class Driver_main extends React.Component {
         }
 
         let location = await Location.getCurrentPositionAsync({
-            accuracy: Location.Accuracy.High
+            accuracy: Location.Accuracy.High,
         })
 
-        await Location.watchPositionAsync({
+        await Location.watchPositionAsync(
+            {
                 accuracy: Location.Accuracy.High,
                 timeInterval: 1000,
-                distanceInterval: 1
+                distanceInterval: 1,
             },
-            newLocation => {
+            (newLocation) => {
                 this.setState({
                     accuracy: newLocation.coords.accuracy,
                     altitude: newLocation.coords.altitude,
@@ -63,9 +71,10 @@ class Driver_main extends React.Component {
                     latitude: newLocation.coords.latitude,
                     longitude: newLocation.coords.longitude,
                     speed: newLocation.coords.speed,
-                    timestamp: newLocation.timestamp
+                    timestamp: newLocation.timestamp,
                 })
-            })
+            }
+        )
 
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
@@ -78,10 +87,15 @@ class Driver_main extends React.Component {
     }
 
     getDistanceBetweenCustomerAndDriver = () => {
-        const distanceBetween = (getPreciseDistance(
-            {latitude: this.state.latitude, longitude: this.state.longitude},
-            this.state.secondLocation
-        ) / 1000).toFixed(2)
+        const distanceBetween = (
+            getPreciseDistance(
+                {
+                    latitude: this.state.latitude,
+                    longitude: this.state.longitude,
+                },
+                this.state.secondLocation
+            ) / 1000
+        ).toFixed(2)
         this.setState({distanceBetween: distanceBetween})
     }
 
@@ -94,64 +108,107 @@ class Driver_main extends React.Component {
 
      */
 
-
-
     render() {
-        console.log('HER ER LISTA: ' + this.props.orderList[0].latitude)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
                     <View style={styles.availabilityContainer}>
-                        <Text
-                            style={styles.availability}>{this.state.isAvailable ? driver_available : driver_not_available}</Text>
+                        <Text style={styles.availability}>
+                            {this.state.isAvailable
+                                ? driver_available
+                                : driver_not_available}
+                        </Text>
                         <Switch
                             trackColor={{false: 'darkgray', true: 'green'}}
-                            thumbColor={this.state.isAvailable ? '#8fbc8f' : 'white'}
+                            thumbColor={
+                                this.state.isAvailable ? '#8fbc8f' : 'white'
+                            }
                             onValueChange={this.toggleSwitch}
                             value={this.state.isAvailable}
-                            style={Platform.OS === 'ios' ? styles.switch_ios : styles.switch_android}
+                            style={
+                                Platform.OS === 'ios'
+                                    ? styles.switch_ios
+                                    : styles.switch_android
+                            }
                         />
                     </View>
 
-
-
-
                     {!this.state.isAvailable && (
-                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center',borderWidth:5, borderColor: 'red'}}>
-                        <Text>HER ER LISTA HENTET FRA MOBILEN{`\n`}{`\n`}</Text>
-                        <Text>Det første objektet{`\n`}</Text>
-                        <Text>Latitude: {this.props.orderList[0].latitude}</Text>
-                        <Text>Longitude: {this.props.orderList[0].longitude}</Text>
-                        <Text>OrderId: {this.props.orderList[0].orderId}</Text>
-                        <Text>Priority: {this.props.orderList[0].priority}{`\n`}{`\n`}</Text>
-                        <Text>Det andre objektet{`\n`}</Text>
-                        <Text>Latitude: {this.props.orderList[1].latitude}</Text>
-                        <Text>Longitude: {this.props.orderList[1].longitude}</Text>
-                        <Text>OrderId: {this.props.orderList[1].orderId}</Text>
-                        <Text>Priority: {this.props.orderList[1].priority}</Text>
-                    </View>)}
-
-
-
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderWidth: 5,
+                                borderColor: 'red',
+                            }}
+                        >
+                            <Text>
+                                HER ER LISTA HENTET FRA MOBILEN{`\n`}
+                                {`\n`}
+                            </Text>
+                            <Text>Det første objektet{`\n`}</Text>
+                            <Text>
+                                Latitude: {this.props.orderList[0].latitude}
+                            </Text>
+                            <Text>
+                                Longitude: {this.props.orderList[0].longitude}
+                            </Text>
+                            <Text>
+                                OrderId: {this.props.orderList[0].orderId}
+                            </Text>
+                            <Text>
+                                Priority: {this.props.orderList[0].priority}
+                                {`\n`}
+                                {`\n`}
+                            </Text>
+                            <Text>Det andre objektet{`\n`}</Text>
+                            <Text>
+                                Latitude: {this.props.orderList[1].latitude}
+                            </Text>
+                            <Text>
+                                Longitude: {this.props.orderList[1].longitude}
+                            </Text>
+                            <Text>
+                                OrderId: {this.props.orderList[1].orderId}
+                            </Text>
+                            <Text>
+                                Priority: {this.props.orderList[1].priority}
+                            </Text>
+                        </View>
+                    )}
 
                     {this.state.isAvailable && (
                         <View style={styles.orderContainer}>
                             <View style={styles.priorityOrdersContainer}>
                                 <View style={styles.priorityTitleContainer}>
-                                    <Text style={styles.priority_order_list}
-                                          onPress={() => this.props.navigation.navigate('Driver Order')}
-                                    >{priority_orders}</Text>
+                                    <Text
+                                        style={styles.priority_order_list}
+                                        onPress={() =>
+                                            this.props.navigation.navigate(
+                                                'Driver Order'
+                                            )
+                                        }
+                                    >
+                                        {priority_orders}
+                                    </Text>
                                 </View>
                                 <View style={styles.basicSectionListContainer}>
-                                    <SectionListCustomers contacts={this.state.orders}/>
+                                    <SectionListCustomers
+                                        contacts={this.state.orders}
+                                    />
                                 </View>
                             </View>
                             <View style={styles.basicOrdersContainer}>
                                 <View style={styles.basicTitleContainer}>
-                                    <Text style={styles.basic_order_list}>{orders}</Text>
+                                    <Text style={styles.basic_order_list}>
+                                        {orders}
+                                    </Text>
                                 </View>
                                 <View style={styles.basicSectionListContainer}>
-                                    <SectionListCustomers contacts={this.state.orders}/>
+                                    <SectionListCustomers
+                                        contacts={this.state.orders}
+                                    />
                                 </View>
                             </View>
                         </View>
@@ -234,8 +291,6 @@ const mapStateToProps = (state) => ({
     orderList: state.orderList,
 })
 
-const mapDispatchToProps = ({
-
-})
+const mapDispatchToProps = {}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Driver_main)

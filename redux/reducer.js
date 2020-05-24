@@ -13,9 +13,10 @@ import {
     ORDER_DATA,
     ORDER_LIST_DATA,
     COMPANY_NAME,
-    TAXI_NUMBER, PRIORITY,
+    TAXI_NUMBER,
+    PRIORITY,
 } from './actionTypes'
-import {updateOrderId} from "./actions";
+import {updateOrderId} from './actions'
 
 const merge = (prev, next) => Object.assign({}, prev, next)
 
@@ -74,7 +75,10 @@ const updatePriority = (state = initial_updatePriority, action) => {
     }
 }
 
-const initial_updateOrderList = [{latitude: 99.99999, longitude: 99.99999, orderId: 999, priority: 0}, {latitude: 66.66666, longitude: 66.666666, orderId: 666, priority: 1}]
+const initial_updateOrderList = [
+    {latitude: 99.99999, longitude: 99.99999, orderId: 999, priority: 0},
+    {latitude: 66.66666, longitude: 66.666666, orderId: 666, priority: 1},
+]
 const orderList = (state = initial_updateOrderList, action) => {
     switch (action.type) {
         case ORDER_LIST_DATA:
@@ -134,7 +138,7 @@ const reducer = combineReducers({
     mobileNumber,
     permission,
     updatePriority,
-    orderList
+    orderList,
 })
 
 export default reducer

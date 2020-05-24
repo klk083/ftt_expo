@@ -3,11 +3,22 @@
     Må finne en løsning til å vise vurderingen.
 */
 import React from 'react'
-import {View, Text, StyleSheet, SafeAreaView, BackHandler, Alert} from 'react-native'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {
+    View,
+    Text,
+    StyleSheet,
+    SafeAreaView,
+    BackHandler,
+    Alert,
+} from 'react-native'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
-import { confirmation_msg, taxi_num, taxi_corporation } from '../common_files/Texts'
+import {
+    confirmation_msg,
+    taxi_num,
+    taxi_corporation,
+} from '../common_files/Texts'
 import Rating from './Rating'
 
 class Customer_taxi_confirmation extends React.Component {
@@ -24,14 +35,18 @@ class Customer_taxi_confirmation extends React.Component {
     }
 
     backAction = () => {
-        Alert.alert('Avbestilling ikke mulig', 'Du kan ikke avbestille taxi nå.', [
-            {
-                text: 'OK',
-                onPress: () => null,
-                style: 'cancel'
-            },
-        ])
-        return true;
+        Alert.alert(
+            'Avbestilling ikke mulig',
+            'Du kan ikke avbestille taxi nå.',
+            [
+                {
+                    text: 'OK',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+            ]
+        )
+        return true
     }
 
     render() {
@@ -41,8 +56,14 @@ class Customer_taxi_confirmation extends React.Component {
                 <View style={styles.container}>
                     <View style={styles.info_container}>
                         <Text style={styles.text}>{confirmation_msg}</Text>
-                        <Text style={styles.text}>{taxi_num}{this.props.taxiNumber}</Text>
-                        <Text style={styles.text}>{taxi_corporation}{this.props.companyName}</Text>
+                        <Text style={styles.text}>
+                            {taxi_num}
+                            {this.props.taxiNumber}
+                        </Text>
+                        <Text style={styles.text}>
+                            {taxi_corporation}
+                            {this.props.companyName}
+                        </Text>
                     </View>
                     {this.state.isReviewed && (
                         <View style={styles.ratingContainer}>

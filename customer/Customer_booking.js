@@ -1,31 +1,46 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform, BackHandler } from 'react-native'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert,
+    SafeAreaView,
+    Platform,
+    BackHandler,
+} from 'react-native'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
 import {cancel_taxi, looking_for_taxi, serverIp} from '../common_files/Texts'
-import {getToken} from "../common_files/ourFunctions";
-import {updateOrder} from "../redux/actions";
-import store from "../redux/store";
+import {getToken} from '../common_files/ourFunctions'
+import {updateOrder} from '../redux/actions'
+import store from '../redux/store'
 
 class Customer_booking extends React.Component {
-
     componentDidMount() {
-        this.interval = setInterval(() => this.searchForDriver(), 10000);
-        BackHandler.addEventListener('hardwareBackPress', this.cancellationAlert)
+        this.interval = setInterval(() => this.searchForDriver(), 10000)
+        BackHandler.addEventListener(
+            'hardwareBackPress',
+            this.cancellationAlert
+        )
     }
 
     componentDidUpdate() {
-        clearInterval(this.interval);
+        clearInterval(this.interval)
     }
 
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.cancellationAlert)
+        BackHandler.removeEventListener(
+            'hardwareBackPress',
+            this.cancellationAlert
+        )
     }
 
-    searchForDriver = async  () => {
-        const tokenGotten = await getToken();
-        await fetch(serverIp+ '/getOrderTaxiNum', {
+    searchForDriver = async () => {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/getOrderTaxiNum', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -37,17 +52,20 @@ class Customer_booking extends React.Component {
             .then((json) => {
                 console.log(json)
                 if (json.length) {
-                    this.props.updateOrder({companyNumber: json[0].companyNumber, taxiNumber: json[0].taxiNumber})
-                    clearInterval(this.interval);
+                    this.props.updateOrder({
+                        companyNumber: json[0].companyNumber,
+                        taxiNumber: json[0].taxiNumber,
+                    })
+                    clearInterval(this.interval)
                     console.log('try to navigate to booking confirmation')
                     this.props.navigation.navigate('Booking confirmation')
-                }else{
+                } else {
                     console.log('did try to get taxinumber but failed')
                 }
-                })
-            .catch(error => {
-                console.error(error);
-            });
+            })
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     cancellationAlert = () => {
@@ -67,15 +85,15 @@ class Customer_booking extends React.Component {
                 },
             ],
             {
-                cancelable: false
-            },
+                cancelable: false,
+            }
         )
         return true
     }
 
     submitCancellationButton = async () => {
-        const tokenGotten = await getToken();
-        await fetch(serverIp+ '/cancelOrder', {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/cancelOrder', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -85,15 +103,15 @@ class Customer_booking extends React.Component {
         })
             .then((response) => response.text())
             .then((responseData) => {
-                clearInterval(this.interval);
+                clearInterval(this.interval)
                 this.props.navigation.reset({
                     index: 0,
-                    routes: [{name: 'Home'}]
+                    routes: [{name: 'Home'}],
                 })
             })
-            .catch(error => {
-                console.error(error);
-            });
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     render() {
@@ -106,16 +124,33 @@ class Customer_booking extends React.Component {
                     <View style={styles.info_container}>
                         <Text
                             style={styles.looking_for_taxi}
-                            onPress={() => this.props.navigation.navigate('Booking priority')}>{looking_for_taxi}</Text>
-                        <ActivityIndicator size={Platform.OS === 'ios' ? 'large' : RFPercentage(12)}
-                                           style={styles.activityIndicator}/>
+                            onPress={() =>
+                                this.props.navigation.navigate(
+                                    'Booking priority'
+                                )
+                            }
+                        >
+                            {looking_for_taxi}
+                        </Text>
+                        <ActivityIndicator
+                            size={
+                                Platform.OS === 'ios'
+                                    ? 'large'
+                                    : RFPercentage(12)
+                            }
+                            style={styles.activityIndicator}
+                        />
                     </View>
                     <View style={styles.cancel_buttonContainer}>
-                        <TouchableOpacity style={styles.touchableCancelButtonContainer}>
+                        <TouchableOpacity
+                            style={styles.touchableCancelButtonContainer}
+                        >
                             <Text
                                 style={styles.cancel_button}
                                 onPress={() => this.cancellationAlert()}
-                            >{cancel_taxi}</Text>
+                            >
+                                {cancel_taxi}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -164,7 +199,7 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     token: state.token,
     orderId: state.order.orderId,
     taxiNumber: state.order.taxiNumber,

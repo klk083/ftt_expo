@@ -6,11 +6,11 @@ import Order from './Order'
 
 const renderItem = ({item}) => <Order {...item} />
 
-const FlatListCustomers = props => (
+const FlatListCustomers = (props) => (
     <FlatList
         renderItem={renderItem}
         data={props.contacts}
-        keyExtractor={renderItem => renderItem.key.toString()}
+        keyExtractor={(renderItem) => renderItem.key.toString()}
         style={styles.flatList}
     />
 )

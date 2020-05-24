@@ -1,13 +1,25 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Alert, SafeAreaView } from 'react-native'
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    Alert,
+    SafeAreaView,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 
-import { give_review, is_trip_done, divide_by_5_stars, no_thanks } from '../common_files/Texts'
+import {
+    give_review,
+    is_trip_done,
+    divide_by_5_stars,
+    no_thanks,
+} from '../common_files/Texts'
 
 export default class Rating extends React.Component {
     state = {
-        stars: 0
+        stars: 0,
     }
 
     star = 'star'
@@ -17,7 +29,7 @@ export default class Rating extends React.Component {
         this.setState({stars: key})
         Alert.alert(
             'Vurdering',
-            'Du har gitt ' + key + ((key) <= 1 ? ' stjerne.' : ' stjerner.'),
+            'Du har gitt ' + key + (key <= 1 ? ' stjerne.' : ' stjerner.'),
             [
                 {
                     text: 'Endre vurdering',
@@ -27,10 +39,11 @@ export default class Rating extends React.Component {
                 {},
                 {
                     text: 'Gi vurdering',
-                    onPress: () => this.props.navigation.reset({
-                        index: 0,
-                        routes: [{name: 'Home'}]
-                    }),
+                    onPress: () =>
+                        this.props.navigation.reset({
+                            index: 0,
+                            routes: [{name: 'Home'}],
+                        }),
                 },
             ]
         )
@@ -49,11 +62,9 @@ export default class Rating extends React.Component {
                 >
                     <Icon
                         style={styles.star}
-                        name={
-                            i <= this.state.stars ? this.star : this.star_o
-                        }
+                        name={i <= this.state.stars ? this.star : this.star_o}
                         size={RFPercentage(7)}
-                        color='gold'
+                        color="gold"
                     />
                 </TouchableOpacity>
             )
@@ -70,19 +81,28 @@ export default class Rating extends React.Component {
                         <View style={styles.starsContainer}>
                             <View style={styles.rating_bar}>{rating_bar}</View>
                             <View style={styles.starsRateContainer}>
-                                <Text style={styles.starsRate}>{this.state.stars}{divide_by_5_stars}</Text>
+                                <Text style={styles.starsRate}>
+                                    {this.state.stars}
+                                    {divide_by_5_stars}
+                                </Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.touchableNoThanksContainer}>
+                        <TouchableOpacity
+                            style={styles.touchableNoThanksContainer}
+                        >
                             <Text
                                 style={styles.no_thanks}
-                                onPress={() => this.props.navigation.reset({
-                                    index: 0,
-                                    routes: [{name: 'Home'}]
-                                })}
-                            >{no_thanks}</Text>
+                                onPress={() =>
+                                    this.props.navigation.reset({
+                                        index: 0,
+                                        routes: [{name: 'Home'}],
+                                    })
+                                }
+                            >
+                                {no_thanks}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -93,7 +113,7 @@ export default class Rating extends React.Component {
 
 const styles = StyleSheet.create({
     safeAreaView: {
-      flex: 1,
+        flex: 1,
     },
     container: {
         flex: 1,
