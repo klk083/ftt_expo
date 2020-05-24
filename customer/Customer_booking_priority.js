@@ -1,6 +1,16 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, Platform, BackHandler} from 'react-native'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert,
+    SafeAreaView,
+    Platform,
+    BackHandler,
+} from 'react-native'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
 import {
@@ -8,25 +18,29 @@ import {
     looking_for_taxi_priority,
     priority_price,
     buy_yourself_out_of_queue,
-    serverIp
+    serverIp,
 } from '../common_files/Texts'
-import {getToken} from "../common_files/ourFunctions";
-import {NavigationActions} from "react-navigation";
+import {getToken} from '../common_files/ourFunctions'
+import {NavigationActions} from 'react-navigation'
 
 class Customer_booking_priority extends React.Component {
-
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.cancellationAlert)
+        BackHandler.addEventListener(
+            'hardwareBackPress',
+            this.cancellationAlert
+        )
     }
 
     componentDidUpdate() {
-        clearInterval(this.interval);
+        clearInterval(this.interval)
     }
 
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.cancellationAlert)
+        BackHandler.removeEventListener(
+            'hardwareBackPress',
+            this.cancellationAlert
+        )
     }
-
 
     cancellationAlert = () => {
         Alert.alert(
@@ -45,15 +59,15 @@ class Customer_booking_priority extends React.Component {
                 },
             ],
             {
-                cancelable: false
-            },
+                cancelable: false,
+            }
         )
         return true
     }
 
     submitCancellationButton = async () => {
-        const tokenGotten = await getToken();
-        await fetch(serverIp+ '/cancelOrder', {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/cancelOrder', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -63,15 +77,15 @@ class Customer_booking_priority extends React.Component {
         })
             .then((response) => response.text())
             .then((responseData) => {
-                clearInterval(this.interval);
+                clearInterval(this.interval)
                 this.props.navigation.reset({
                     index: 0,
-                    routes: [{name: 'Home'}]
+                    routes: [{name: 'Home'}],
                 })
             })
-            .catch(error => {
-                console.error(error);
-            });
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     render() {
@@ -81,28 +95,52 @@ class Customer_booking_priority extends React.Component {
                     <View style={styles.info_container}>
                         <Text
                             style={styles.looking_for_taxi_priority}
-                            onPress={() => this.props.navigation.navigate('Booking confirmation')}
-                        >{looking_for_taxi_priority}</Text>
+                            onPress={() =>
+                                this.props.navigation.navigate(
+                                    'Booking confirmation'
+                                )
+                            }
+                        >
+                            {looking_for_taxi_priority}
+                        </Text>
                     </View>
                     <View style={styles.activity_spinner}>
                         <ActivityIndicator
-                            size={Platform.OS === 'ios' ? 'large' : RFPercentage(12)}
-                            style={styles.activityIndicator}/>
+                            size={
+                                Platform.OS === 'ios'
+                                    ? 'large'
+                                    : RFPercentage(12)
+                            }
+                            style={styles.activityIndicator}
+                        />
                     </View>
                     <View style={styles.priority_buttonContainer}>
                         <TouchableOpacity
                             style={styles.touchablePriorityContainer}
-                            onPress={() => this.props.navigation.navigate('Booking priority booked')}>
-                            <Text style={styles.priority_button}>{buy_yourself_out_of_queue}</Text>
-                            <Text style={styles.priority_button_price}>({priority_price})</Text>
+                            onPress={() =>
+                                this.props.navigation.navigate(
+                                    'Booking priority booked'
+                                )
+                            }
+                        >
+                            <Text style={styles.priority_button}>
+                                {buy_yourself_out_of_queue}
+                            </Text>
+                            <Text style={styles.priority_button_price}>
+                                ({priority_price})
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.cancel_buttonContainer}>
-                        <TouchableOpacity style={styles.touchableCancelButtonContainer}>
+                        <TouchableOpacity
+                            style={styles.touchableCancelButtonContainer}
+                        >
                             <Text
                                 style={styles.cancel_button}
                                 onPress={() => this.cancellationAlert}
-                            >{cancel_taxi}</Text>
+                            >
+                                {cancel_taxi}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -182,7 +220,7 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     token: state.token,
     orderId: state.order.orderId,
 })

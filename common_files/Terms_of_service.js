@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, ScrollView, Text, StyleSheet, SafeAreaView } from 'react-native'
+import {View, ScrollView, Text, StyleSheet, SafeAreaView} from 'react-native'
 
 import {terms_of_service} from './Texts'
-import { RFPercentage } from 'react-native-responsive-fontsize'
-
+import {RFPercentage} from 'react-native-responsive-fontsize'
 
 export default class Privacy extends React.Component {
     render() {
@@ -35,4 +34,3 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(3),
     },
 })
-

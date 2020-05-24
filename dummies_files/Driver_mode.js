@@ -1,7 +1,7 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {NavigationContainer} from '@react-navigation/native'
+import {createDrawerNavigator} from '@react-navigation/drawer'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 
 import Driver_main from '../driver/Driver_main'
 import LogoTitle from '../common_files/LogoTitle'
@@ -15,7 +15,7 @@ class NewDrawerStack extends React.Component {
         return (
             <DrawerStack.Navigator
                 screenOptions={{
-                    headerLeft: props => <LogoTitle {...props} />,
+                    headerLeft: (props) => <LogoTitle {...props} />,
                     headerStyle: {
                         backgroundColor: 'darkseagreen',
                     },
@@ -23,18 +23,18 @@ class NewDrawerStack extends React.Component {
                     headerTitleStyle: {
                         fontSize: RFPercentage(5),
                     },
-                    headerRight: props => <Customer_MenuButton {...props}/>,
+                    headerRight: (props) => <Customer_MenuButton {...props} />,
                 }}
             >
                 <DrawerStack.Screen
-                    name='Driver Home'
+                    name="Driver Home"
                     component={Driver_main}
                     options={{
                         title: '',
                     }}
                 />
                 <DrawerStack.Screen
-                    name='DriverHasOrder'
+                    name="DriverHasOrder"
                     component={DriverHasOrder}
                     options={{
                         title: 'Oppdrag',
@@ -45,12 +45,11 @@ class NewDrawerStack extends React.Component {
     }
 }
 
-
 class Driver_mode extends React.Component {
     render() {
         return (
             <NavigationContainer>
-                <NewDrawerStack/>
+                <NewDrawerStack />
             </NavigationContainer>
         )
     }

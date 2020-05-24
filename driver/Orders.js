@@ -22,12 +22,17 @@ const updateKey = () => {
 // generate order type
 const generateOrderType = () => `${rand(1, 0)}`
 
-
 // create an order
-const createOrder = () => ({key: updateKey(), distKm: generateKM(), phoneNumber: generatePhoneNum(), orderType: generateOrderType()})
+const createOrder = () => ({
+    key: updateKey(),
+    distKm: generateKM(),
+    phoneNumber: generatePhoneNum(),
+    orderType: generateOrderType(),
+})
 
 // compare two distances for distance
-export const compareDistKm = (order1, order2) => Number(order1.distKm) > Number(order2.distKm)
+export const compareDistKm = (order1, order2) =>
+    Number(order1.distKm) > Number(order2.distKm)
 
 // add keys to based on index
 const addKeys = (val, key) => ({key, ...val})

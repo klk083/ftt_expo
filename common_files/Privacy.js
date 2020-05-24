@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, ScrollView, Text, StyleSheet, SafeAreaView } from 'react-native'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {View, ScrollView, Text, StyleSheet, SafeAreaView} from 'react-native'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 
 import {privacyText} from './Texts'
 
@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: 20,
-        fontSize: RFPercentage(3)
-    }
+        fontSize: RFPercentage(3),
+    },
 })

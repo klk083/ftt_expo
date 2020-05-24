@@ -1,7 +1,13 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, SafeAreaView } from 'react-native'
+import {
+    View,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    SafeAreaView,
+} from 'react-native'
 import call from 'react-native-phone-call'
-import { RFPercentage } from 'react-native-responsive-fontsize'
+import {RFPercentage} from 'react-native-responsive-fontsize'
 
 import {accept, km} from '../common_files/Texts'
 
@@ -29,7 +35,10 @@ class Order extends React.Component {
                         onPress={() => this.call(this.props.phoneNumber)}
                     >
                         <Text style={styles.customerData}>{accept}</Text>
-                        <Text style={styles.customerData}>{this.props.distKm}{km}</Text>
+                        <Text style={styles.customerData}>
+                            {this.props.distKm}
+                            {km}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
@@ -45,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: 3,
         backgroundColor: '#e9e9e9',
-        borderRadius: 15
+        borderRadius: 15,
     },
     customerData: {
         flex: 1,
