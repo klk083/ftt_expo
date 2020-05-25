@@ -174,10 +174,6 @@ class Customer_main extends React.Component {
 
     render() {
         const {geocode} = this.state
-        console.log(store.getState())
-        console.log('CUSTOMER LOCATION:')
-        console.log(this.props.user_permission.location)
-        console.log('END CUSTOMER LOCATION')
 
         return (
             <SafeAreaView style={styles.safeAreaView}>

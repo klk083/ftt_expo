@@ -20,20 +20,23 @@ import {
     priority_orders,
     orders,
     change_user_to_customer,
+    serverIp,
 } from '../common_files/Texts'
 import Orders, {compareDistKm} from './Orders'
 import SectionListCustomers from './SectionListCustomers'
 import {getToken} from '../common_files/ourFunctions'
-import {getOrders} from './OrdersFromServer'
+//import {getOrders} from './OrdersFromServer'
 import {updateOrderList, updateUserType} from '../redux/actions'
 
 class Driver_main extends React.Component {
     state = {
         isAvailable: false,
-        orders: Orders,
+        gotJson: false,
+        orders: this.props.orderList,
     }
 
     componentDidMount() {
+        this.setState(this.props.orderList)
         this.props.updateOrderList([
             {
                 latitude: this.props.customerLocation.latitude,
@@ -52,6 +55,12 @@ class Driver_main extends React.Component {
 
     toggleSwitch = (value) => {
         this.setState({isAvailable: value})
+        this.getOrders()
+        /*if (value) {
+            this.interval = setInterval(() => this.getOrders(), 30000)
+        } else {
+            clearInterval(this.interval)
+        }*/
         this.sort()
     }
 
@@ -117,6 +126,34 @@ class Driver_main extends React.Component {
         this.setState({distanceBetween: distanceBetween})
     }
 
+    getOrders = async () => {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/getOrders', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                if (json.length) {
+                    this.props.updateOrderList(json)
+                    console.log('HER ER STORE')
+                    console.log(json[0])
+                    this.setState({gotJson: true})
+                    console.log('ENDRET STATE GOTJSON TO TRUE')
+                    return json[0].object
+                } else {
+                    console.log('Array was empty')
+                    return false
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
     /* Fungerer bare i bare react native mode
 
     getDeviceId = () => {
@@ -127,7 +164,7 @@ class Driver_main extends React.Component {
      */
 
     render() {
-        console.log(store.getState())
+        console.log(this.props.orderList)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -191,7 +228,7 @@ class Driver_main extends React.Component {
                             </Text>
                             <Text>Det andre objektet{`\n`}</Text>
                             <SectionListCustomers
-                                contacts={this.props.orderList}
+                                orders={this.props.orderList}
                             />
                         </View>
                     )}
@@ -213,7 +250,7 @@ class Driver_main extends React.Component {
                                 </View>
                                 <View style={styles.basicSectionListContainer}>
                                     <SectionListCustomers
-                                        contacts={this.state.orders}
+                                        orders={this.props.orderList}
                                     />
                                 </View>
                             </View>
@@ -225,7 +262,7 @@ class Driver_main extends React.Component {
                                 </View>
                                 <View style={styles.basicSectionListContainer}>
                                     <SectionListCustomers
-                                        contacts={this.state.orders}
+                                        orders={this.props.orderList}
                                     />
                                 </View>
                             </View>

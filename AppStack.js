@@ -29,10 +29,7 @@ class AppStackScreen extends React.Component {
         TextInput.defaultProps.allowFontScaling = false
     }
 
-    componentDidMount() {
-        store.getState() // kan fjernes etterhvert
-        //setTimeout(() => SplashScreen, 1000)
-    }
+    componentDidMount() {}
 
     render() {
         if (this.props.isLoading === 'true') return <SplashScreen />
