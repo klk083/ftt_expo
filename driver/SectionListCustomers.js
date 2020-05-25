@@ -10,7 +10,7 @@ const FlatListCustomers = (props) => (
     <FlatList
         renderItem={renderItem}
         data={props.contacts}
-        keyExtractor={(renderItem) => renderItem.key.toString()}
+        keyExtractor={(renderItem) => renderItem.orderId.toString()}
         style={styles.flatList}
     />
 )
