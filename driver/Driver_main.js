@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Switch,
     SafeAreaView,
-    Platform,
+    Platform, BackHandler,
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 import * as Permissions from 'expo-permissions'
@@ -18,11 +18,11 @@ import {
     driver_not_available,
     priority_orders,
     orders,
-} from '../common_files/Texts'
-import Orders, {compareDistKm} from './Orders'
-import SectionListCustomers from './SectionListCustomers'
+} from '../common_files/Texts';
+import Orders, {compareDistKm} from './Orders';
+import SectionListCustomers from './SectionListCustomers';
 import {getToken} from "../common_files/ourFunctions";
-import {getOrders} from "./OrdersFromServer";
+import getOrders from "./OrdersFromServer";
 import store from "../redux/store";
 
 
@@ -32,16 +32,18 @@ class Driver_main extends React.Component {
         orders: Orders,
     }
 
-    componentDidMount() {
-        this.interval = setInterval(() => this.getOrders, 10000)
-    }
-
-    componentDidUpdate() {
+    componentWillUnmount() {
         clearInterval(this.interval)
     }
 
     toggleSwitch = (value) => {
         this.setState({isAvailable: value})
+        if(value) {
+            console.log('is in Order interval')
+            this.interval = setInterval(() => getOrders(), 10000)
+        } else {
+            clearInterval(this.interval)
+        }
         this.sort()
     }
 

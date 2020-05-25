@@ -2,10 +2,11 @@ import React from 'react'
 import {getToken} from '../common_files/ourFunctions'
 import {serverIp} from '../common_files/Texts'
 import {
-    updateOrderList,
+    updateOrderList
 } from '../redux/actions'
 
 export const getOrders = async () => {
+    console.log("Called getOrders");
     const tokenGotten = await getToken()
     await fetch(serverIp + '/getOrders', {
         method: 'POST',
@@ -16,9 +17,17 @@ export const getOrders = async () => {
     })
         .then((response) => response.json())
         .then((json) => {
-            this.props.updateOrderList([json])
-            console.log('got to orders')
             console.log(json)
+            if (json.length) {
+                this.props.updateOrderList([json])
+                console.log('got to orders')
+                console.log(json)
+                return true;
+            } else {
+                console.log('Array was empty')
+                return false;
+            }
+
         })
         .catch((error) => {
             console.error(error)
