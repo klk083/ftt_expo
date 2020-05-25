@@ -26,7 +26,6 @@ class Order extends React.Component {
     }
 
     render() {
-        console.log('ER INNE I ORDER')
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.row}>
