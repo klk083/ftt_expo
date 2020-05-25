@@ -1,9 +1,6 @@
 import React from 'react'
 import {getToken} from '../common_files/ourFunctions'
 import {serverIp} from '../common_files/Texts'
-import {
-    updateOrderList
-} from '../redux/actions'
 
 export const getOrders = async () => {
     console.log("Called getOrders");
@@ -19,10 +16,9 @@ export const getOrders = async () => {
         .then((json) => {
             console.log(json)
             if (json.length) {
-                this.props.updateOrderList([json])
                 console.log('got to orders')
                 console.log(json)
-                return true;
+                return json[0].object;
             } else {
                 console.log('Array was empty')
                 return false;
@@ -32,9 +28,6 @@ export const getOrders = async () => {
         .catch((error) => {
             console.error(error)
         })
-}
-const mapDispatchToProps = {
-    updateOrderList,
 }
 
 

@@ -17,12 +17,13 @@ import {
     driver_available,
     driver_not_available,
     priority_orders,
-    orders,
-} from '../common_files/Texts';
+    orders, serverIp,
+} from '../common_files/Texts'
 import Orders, {compareDistKm} from './Orders';
 import SectionListCustomers from './SectionListCustomers';
 import {getToken} from "../common_files/ourFunctions";
-import getOrders from "./OrdersFromServer";
+import {getOrders} from "./OrdersFromServer";
+import {updateOrderList} from '../redux/actions'
 import store from "../redux/store";
 
 
@@ -40,7 +41,8 @@ class Driver_main extends React.Component {
         this.setState({isAvailable: value})
         if(value) {
             console.log('is in Order interval')
-            this.interval = setInterval(() => getOrders(), 10000)
+            this.getOrderlistServer()
+            this.interval = setInterval(() => this.getOrderlistServer(), 30000)
         } else {
             clearInterval(this.interval)
         }
@@ -118,7 +120,15 @@ class Driver_main extends React.Component {
 
      */
 
+    getOrderlistServer = async () => {
+        const orders = await getOrders();
+        console.log('this is what i get of orders: ' +orders);
+        this.props.updateOrderList(orders[0]);
+    }
+
     render() {
+        console.log(store.getState())
+
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -301,6 +311,8 @@ const mapStateToProps = (state) => ({
     orderList: state.orderList,
 })
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    updateOrderList,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Driver_main)
