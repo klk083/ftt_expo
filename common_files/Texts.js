@@ -29,6 +29,7 @@ export const accept = 'Aksepter'
 export const km = ' km'
 export const wrong_number = 'Feil nummer?'
 export const confirm = 'BEKREFT'
+export const change_user_to_driver = 'Gå til sjåfør'
 
 //all texts
 export const secretKey =
@@ -66,6 +67,7 @@ export const is_order_accomplished = 'Er oppdraget utført?'
 export const order_is_accomplished = 'Oppdraget utført'
 export const order_was_canceled = 'Turen ble kansellert'
 export const reason_for_the_cancellation = 'Hva er grunnen til kanselleringen?'
+export const change_user_to_customer = 'Gå til kunde'
 
 export const terms_of_service =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tortor libero. ' +
