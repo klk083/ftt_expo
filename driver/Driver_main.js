@@ -12,6 +12,7 @@ import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
 import {getPreciseDistance} from 'geolib'
 import {connect} from 'react-redux'
+import store from '../redux/store'
 
 import {
     driver_available,
@@ -21,11 +22,29 @@ import {
 } from '../common_files/Texts'
 import Orders, {compareDistKm} from './Orders'
 import SectionListCustomers from './SectionListCustomers'
+import {updateOrderList} from '../redux/actions'
 
 class Driver_main extends React.Component {
     state = {
         isAvailable: false,
         orders: Orders,
+    }
+
+    componentDidMount() {
+        this.props.updateOrderList([
+            {
+                latitude: this.props.customerLocation.latitude,
+                longitude: this.props.customerLocation.longitude,
+                orderId: 94875,
+                priority: 0,
+            },
+            {
+                latitude: this.props.customerLocation.latitude,
+                longitude: this.props.customerLocation.longitude,
+                orderId: 2324,
+                priority: 1,
+            },
+        ])
     }
 
     toggleSwitch = (value) => {
@@ -105,6 +124,7 @@ class Driver_main extends React.Component {
      */
 
     render() {
+        console.log(store.getState())
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -285,8 +305,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     orderList: state.orderList,
+    customerLocation: state.user_location,
 })
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    updateOrderList,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Driver_main)
