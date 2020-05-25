@@ -190,18 +190,9 @@ class Driver_main extends React.Component {
                                 {`\n`}
                             </Text>
                             <Text>Det andre objektet{`\n`}</Text>
-                            <Text>
-                                Latitude: {this.props.orderList[1].latitude}
-                            </Text>
-                            <Text>
-                                Longitude: {this.props.orderList[1].longitude}
-                            </Text>
-                            <Text>
-                                OrderId: {this.props.orderList[1].orderId}
-                            </Text>
-                            <Text>
-                                Priority: {this.props.orderList[1].priority}
-                            </Text>
+                            <SectionListCustomers
+                                contacts={this.props.orderList}
+                            />
                         </View>
                     )}
 

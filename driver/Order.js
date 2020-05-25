@@ -26,17 +26,18 @@ class Order extends React.Component {
     }
 
     render() {
+        console.log('ER INNE I ORDER')
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.row}>
                     <TouchableOpacity
-                        key={this.props.distKm}
+                        key={this.props.orderId}
                         style={styles.row}
-                        onPress={() => this.call(this.props.phoneNumber)}
+                        onPress={() => this.call(this.props.orderId.toString())}
                     >
                         <Text style={styles.customerData}>{accept}</Text>
                         <Text style={styles.customerData}>
-                            {this.props.distKm}
+                            {this.props.orderId}
                             {km}
                         </Text>
                     </TouchableOpacity>
