@@ -1,10 +1,9 @@
 import React from 'react'
 import {getToken} from '../common_files/ourFunctions'
 import {serverIp} from '../common_files/Texts'
-// import {driverOrders} from "../redux/actions"; //
-import store from '../redux/store'
 
 export const getOrders = async () => {
+    console.log("Called getOrders");
     const tokenGotten = await getToken()
     await fetch(serverIp + '/getOrders', {
         method: 'POST',
@@ -15,13 +14,21 @@ export const getOrders = async () => {
     })
         .then((response) => response.json())
         .then((json) => {
-            console.log('got to orders')
             console.log(json)
-            return json
+            if (json.length) {
+                console.log('got to orders')
+                console.log(json)
+                return json[0].object;
+            } else {
+                console.log('Array was empty')
+                return false;
+            }
+
         })
         .catch((error) => {
             console.error(error)
         })
 }
+
 
 export default getOrders

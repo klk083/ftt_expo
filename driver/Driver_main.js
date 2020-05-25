@@ -33,6 +33,10 @@ class Driver_main extends React.Component {
         orders: this.props.orderList,
     }
 
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
     componentDidMount() {
         this.setState(this.props.orderList)
     }
@@ -142,6 +146,12 @@ class Driver_main extends React.Component {
     }
 
      */
+
+    getOrderlistServer = async () => {
+        const orders = await getOrders();
+        console.log('this is what i get of orders: ' +orders);
+        this.props.updateOrderList(orders[0]);
+    }
 
     render() {
         return (
