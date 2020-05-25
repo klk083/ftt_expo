@@ -25,7 +25,7 @@ const contactReducer = (state = [], action) => {
     return state
 }
 
-const initial_userType = 'true'
+const initial_userType = 'false'
 const userType = (state = initial_userType, action) => {
     switch (action.type) {
         case UPDATE_IS_DRIVER:
@@ -82,7 +82,7 @@ const initial_updateOrderList = [
 const orderList = (state = initial_updateOrderList, action) => {
     switch (action.type) {
         case ORDER_LIST_DATA:
-            return [action.orderListData]
+            return action.orderListData
         default:
             return state
     }

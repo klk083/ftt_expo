@@ -21,6 +21,7 @@ import {
     turn_on_location,
     turn_on_location_explanation,
     serverIp,
+    change_user_to_driver,
 } from '../common_files/Texts'
 import {
     updateCustomerLocation,
@@ -30,6 +31,7 @@ import {
     updatePermission,
     updateOrder,
     updatePriority,
+    updateUserType,
 } from '../redux/actions'
 import store from '../redux/store'
 
@@ -172,13 +174,15 @@ class Customer_main extends React.Component {
 
     render() {
         const {geocode} = this.state
-        console.log('CUSTOMER_MAIN:')
         console.log(store.getState())
+        console.log('CUSTOMER LOCATION:')
+        console.log(this.props.user_permission.location)
+        console.log('END CUSTOMER LOCATION')
 
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
-                    {this.state.isGranted && (
+                    {this.props.user_permission.location === 'granted' && (
                         <View style={styles.grantedMainContainer}>
                             <View style={styles.spaceBetweenViews}>
                                 <Text style={styles.locationAddress}>
@@ -187,12 +191,12 @@ class Customer_main extends React.Component {
                                         : ''}
                                 </Text>
                                 <Text
-                                    style={styles.locationAddress}
+                                    style={{color: 'lightgray'}}
                                     onPress={() =>
-                                        this.props.navigation.toggleDrawer()
+                                        this.props.updateUserType('true')
                                     }
                                 >
-                                    {this.props.route.name}
+                                    {change_user_to_driver}
                                 </Text>
                             </View>
                             <View style={styles.buttonContainer}>
@@ -216,7 +220,7 @@ class Customer_main extends React.Component {
                             </View>
                         </View>
                     )}
-                    {!this.state.isGranted && (
+                    {this.props.user_permission.location === 'none' && (
                         <View style={styles.locationContainer}>
                             <View style={styles.locationInfoContainer}>
                                 <Text style={styles.locationInfo}>
@@ -338,7 +342,7 @@ const mapStateToProps = (state) => ({
     user: state.isGranted,
     token: state.token,
     mobileNumber: state.mobileNumber,
-    permission: state.updatePermission,
+    user_permission: state.permission,
     priority: state.updatePriority,
 })
 
@@ -350,6 +354,7 @@ const mapDispatchToProps = {
     updatePermission,
     updateOrder,
     updatePriority,
+    updateUserType,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)
