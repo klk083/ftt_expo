@@ -21,6 +21,7 @@ import {
     turn_on_location,
     turn_on_location_explanation,
     serverIp,
+    change_user_to_driver,
 } from '../common_files/Texts'
 import {
     updateCustomerLocation,
@@ -30,6 +31,7 @@ import {
     updatePermission,
     updateOrder,
     updatePriority,
+    updateUserType,
 } from '../redux/actions'
 import store from '../redux/store'
 
@@ -189,12 +191,12 @@ class Customer_main extends React.Component {
                                         : ''}
                                 </Text>
                                 <Text
-                                    style={styles.locationAddress}
+                                    style={{color: 'lightgray'}}
                                     onPress={() =>
-                                        this.props.navigation.toggleDrawer()
+                                        this.props.updateUserType('true')
                                     }
                                 >
-                                    {this.props.route.name}
+                                    {change_user_to_driver}
                                 </Text>
                             </View>
                             <View style={styles.buttonContainer}>
@@ -352,6 +354,7 @@ const mapDispatchToProps = {
     updatePermission,
     updateOrder,
     updatePriority,
+    updateUserType,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)

@@ -19,14 +19,13 @@ import {
     driver_not_available,
     priority_orders,
     orders,
+    change_user_to_customer,
 } from '../common_files/Texts'
 import Orders, {compareDistKm} from './Orders'
 import SectionListCustomers from './SectionListCustomers'
-import {getToken} from "../common_files/ourFunctions";
-import {getOrders} from "./OrdersFromServer";
-import store from "../redux/store";
-
-import {updateOrderList} from '../redux/actions'
+import {getToken} from '../common_files/ourFunctions'
+import {getOrders} from './OrdersFromServer'
+import {updateOrderList, updateUserType} from '../redux/actions'
 
 class Driver_main extends React.Component {
     state = {
@@ -132,6 +131,14 @@ class Driver_main extends React.Component {
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
+                    <View>
+                        <Text
+                            style={{color: 'lightgray'}}
+                            onPress={() => this.props.updateUserType('false')}
+                        >
+                            {change_user_to_customer}
+                        </Text>
+                    </View>
                     <View style={styles.availabilityContainer}>
                         <Text style={styles.availability}>
                             {this.state.isAvailable
@@ -314,6 +321,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     updateOrderList,
+    updateUserType,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Driver_main)
