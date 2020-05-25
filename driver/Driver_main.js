@@ -12,7 +12,6 @@ import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
 import {getPreciseDistance} from 'geolib'
 import {connect} from 'react-redux'
-import store from '../redux/store'
 
 import {
     driver_available,
@@ -22,10 +21,9 @@ import {
     change_user_to_customer,
     serverIp,
 } from '../common_files/Texts'
-import Orders, {compareDistKm} from './Orders'
+import {compareDistKm} from './Orders'
 import SectionListCustomers from './SectionListCustomers'
 import {getToken} from '../common_files/ourFunctions'
-//import {getOrders} from './OrdersFromServer'
 import {updateOrderList, updateUserType} from '../redux/actions'
 
 class Driver_main extends React.Component {
@@ -37,20 +35,6 @@ class Driver_main extends React.Component {
 
     componentDidMount() {
         this.setState(this.props.orderList)
-        this.props.updateOrderList([
-            {
-                latitude: this.props.customerLocation.latitude,
-                longitude: this.props.customerLocation.longitude,
-                orderId: 94875,
-                priority: 0,
-            },
-            {
-                latitude: this.props.customerLocation.latitude,
-                longitude: this.props.customerLocation.longitude,
-                orderId: 2324,
-                priority: 1,
-            },
-        ])
     }
 
     toggleSwitch = (value) => {
@@ -139,10 +123,6 @@ class Driver_main extends React.Component {
             .then((json) => {
                 if (json.length) {
                     this.props.updateOrderList(json)
-                    console.log('HER ER STORE')
-                    console.log(json[0])
-                    this.setState({gotJson: true})
-                    console.log('ENDRET STATE GOTJSON TO TRUE')
                     return json[0].object
                 } else {
                     console.log('Array was empty')
@@ -164,18 +144,9 @@ class Driver_main extends React.Component {
      */
 
     render() {
-        console.log(this.props.orderList)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
-                    <View>
-                        <Text
-                            style={{color: 'lightgray'}}
-                            onPress={() => this.props.updateUserType('false')}
-                        >
-                            {change_user_to_customer}
-                        </Text>
-                    </View>
                     <View style={styles.availabilityContainer}>
                         <Text style={styles.availability}>
                             {this.state.isAvailable
@@ -196,43 +167,6 @@ class Driver_main extends React.Component {
                             }
                         />
                     </View>
-
-                    {!this.state.isAvailable && (
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                borderWidth: 5,
-                                borderColor: 'red',
-                            }}
-                        >
-                            <Text>
-                                HER ER LISTA HENTET FRA MOBILEN{`\n`}
-                                {`\n`}
-                            </Text>
-                            <Text>Det første objektet{`\n`}</Text>
-                            <Text>
-                                Latitude: {this.props.orderList[0].latitude}
-                            </Text>
-                            <Text>
-                                Longitude: {this.props.orderList[0].longitude}
-                            </Text>
-                            <Text>
-                                OrderId: {this.props.orderList[0].orderId}
-                            </Text>
-                            <Text>
-                                Priority: {this.props.orderList[0].priority}
-                                {`\n`}
-                                {`\n`}
-                            </Text>
-                            <Text>Det andre objektet{`\n`}</Text>
-                            <SectionListCustomers
-                                orders={this.props.orderList}
-                            />
-                        </View>
-                    )}
-
                     {this.state.isAvailable && (
                         <View style={styles.orderContainer}>
                             <View style={styles.priorityOrdersContainer}>
@@ -268,6 +202,14 @@ class Driver_main extends React.Component {
                             </View>
                         </View>
                     )}
+                    <View>
+                        <Text
+                            style={{color: 'lightgray'}}
+                            onPress={() => this.props.updateUserType('false')}
+                        >
+                            {change_user_to_customer}
+                        </Text>
+                    </View>
                 </View>
             </SafeAreaView>
         )
