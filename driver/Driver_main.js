@@ -32,6 +32,14 @@ class Driver_main extends React.Component {
         orders: Orders,
     }
 
+    componentDidMount() {
+        this.interval = setInterval(() => this.getOrders, 10000)
+    }
+
+    componentDidUpdate() {
+        clearInterval(this.interval)
+    }
+
     toggleSwitch = (value) => {
         this.setState({isAvailable: value})
         this.sort()

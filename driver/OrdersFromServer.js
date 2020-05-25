@@ -1,8 +1,9 @@
 import React from 'react'
 import {getToken} from '../common_files/ourFunctions'
 import {serverIp} from '../common_files/Texts'
-// import {driverOrders} from "../redux/actions"; //
-import store from '../redux/store'
+import {
+    updateOrderList,
+} from '../redux/actions'
 
 export const getOrders = async () => {
     const tokenGotten = await getToken()
@@ -15,13 +16,17 @@ export const getOrders = async () => {
     })
         .then((response) => response.json())
         .then((json) => {
+            this.props.updateOrderList([json])
             console.log('got to orders')
             console.log(json)
-            return json
         })
         .catch((error) => {
             console.error(error)
         })
 }
+const mapDispatchToProps = {
+    updateOrderList,
+}
+
 
 export default getOrders
