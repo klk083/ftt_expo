@@ -9,14 +9,14 @@ const renderItem = ({item}) => <Order {...item} />
 const FlatListCustomers = (props) => (
     <FlatList
         renderItem={renderItem}
-        data={props.contacts}
-        keyExtractor={(renderItem) => renderItem.key.toString()}
+        data={props.orders}
+        keyExtractor={(renderItem) => renderItem.orderId.toString()}
         style={styles.flatList}
     />
 )
 
 FlatListCustomers.propTypes = {
-    contacts: PropTypes.array,
+    orders: PropTypes.array,
 }
 
 const styles = StyleSheet.create({

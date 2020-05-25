@@ -5,7 +5,6 @@ import {
     UPDATE_TOKEN,
     UPDATE_IS_DRIVER,
     USER_LOCATION,
-    ORDER_ID,
     DEVICE_ID,
     UPDATE_IS_LOADING,
     MOBILE_NUMBER,
@@ -75,10 +74,7 @@ const updatePriority = (state = initial_updatePriority, action) => {
     }
 }
 
-const initial_updateOrderList = [
-    {latitude: 99.99999, longitude: 99.99999, orderId: 999, priority: 0},
-    {latitude: 66.66666, longitude: 66.666666, orderId: 666, priority: 1},
-]
+const initial_updateOrderList = []
 const orderList = (state = initial_updateOrderList, action) => {
     switch (action.type) {
         case ORDER_LIST_DATA:
