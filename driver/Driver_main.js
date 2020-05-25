@@ -147,12 +147,6 @@ class Driver_main extends React.Component {
 
      */
 
-    getOrderlistServer = async () => {
-        const orders = await getOrders();
-        console.log('this is what i get of orders: ' +orders);
-        this.props.updateOrderList(orders[0]);
-    }
-
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
