@@ -33,6 +33,10 @@ class Driver_main extends React.Component {
         orders: this.props.orderList,
     }
 
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
     componentDidMount() {
         this.setState(this.props.orderList)
     }
@@ -142,6 +146,7 @@ class Driver_main extends React.Component {
     }
 
      */
+
 
     render() {
         return (
