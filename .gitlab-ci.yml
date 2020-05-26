@@ -2,7 +2,7 @@ image: node:latest
 
 stages:
   - build  # Jobs placed in build-stage will run first
-  - test   # Jobs placed in tets-stage will run after build-jobs
+#  - test   # Jobs placed in tets-stage will run after build-jobs
   - deploy # Jobs placed in build-stage will run last after test-jobs
 
 install:
