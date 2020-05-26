@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
   },
   "dependencies": {
     "@react-native-community/geolocation": "^2.0.2",
@@ -37,6 +38,7 @@
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.3.9",
     "react-redux": "^7.2.0",
+    "react-test-renderer": "^16.13.1",
     "redux": "^4.0.5"
   },
   "devDependencies": {
@@ -44,6 +46,9 @@
     "babel-preset-expo": "~8.1.0",
     "jest": "^26.0.1",
     "prettier": "^2.0.5"
+  },
+  "jest": {
+    "preset": "react-native"
   },
   "private": true
 }

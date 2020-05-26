@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import store from './redux/store'
 import AppStack from './AppStack'
 
-class AppStackScreen extends React.Component {
+class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
@@ -14,4 +14,4 @@ class AppStackScreen extends React.Component {
     }
 }
 
-export default AppStackScreen
+export default App

@@ -14,7 +14,6 @@ import LogoTitle from './common_files/LogoTitle'
 import MenuButton from './common_files/MenuButton'
 import CustomerStack from './customer/CustomerStack'
 import DriverStack from './driver/DriverStack'
-import store from './redux/store'
 
 const AppStack = createStackNavigator()
 

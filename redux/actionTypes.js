@@ -1,5 +1,3 @@
-export const UPDATE_USER = 'UPDATE_USER'
-export const UPDATE_CONTACT = 'UPDATE_CONTACT'
 export const UPDATE_TOKEN = 'UPDATE_TOKEN'
 export const UPDATE_IS_DRIVER = 'UPDATE_IS_DRIVER'
 export const USER_LOCATION = 'USER_LOCATION'
@@ -14,5 +12,3 @@ export const UPDATE_IS_LOADING = 'UPDATE_IS_LOADING'
 export const MOBILE_NUMBER = 'MOBILE_NUMBER'
 export const PERMISSION = 'PERMISSION'
 export const DRIVER_IS_AVAILABLE = 'DRIVER_IS_AVAILABLE'
-
-//(latitude, longitude, orderId, priority) og lager en ordreList som skal inneholde listen av ordre objekter

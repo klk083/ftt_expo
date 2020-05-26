@@ -4,7 +4,7 @@ import {View, ScrollView, Text, StyleSheet, SafeAreaView} from 'react-native'
 import {terms_of_service} from './Texts'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 
-export default class Privacy extends React.Component {
+export default class Terms_of_service extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
