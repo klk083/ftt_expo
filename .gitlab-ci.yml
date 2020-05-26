@@ -17,12 +17,12 @@ install:
 test:
   stage: test # Job test will run in parallel with the job flow
   script:
-    - npm test
+#    - npm test
 
 flow:
   stage: test # Job flow will run in parallel with the job test
   script:
-    - npm install --global flow-bin
+    - npm install --global #flow-bin
     #- flow check
 
 deploy:
