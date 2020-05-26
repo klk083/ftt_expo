@@ -17,6 +17,7 @@ install:
 test:
   stage: test # Job test will run in parallel with the job flow
   script:
+    - npm install jest
     - npm test
 
 deploy:
