@@ -14,9 +14,9 @@ install:
 #    paths:
 #      - node_modules
 
-test:
-  stage: test # Job test will run in parallel with the job flow
-  script:
+#test:
+#  stage: test # Job test will run in parallel with the job flow
+#  script:
 #    - npm test
 
 flow:
