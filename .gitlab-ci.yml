@@ -2,7 +2,7 @@ image: node:latest
 
 stages:
   - build  # Jobs placed in build-stage will run first
-#  - test   # Jobs placed in tets-stage will run after build-jobs
+  - test   # Jobs placed in tets-stage will run after build-jobs
   - deploy # Jobs placed in build-stage will run last after test-jobs
 
 install:
@@ -14,16 +14,10 @@ install:
 #    paths:
 #      - node_modules
 
-#test:
-#  stage: test # Job test will run in parallel with the job flow
-#  script:
-#    - npm test
-
-flow:
-  stage: test # Job flow will run in parallel with the job test
+test:
+  stage: test # Job test will run in parallel with the job flow
   script:
-    - npm install --global #flow-bin
-    #- flow check
+    - npm test
 
 deploy:
   stage: deploy
