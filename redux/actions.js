@@ -1,8 +1,6 @@
 import {
     UPDATE_IS_DRIVER,
     UPDATE_TOKEN,
-    UPDATE_CONTACT,
-    UPDATE_USER,
     USER_LOCATION,
     ORDER_ID,
     DEVICE_ID,
@@ -14,19 +12,8 @@ import {
     ORDER_LIST_DATA,
     DRIVER_IS_AVAILABLE,
 } from './actionTypes'
-import {isAvailable} from 'expo/build/AR'
 
 // action creators
-export const updateUser = (update) => ({
-    type: UPDATE_USER,
-    update,
-})
-
-export const addContact = (newContact) => ({
-    type: UPDATE_CONTACT,
-    payload: newContact,
-})
-
 export const updateToken = (token) => ({
     type: UPDATE_TOKEN,
     token,

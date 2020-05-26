@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux'
 
 import {
-    UPDATE_CONTACT,
     UPDATE_TOKEN,
     UPDATE_IS_DRIVER,
     USER_LOCATION,
@@ -15,14 +14,6 @@ import {
     TAXI_NUMBER,
     PRIORITY,
 } from './actionTypes'
-import {updateOrderId} from './actions'
-
-const merge = (prev, next) => Object.assign({}, prev, next)
-
-const contactReducer = (state = [], action) => {
-    if (action.type === UPDATE_CONTACT) return [...state, action.payload]
-    return state
-}
 
 const initial_userType = 'false'
 const userType = (state = initial_userType, action) => {

@@ -3,7 +3,7 @@ import {StyleSheet, View, Image} from 'react-native'
 import {updateIsLoading} from '../redux/actions'
 import {connect} from 'react-redux'
 
-class SplashScreen extends React.Component {
+export class SplashScreen extends React.Component {
     performTimeConsumingTask = async () => {
         return new Promise((resolve) =>
             setTimeout(() => {
