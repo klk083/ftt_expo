@@ -26,7 +26,7 @@ export const getOrderPhoneNumber = async () => {
         })
 }
 const mapStateToProps = (state) => ({
-    orderId: state.order_id,
+    orderId: state.order.orderId,
     deviceId: state.deviceId,
     mobileNumber: state.mobileNumber,
 })

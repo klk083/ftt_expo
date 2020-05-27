@@ -32,6 +32,7 @@ import {
     updateOrder,
     updatePriority,
     updateUserType,
+    updateMobNum,
 } from '../redux/actions'
 import store from '../redux/store'
 
@@ -164,8 +165,6 @@ class Customer_main extends React.Component {
         })
             .then((response) => response.text())
             .then((responseData) => {
-                console.log('responseData')
-                console.log(responseData)
                 this.props.updateOrderId(responseData)
                 this.props.navigation.navigate('Booking')
             })
@@ -174,9 +173,14 @@ class Customer_main extends React.Component {
             })
     }
 
+    changeToDriver = () => {
+        this.props.updateMobNum('123456789')
+        this.props.updateDeviceId('tlf123')
+        this.props.updateUserType('true')
+    }
+
     render() {
         const {geocode} = this.state
-        //console.log(this.props.token)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -190,9 +194,7 @@ class Customer_main extends React.Component {
                                 </Text>
                                 <Text
                                     style={{color: 'lightgray'}}
-                                    onPress={() =>
-                                        this.props.updateUserType('true')
-                                    }
+                                    onPress={() => this.changeToDriver()}
                                 >
                                     {change_user_to_driver}
                                 </Text>
@@ -353,6 +355,7 @@ const mapDispatchToProps = {
     updateOrder,
     updatePriority,
     updateUserType,
+    updateMobNum,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)

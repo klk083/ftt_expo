@@ -51,7 +51,6 @@ class Customer_taxi_confirmation extends React.Component {
     }
 
     render() {
-        console.log(store.getState())
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>

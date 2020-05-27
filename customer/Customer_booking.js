@@ -50,8 +50,6 @@ class Customer_booking extends React.Component {
         })
             .then((response) => response.json())
             .then((json) => {
-                console.log('ER I BOOKING')
-                console.log(json)
                 if (json.length) {
                     this.props.updateOrder({
                         companyName: json[0].companyName,
@@ -116,9 +114,6 @@ class Customer_booking extends React.Component {
     }
 
     render() {
-        //console.log('CUSTOMER_BOOKING: ')
-        //console.log(store.getState())
-
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
