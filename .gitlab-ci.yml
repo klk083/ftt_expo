@@ -30,8 +30,6 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - apt-get update
     - apt-get install --assume-yes rsync
-#    - ssh app@10.52.229.34 systemctl --user restart app
-#    - rsync --archive --delete --exclude='.git' --exclude='node_modules' . app@10.52.229.34:app
 
   only:
     - master
