@@ -164,6 +164,8 @@ class Customer_main extends React.Component {
         })
             .then((response) => response.text())
             .then((responseData) => {
+                console.log('responseData')
+                console.log(responseData)
                 this.props.updateOrderId(responseData)
                 this.props.navigation.navigate('Booking')
             })
@@ -174,7 +176,7 @@ class Customer_main extends React.Component {
 
     render() {
         const {geocode} = this.state
-
+        //console.log(this.props.token)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -334,7 +336,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
     customerLocation: state.user_location,
     orderId: state.order.orderId,
-    deviceId: state.deviceId,
+    deviceId: state.device_id,
     user: state.isGranted,
     token: state.token,
     mobileNumber: state.mobileNumber,
