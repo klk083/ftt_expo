@@ -34,7 +34,7 @@ router.post('/getorders', function (req, res) {
     // getOrders
     // gets orderId,dateTimeOfOrder,latitude,longitude, priority to show driver
     const token = req.body.token
-    if (tools.verify(token) == true) {
+    if (tools.verify(token) === true) {
         con.query(
             //'SELECT `orderId`,`dateTimeOfOrder`,`latitude`,`longitude`,`priority` FROM `orders` WHERE `isTaken` = 0',
             'SELECT `orderId`,`latitude`,`longitude`,`priority` FROM `orders` WHERE `isTaken` = 0',
@@ -55,7 +55,7 @@ router.post('/takeorder', function (req, res) {
     const orderId = req.body.orderId
     const deviceId = req.body.deviceId
     const token = req.body.token
-    if (tools.verify(token) == true) {
+    if (tools.verify(token) === true) {
         let isSucsess = false
         con.query(
             //'START TRANSACTION; SELECT `isTaken` FROM `orders` WHERE `orderId` = ?; UPDATE `orders` SET `isTaken` = 1 WHERE `isTaken` = 0 AND orderId=?; COMMIT;',
@@ -103,7 +103,7 @@ router.put('/endTrip', function (req, res) {
     // changes archived to true
     const token = req.body.token
     const orderId = req.body.orderId
-    if (tools.verify(token) == true) {
+    if (tools.verify(token) === true) {
         con.query(
             'UPDATE `orders` SET `orders.arvhived` = `1` WHERE `orderId` = ?',
             [orderId],
@@ -135,7 +135,7 @@ router.post('/makeorder', function (req, res) {
     const latitude = req.body.latitude
     const longitude = req.body.longitude
     const token = req.body.token
-    if (tools.verify(token) == true) {
+    if (tools.verify(token) === true) {
         con.query(
             'INSERT INTO `orders` ( `customerId`, `latitude`, `longitude`) SELECT `customerId`,?,? FROM `userCustomer` WHERE `deviceId` = ?;',
             [latitude, longitude, deviceId],
@@ -160,7 +160,7 @@ router.put('/makeprio', function (req, res) {
     // set priority to true, start
     const token = req.body.token
     const orderId = req.body.orderId
-    if (tools.verify(token) == true) {
+    if (tools.verify(token) === true) {
         con.query(
             'UPDATE `orders` SET `orders.priority` = `1` WHERE `orderId` = ?',
             [orderId],
@@ -185,7 +185,7 @@ router.post('/getOrderTaxiNum', function (req, res) {
     //when a driver has taken te order
     const token = req.body.token
     const orderId = req.body.orderId
-    if (tools.verify(token) == true) {
+    if (tools.verify(token) === true) {
         con.query(
             'SELECT `taxiNumber`, `companyName` FROM `orderTaxiNum` WHERE `orderId` = ?',
             [orderId],
@@ -213,7 +213,7 @@ router.post('/cancelOrder', function (req, res) {
     const reason = 'Customer canceled order before driver took order'
     const orderId = req.body.orderId
     let isSucsessfull = false
-    if (tools.verify(token) == true) {
+    if (tools.verify(token) === true) {
         con.query(
             'UPDATE `orders` SET `archived` = 1 WHERE `orderId` =?',
             [orderId],
