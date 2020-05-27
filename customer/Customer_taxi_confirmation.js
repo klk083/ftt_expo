@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
+import store from '../redux/store'
 
 import {
     confirmation_msg,
@@ -50,7 +51,6 @@ class Customer_taxi_confirmation extends React.Component {
     }
 
     render() {
-        //console.log(this.props)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>

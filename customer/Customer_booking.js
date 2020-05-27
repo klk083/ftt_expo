@@ -50,10 +50,9 @@ class Customer_booking extends React.Component {
         })
             .then((response) => response.json())
             .then((json) => {
-                console.log(json)
                 if (json.length) {
                     this.props.updateOrder({
-                        companyNumber: json[0].companyNumber,
+                        companyName: json[0].companyName,
                         taxiNumber: json[0].taxiNumber,
                     })
                     clearInterval(this.interval)
@@ -115,9 +114,6 @@ class Customer_booking extends React.Component {
     }
 
     render() {
-        //console.log('CUSTOMER_BOOKING: ')
-        //console.log(store.getState())
-
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -206,4 +202,8 @@ const mapStateToProps = (state) => ({
     companyName: state.order.companyName,
 })
 
-export default connect(mapStateToProps)(Customer_booking)
+const mapDispatchToProps = {
+    updateOrder,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Customer_booking)

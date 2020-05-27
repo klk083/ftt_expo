@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux'
 
 import {
-    UPDATE_CONTACT,
     UPDATE_TOKEN,
     UPDATE_IS_DRIVER,
     USER_LOCATION,
@@ -14,15 +13,8 @@ import {
     COMPANY_NAME,
     TAXI_NUMBER,
     PRIORITY,
+    ORDER_ID,
 } from './actionTypes'
-import {updateOrderId} from './actions'
-
-const merge = (prev, next) => Object.assign({}, prev, next)
-
-const contactReducer = (state = [], action) => {
-    if (action.type === UPDATE_CONTACT) return [...state, action.payload]
-    return state
-}
 
 const initial_userType = 'false'
 const userType = (state = initial_userType, action) => {
@@ -54,9 +46,15 @@ const user_location = (state = initial_user_location, action) => {
     }
 }
 
-const initial_order = {companyName: 'COMPANY_NAME', taxiNumber: 'TAXI_NUMBER'}
+const initial_order = {
+    companyName: 'COMPANY_NAME',
+    taxiNumber: 'TAXI_NUMBER',
+    orderId: -1,
+}
 const order = (state = initial_order, action) => {
     switch (action.type) {
+        case ORDER_ID:
+            return Object.assign({}, state, {orderId: action.orderId})
         case ORDER_DATA:
             return action.order_data
         default:
@@ -84,11 +82,11 @@ const orderList = (state = initial_updateOrderList, action) => {
     }
 }
 
-const initial_device_id = {deviceId: '0'}
+const initial_device_id = 'tlf321'
 const device_id = (state = initial_device_id, action) => {
     switch (action.type) {
         case DEVICE_ID:
-            return Object.assign({}, state, {deviceId: action.deviceId})
+            return action.deviceId
         default:
             return state
     }

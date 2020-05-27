@@ -8,8 +8,12 @@ import {
 } from 'react-native'
 import call from 'react-native-phone-call'
 import {RFPercentage} from 'react-native-responsive-fontsize'
+import {connect} from 'react-redux'
 
-import {accept, km} from '../common_files/Texts'
+import {accept, km, serverIp} from '../common_files/Texts'
+import {getToken} from '../common_files/ourFunctions'
+import {updateMobNum} from '../redux/actions'
+import store from '../redux/store'
 
 class Order extends React.Component {
     call = (phoneNumber) => {
@@ -19,11 +23,35 @@ class Order extends React.Component {
             prompt: false,
         }
         call(args).catch(console.error)
+        this.getOrderPhoneNumber().catch()
     }
 
-    componentDidMount() {
-        console.log(this.props)
+    getOrderPhoneNumber = async () => {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/takeorder', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                orderId: this.props.orderId,
+                deviceId: this.props.deviceId,
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log('took Order, got Phone number:')
+                console.log(this.props.orderId)
+                console.log(this.props.deviceId)
+                console.log(json)
+                console.log(json[0].phoneNumber)
+                this.props.updateMobNum(json[0].phoneNumber)
+            })
+            .catch((error) => {
+                console.error(error)
+            })
     }
+
+    componentDidMount() {}
 
     render() {
         return (
@@ -63,4 +91,12 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Order
+const mapStateToProps = (state) => ({
+    deviceId: state.device_id,
+})
+
+const mapDispatchToProps = {
+    updateMobNum,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Order)
