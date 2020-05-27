@@ -17,13 +17,8 @@ install:
 test:
   stage: test # Job test will run in parallel with the job flow
   script:
+    - npm install jest
     - npm test
-
-flow:
-  stage: test # Job flow will run in parallel with the job test
-  script:
-    - npm install --global flow-bin
-    #- flow check
 
 deploy:
   stage: deploy
@@ -35,8 +30,6 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - apt-get update
     - apt-get install --assume-yes rsync
-#    - ssh app@10.52.229.34 systemctl --user restart app
-#    - rsync --archive --delete --exclude='.git' --exclude='node_modules' . app@10.52.229.34:app
 
   only:
     - master
