@@ -18,13 +18,11 @@ import store from '../redux/store'
 
 class Order extends React.Component {
     call = (phoneNumber) => {
-        //handler to make a call
         const args = {
             number: phoneNumber,
             prompt: false,
         }
         call(args).catch(console.error)
-        this.getOrderPhoneNumber().catch()
     }
 
     getOrderPhoneNumber = async () => {
@@ -42,6 +40,8 @@ class Order extends React.Component {
             .then((json) => {
                 console.log('took Order, got Phone number:')
                 this.props.updateMobNum(json[1][0].phoneNumber)
+                this.call(this.props.customerMobNum.toString())
+                //this.props.navigation.navigate('Driver Order')
             })
             .catch((error) => {
                 console.error(error)
@@ -57,9 +57,7 @@ class Order extends React.Component {
                     <TouchableOpacity
                         key={this.props.orderId}
                         style={styles.row}
-                        onPress={() =>
-                            this.call(this.props.customerMobNum.toString())
-                        }
+                        onPress={() => this.getOrderPhoneNumber()}
                     >
                         <Text style={styles.customerData}>{accept}</Text>
                         <Text style={styles.customerData}>

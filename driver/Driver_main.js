@@ -59,10 +59,10 @@ class Driver_main extends React.Component {
                 json[i]
             )
         }
+        const compareKm = (order1, order2) =>
+            Number(order1.km) > Number(order2.km)
+        newOrderList.sort(compareKm)
         return newOrderList
-        /*this.setState((prevState) => ({
-            orders: prevState.orders.sort(compareDistKm),
-        }))*/
     }
 
     getLocationAsync = async () => {
@@ -135,6 +135,9 @@ class Driver_main extends React.Component {
                 if (json.length) {
                     let sortedJson = this.sort(json)
                     this.props.updateOrderList(sortedJson)
+                    console.log('sortedJson')
+                    console.log(sortedJson)
+                    console.log('slutt på sortedJson')
                     return json[0].object
                 } else {
                     console.log('Array was empty')
@@ -144,6 +147,20 @@ class Driver_main extends React.Component {
             .catch((error) => {
                 console.error(error)
             })
+    }
+
+    priorityOrderList = () => {
+        const priorityOrders = this.props.orderList.filter(
+            (item) => item.priority === 1
+        )
+        return priorityOrders
+    }
+
+    basicOrderList = () => {
+        const basicOrders = this.props.orderList.filter(
+            (item) => item.priority === 0
+        )
+        return basicOrders
     }
 
     /* Fungerer bare i bare react native mode
@@ -196,7 +213,7 @@ class Driver_main extends React.Component {
                                 </View>
                                 <View style={styles.basicSectionListContainer}>
                                     <SectionListCustomers
-                                        orders={this.props.orderList}
+                                        orders={this.priorityOrderList()}
                                     />
                                 </View>
                             </View>
@@ -208,7 +225,7 @@ class Driver_main extends React.Component {
                                 </View>
                                 <View style={styles.basicSectionListContainer}>
                                     <SectionListCustomers
-                                        orders={this.props.orderList}
+                                        orders={this.basicOrderList()}
                                     />
                                 </View>
                             </View>
