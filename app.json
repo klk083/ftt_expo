@@ -9,11 +9,10 @@
     ],
     "version": "0.1.0",
     "orientation": "portrait",
-    "icon": "./assets/fast_track_taxi_logo_ferdig_icon.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/fast_track_taxi_logo_ferdig.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#8fbc8f"
+      "image": "./assets/splash.png",
+      "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
