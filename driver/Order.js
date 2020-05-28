@@ -14,6 +14,8 @@ import {accept, km, serverIp} from '../common_files/Texts'
 import {getToken} from '../common_files/ourFunctions'
 import {updateMobNum} from '../redux/actions'
 
+import store from '../redux/store'
+
 class Order extends React.Component {
     call = (phoneNumber) => {
         //handler to make a call
@@ -55,11 +57,13 @@ class Order extends React.Component {
                     <TouchableOpacity
                         key={this.props.orderId}
                         style={styles.row}
-                        onPress={() => this.call(this.props.customerMobNum)}
+                        onPress={() =>
+                            this.call(this.props.customerMobNum.toString())
+                        }
                     >
                         <Text style={styles.customerData}>{accept}</Text>
                         <Text style={styles.customerData}>
-                            {this.props.orderId}
+                            {this.props.km}
                             {km}
                         </Text>
                     </TouchableOpacity>
