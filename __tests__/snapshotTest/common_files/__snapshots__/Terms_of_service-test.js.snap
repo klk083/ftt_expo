@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginLeft": 10,
+        "marginRight": 10,
+        "marginTop": 10,
+      }
+    }
+  >
+    <RCTScrollView>
+      <View>
+        <Text
+          style={
+            Object {
+              "fontSize": 40,
+              "marginTop": 20,
+            }
+          }
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tortor libero. Nullam quis ante ut velit gravida porttitor. Curabitur gravida accumsan nisl. Integer sit amet dui gravida, scelerisque massa eu, venenatis sem. Sed posuere augue non diam ornare venenatis non vel tellus. Suspendisse a metus imperdiet, ornare nibh non, gravida dui. Nulla facilisi. Vivamus convallis ac felis at dignissim. Integer ultricies aliquet viverra. Suspendisse quis placerat justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam a vehicula nunc, sed sagittis mi. Suspendisse potenti. Phasellus facilisis nunc mauris, ut porttitor est bibendum eget.
+
+Sed luctus vel lacus ut convallis. Nunc laoreet accumsan orci, quis mattis augue. Nulla ipsum nibh, egestas a sagittis non, tempus vitae massa. Pellentesque ullamcorper, sem malesuada accumsan porta, ex lectus dictum nisi, a bibendum justo sapien id sapien. Etiam ut fermentum libero. Pellentesque id urna sem. Duis sit amet hendrerit magna, eu placerat risus. Praesent vel egestas diam. Maecenas vulputate ante leo, ut viverra nisi laoreet a. Curabitur rhoncus in tellus sit amet porttitor. Curabitur quis ex ornare, tincidunt nulla et, luctus augue. Duis malesuada, metus et ornare sollicitudin, erat augue fringilla arcu, non fringilla lacus nisi vitae ipsum. Nulla eu tellus quis est sollicitudin efficitur.
+
+Morbi feugiat congue dolor. Duis auctor tristique erat, in cursus ligula condimentum quis. Praesent gravida neque in malesuada suscipit. Sed sit amet risus sed lectus lobortis venenatis a ut sapien. Suspendisse potenti. Donec posuere massa elit, ac posuere dui sodales vel. Vestibulum luctus sit amet erat ac eleifend. Suspendisse potenti. Morbi facilisis ex ligula, eget aliquam ex elementum eget. Quisque ac blandit massa. Fusce id orci vel ante porta ultrices. Nullam eget leo eget nunc mollis mollis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse non elementum dui.
+
+Nullam et urna id orci laoreet porttitor a in libero. Nullam sollicitudin ultrices pellentesque. Maecenas eu ullamcorper justo. Fusce at vulputate enim. Cras pellentesque sed sapien at cursus. In rhoncus mollis libero, ac finibus metus porttitor eu. Nam vestibulum, lacus sit amet varius malesuada, nisi ipsum semper quam, non rutrum sem nisl ut sem. Nam ut elit venenatis, malesuada risus sollicitudin, consequat dolor. Ut vitae purus diam. Proin condimentum nisi eu lacus pharetra ultrices. In hac habitasse platea dictumst. Mauris malesuada nisl in nunc varius imperdiet. Praesent id augue viverra, viverra lectus non, vehicula tortor.
+
+Donec bibendum sapien sed sem condimentum, ac interdum leo molestie. Duis accumsan aliquet finibus. Fusce luctus tempus bibendum. Proin iaculis egestas turpis, vitae sodales lectus pharetra at. Nam posuere arcu diam, eget ultricies ligula imperdiet congue. Etiam volutpat volutpat elit eget molestie. In mattis eu ligula eu sodales. Mauris eget orci varius, pharetra quam a, eleifend justo. Integer dapibus erat ac orci eleifend, eget ornare orci ullamcorper. Curabitur diam urna, dignissim ut risus eget, fringilla fermentum augue. Praesent faucibus, mi at accumsan iaculis, purus ante molestie nibh, at egestas velit arcu id felis. Etiam eget cursus massa, in sagittis erat. Suspendisse condimentum ex velit, ut pharetra magna faucibus in. Maecenas congue lacus massa, ac tincidunt ZZerat viverra condimentum.
+        </Text>
+      </View>
+    </RCTScrollView>
+  </View>
+</RCTSafeAreaView>
+`;

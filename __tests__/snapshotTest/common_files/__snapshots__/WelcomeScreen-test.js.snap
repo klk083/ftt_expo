@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFFFFF",
+        "flex": 1,
+        "justifyContent": "space-evenly",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignContent": "center",
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignItems": "stretch",
+            "fontSize": 107,
+            "textAlign": "center",
+            "textAlignVertical": "center",
+          }
+        }
+      >
+        Velkommen til
+      </Text>
+    </View>
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/fast_track_taxi_logo_ferdig.png",
+        }
+      }
+      style={
+        Object {
+          "flex": 2,
+          "height": 380,
+          "width": 380,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "justifyContent": "flex-end",
+          "padding": 20,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "space-evenly",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "flex": 1,
+              "fontSize": 40,
+              "textAlign": "center",
+            }
+          }
+        >
+          Les vår 
+          <Text
+            onPress={[Function]}
+            style={
+              Object {
+                "color": "blue",
+                "textAlign": "center",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            Personvern
+          </Text>
+          . Trykk "Bekreft og fortsett" for å akseptere 
+          <Text
+            onPress={[Function]}
+            style={
+              Object {
+                "color": "blue",
+                "textAlign": "center",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            Servicevilkår
+          </Text>
+          .
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={false}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "darkseagreen",
+              "borderRadius": 25,
+              "flex": 1,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "fontSize": 53,
+                "textTransform": "uppercase",
+              }
+            }
+          >
+            Bekreft og fortsett
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
