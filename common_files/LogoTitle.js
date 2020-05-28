@@ -2,7 +2,7 @@ import React from 'react'
 import {Image} from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 
-export default class LogoTitle extends React.Component {
+class LogoTitle extends React.Component {
     render() {
         return (
             <Image
@@ -13,3 +13,5 @@ export default class LogoTitle extends React.Component {
         )
     }
 }
+
+export default LogoTitle

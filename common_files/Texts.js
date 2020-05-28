@@ -1,8 +1,8 @@
 // Common texts
 export const write_your_num = 'Skriv inn\nmobilnummeret ditt'
 export const fft_info =
-    'Fast Track Taxi skal sende deg en melding for å verifisere mobilnummeret ditt.\n\nHva er ' +
-    'nummeret ditt?'
+    'Fast Track Taxi skal sende deg en melding for å verifisere ' +
+    'mobilnummeret ditt.\n\nHva er nummeret ditt?'
 export const verifisering_info =
     'Venter på en melding med engangskode sendt til\n+47 '
 export const basic_price = '30kr'
@@ -70,38 +70,58 @@ export const reason_for_the_cancellation = 'Hva er grunnen til kanselleringen?'
 export const change_user_to_customer = 'Gå til kunde'
 
 export const terms_of_service =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tortor libero. ' +
-    'Nullam quis ante ut velit gravida porttitor. Curabitur gravida accumsan nisl. Integer sit amet dui gravida, ' +
-    'scelerisque massa eu, venenatis sem. Sed posuere augue non diam ornare venenatis non vel tellus. Suspendisse a ' +
-    'metus imperdiet, ornare nibh non, gravida dui. Nulla facilisi. Vivamus convallis ac felis at dignissim. Integer ' +
-    'ultricies aliquet viverra. Suspendisse quis placerat justo. Class aptent taciti sociosqu ad litora torquent per ' +
-    'conubia nostra, per inceptos himenaeos. Aliquam a vehicula nunc, sed sagittis mi. Suspendisse potenti. Phasellus ' +
-    'facilisis nunc mauris, ut porttitor est bibendum eget.\n\nSed luctus vel lacus ut convallis. Nunc laoreet accumsan ' +
-    'orci, quis mattis augue. Nulla ipsum nibh, egestas a sagittis non, tempus vitae massa. Pellentesque ullamcorper, ' +
-    'sem malesuada accumsan porta, ex lectus dictum nisi, a bibendum justo sapien id sapien. Etiam ut fermentum libero. ' +
-    'Pellentesque id urna sem. Duis sit amet hendrerit magna, eu placerat risus. Praesent vel egestas diam. Maecenas ' +
-    'vulputate ante leo, ut viverra nisi laoreet a. Curabitur rhoncus in tellus sit amet porttitor. Curabitur quis ex ' +
-    'ornare, tincidunt nulla et, luctus augue. Duis malesuada, metus et ornare sollicitudin, erat augue fringilla arcu, ' +
-    'non fringilla lacus nisi vitae ipsum. Nulla eu tellus quis est sollicitudin efficitur.\n\nMorbi feugiat congue ' +
-    'dolor. Duis auctor tristique erat, in cursus ligula condimentum quis. Praesent gravida neque in malesuada suscipit. ' +
-    'Sed sit amet risus sed lectus lobortis venenatis a ut sapien. Suspendisse potenti. Donec posuere massa elit, ac ' +
-    'posuere dui sodales vel. Vestibulum luctus sit amet erat ac eleifend. Suspendisse potenti. Morbi facilisis ex ' +
-    'ligula, eget aliquam ex elementum eget. Quisque ac blandit massa. Fusce id orci vel ante porta ultrices. Nullam ' +
-    'eget leo eget nunc mollis mollis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia ' +
-    'Curae; Suspendisse non elementum dui.\n\nNullam et urna id orci laoreet porttitor a in libero. Nullam sollicitudin' +
-    'ultrices pellentesque. Maecenas eu ullamcorper justo. Fusce at vulputate enim. Cras pellentesque sed sapien at' +
-    'cursus. In rhoncus mollis libero, ac finibus metus porttitor eu. Nam vestibulum, lacus sit amet varius malesuada,' +
-    'nisi ipsum semper quam, non rutrum sem nisl ut sem. Nam ut elit venenatis, malesuada risus sollicitudin, consequat' +
-    'dolor. Ut vitae purus diam. Proin condimentum nisi eu lacus pharetra ultrices. In hac habitasse platea dictumst.' +
-    'Mauris malesuada nisl in nunc varius imperdiet. Praesent id augue viverra, viverra lectus non, vehicula tortor.\n\n' +
-    'Donec bibendum sapien sed sem condimentum, ac interdum leo molestie. Duis accumsan aliquet finibus. Fusce luctus' +
-    'tempus bibendum. Proin iaculis egestas turpis, vitae sodales lectus pharetra at. Nam posuere arcu diam, eget' +
-    'ultricies ligula imperdiet congue. Etiam volutpat volutpat elit eget molestie. In mattis eu ligula eu sodales.' +
-    'Mauris eget orci varius, pharetra quam a, eleifend justo. Integer dapibus erat ac orci eleifend, eget ornare orci' +
-    'ullamcorper. Curabitur diam urna, dignissim ut risus eget, fringilla fermentum augue. Praesent faucibus, mi at' +
-    'accumsan iaculis, purus ante molestie nibh, at egestas velit arcu id felis. Etiam eget cursus massa, in sagittis' +
-    'erat. Suspendisse condimentum ex velit, ut pharetra magna faucibus in. Maecenas congue lacus massa, ac tincidunt' +
-    'erat viverra condimentum.'
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ' +
+    'tortor libero. Nullam quis ante ut velit gravida porttitor. Curabitur ' +
+    'gravida accumsan nisl. Integer sit amet dui gravida, scelerisque massa' +
+    ' eu, venenatis sem. Sed posuere augue non diam ornare venenatis non vel' +
+    ' tellus. Suspendisse a metus imperdiet, ornare nibh non, gravida dui.' +
+    ' Nulla facilisi. Vivamus convallis ac felis at dignissim. Integer' +
+    ' ultricies aliquet viverra. Suspendisse quis placerat justo. Class' +
+    ' aptent taciti sociosqu ad litora torquent per conubia nostra, per' +
+    ' inceptos himenaeos. Aliquam a vehicula nunc, sed sagittis mi.' +
+    ' Suspendisse potenti. Phasellus facilisis nunc mauris, ut porttitor' +
+    ' est bibendum eget.\n\nSed luctus vel lacus ut convallis. Nunc laoreet' +
+    ' accumsan orci, quis mattis augue. Nulla ipsum nibh, egestas a sagittis' +
+    ' non, tempus vitae massa. Pellentesque ullamcorper, sem malesuada ' +
+    'accumsan porta, ex lectus dictum nisi, a bibendum justo sapien id' +
+    ' sapien. Etiam ut fermentum libero. Pellentesque id urna sem. Duis sit' +
+    ' amet hendrerit magna, eu placerat risus. Praesent vel egestas diam.' +
+    ' Maecenas vulputate ante leo, ut viverra nisi laoreet a. Curabitur ' +
+    'rhoncus in tellus sit amet porttitor. Curabitur quis ex ornare,' +
+    ' tincidunt nulla et, luctus augue. Duis malesuada, metus et ornare' +
+    ' sollicitudin, erat augue fringilla arcu, non fringilla lacus nisi ' +
+    'vitae ipsum. Nulla eu tellus quis est sollicitudin efficitur.\n\nMorbi' +
+    ' feugiat congue dolor. Duis auctor tristique erat, in cursus ligula ' +
+    'condimentum quis. Praesent gravida neque in malesuada suscipit. Sed ' +
+    'sit amet risus sed lectus lobortis venenatis a ut sapien. Suspendisse ' +
+    'potenti. Donec posuere massa elit, ac posuere dui sodales vel. ' +
+    'Vestibulum luctus sit amet erat ac eleifend. Suspendisse potenti. Morbi' +
+    ' facilisis ex ligula, eget aliquam ex elementum eget. Quisque ac ' +
+    'blandit massa. Fusce id orci vel ante porta ultrices. Nullam eget leo ' +
+    'eget nunc mollis mollis. Vestibulum ante ipsum primis in faucibus orci ' +
+    'luctus et ultrices posuere cubilia Curae; Suspendisse non elementum ' +
+    'dui.\n\nNullam et urna id orci laoreet porttitor a in libero. Nullam' +
+    ' sollicitudin ultrices pellentesque. Maecenas eu ullamcorper justo.' +
+    ' Fusce at vulputate enim. Cras pellentesque sed sapien at cursus. In ' +
+    'rhoncus mollis libero, ac finibus metus porttitor eu. Nam vestibulum, ' +
+    'lacus sit amet varius malesuada, nisi ipsum semper quam, non rutrum sem ' +
+    'nisl ut sem. Nam ut elit venenatis, malesuada risus sollicitudin, ' +
+    'consequat dolor. Ut vitae purus diam. Proin condimentum nisi eu lacus' +
+    ' pharetra ultrices. In hac habitasse platea dictumst. Mauris malesuada ' +
+    'nisl in nunc varius imperdiet. Praesent id augue viverra, viverra ' +
+    'lectus non, vehicula tortor.\n\nDonec bibendum sapien sed sem ' +
+    'condimentum, ac interdum leo molestie. Duis accumsan aliquet finibus. ' +
+    'Fusce luctus tempus bibendum. Proin iaculis egestas turpis, vitae ' +
+    'sodales lectus pharetra at. Nam posuere arcu diam, eget ultricies ' +
+    'ligula imperdiet congue. Etiam volutpat volutpat elit eget molestie. In' +
+    ' mattis eu ligula eu sodales. Mauris eget orci varius, pharetra quam a, ' +
+    'eleifend justo. Integer dapibus erat ac orci eleifend, eget ornare ' +
+    'orci ullamcorper. Curabitur diam urna, dignissim ut risus eget, ' +
+    'fringilla fermentum augue. Praesent faucibus, mi at accumsan iaculis, ' +
+    'purus ante molestie nibh, at egestas velit arcu id felis. Etiam eget ' +
+    'cursus massa, in sagittis erat. Suspendisse condimentum ex velit, ut ' +
+    'pharetra magna faucibus in. Maecenas congue lacus massa, ac tincidunt ' +
+    'ZZerat viverra condimentum.'
 
 export const privacyText =
     'Jf. tidligere lov 14. april 2000 nr. 31. – Jf. EØS-avtalen vedlegg XI nr. 5e (forordning ' +
@@ -430,6 +450,4 @@ export const privacyText =
     '\n' +
     'Reglene om behandling av personopplysninger som gjaldt på handlingstidspunktet, skal legges til grunn når det ' +
     'treffes vedtak om overtredelsesgebyr. Lovgivningen på tidspunktet for avgjørelsen skal likevel anvendes når dette ' +
-    'fører til et gunstigere resultat for den ansvarlige.\n' +
-    '\n' +
-    'Kongen kan gi nærmere overgangsregler.'
+    'fører til et gunstigere resultat for den ansvarlige.\n\nKongen kan gi nærmere overgangsregler.'
