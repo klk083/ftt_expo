@@ -59,10 +59,10 @@ class Driver_main extends React.Component {
                 json[i]
             )
         }
+        const compareKm = (order1, order2) =>
+            Number(order1.km) > Number(order2.km)
+        newOrderList.sort(compareKm)
         return newOrderList
-        /*this.setState((prevState) => ({
-            orders: prevState.orders.sort(compareDistKm),
-        }))*/
     }
 
     getLocationAsync = async () => {
