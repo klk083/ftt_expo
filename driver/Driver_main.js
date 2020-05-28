@@ -44,6 +44,7 @@ class Driver_main extends React.Component {
     toggleSwitch = (value) => {
         this.setState({isAvailable: value})
         if (value) {
+            this.getOrders()
             this.interval = setInterval(() => this.getOrders(), 30000)
         } else {
             clearInterval(this.interval)

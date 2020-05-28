@@ -13,7 +13,6 @@ import {connect} from 'react-redux'
 import {accept, km, serverIp} from '../common_files/Texts'
 import {getToken} from '../common_files/ourFunctions'
 import {updateMobNum} from '../redux/actions'
-import store from '../redux/store'
 
 class Order extends React.Component {
     call = (phoneNumber) => {
@@ -40,11 +39,7 @@ class Order extends React.Component {
             .then((response) => response.json())
             .then((json) => {
                 console.log('took Order, got Phone number:')
-                console.log(this.props.orderId)
-                console.log(this.props.deviceId)
-                console.log(json)
-                console.log(json[0].phoneNumber)
-                this.props.updateMobNum(json[0].phoneNumber)
+                this.props.updateMobNum(json[1][0].phoneNumber)
             })
             .catch((error) => {
                 console.error(error)
@@ -60,7 +55,7 @@ class Order extends React.Component {
                     <TouchableOpacity
                         key={this.props.orderId}
                         style={styles.row}
-                        onPress={() => this.call(this.props.orderId.toString())}
+                        onPress={() => this.call(this.props.customerMobNum)}
                     >
                         <Text style={styles.customerData}>{accept}</Text>
                         <Text style={styles.customerData}>
@@ -93,6 +88,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     deviceId: state.device_id,
+    customerMobNum: state.mobileNumber,
 })
 
 const mapDispatchToProps = {
