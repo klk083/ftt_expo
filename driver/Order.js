@@ -40,9 +40,7 @@ class Order extends React.Component {
             .then((json) => {
                 console.log('took Order, got Phone number:')
                 this.props.updateMobNum(json[1][0].phoneNumber)
-                console.log('HER KOMMER KUNDENS NUMMER')
-                call(this.props.customerMobNum)
-                console.log(json[1][0].phoneNumber)
+                this.call(this.props.customerMobNum.toString())
                 //this.props.navigation.navigate('Driver Order')
             })
             .catch((error) => {
