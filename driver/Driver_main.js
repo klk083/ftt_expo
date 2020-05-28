@@ -21,7 +21,6 @@ import {
     change_user_to_customer,
     serverIp,
 } from '../common_files/Texts'
-import {compareDistKm} from './Orders'
 import SectionListCustomers from './SectionListCustomers'
 import {getToken} from '../common_files/ourFunctions'
 import {updateOrderList, updateUserType} from '../redux/actions'
@@ -42,29 +41,34 @@ class Driver_main extends React.Component {
     }
 
     toggleSwitch = (value) => {
+        this.getLocationAsync()
         this.setState({isAvailable: value})
         if (value) {
+            this.getOrders()
             this.interval = setInterval(() => this.getOrders(), 30000)
         } else {
             clearInterval(this.interval)
         }
-        this.sort()
+        //this.sort()
     }
 
-    sort = () => {
-        this.setState((prevState) => ({
+    sort = (json) => {
+        let newOrderList = [...json]
+        for (let i = 0; i < json.length; i++) {
+            newOrderList[i].km = this.getDistanceBetweenCustomerAndDriver(
+                json[i]
+            )
+        }
+        return newOrderList
+        /*this.setState((prevState) => ({
             orders: prevState.orders.sort(compareDistKm),
-        }))
+        }))*/
     }
 
     getLocationAsync = async () => {
         let {status} = await Permissions.askAsync(Permissions.LOCATION)
-        this.setState({errorMessage: 'granted', isGranted: true})
-        if (status !== 'granted') {
-            this.setState({
-                errorMessage: 'Du må slå på lokasjonen for å bruke appen',
-                isGranted: false,
-            })
+        if (status === 'granted') {
+            this.props.updatePermission({location: 'granted'})
         }
 
         let location = await Location.getCurrentPositionAsync({
@@ -92,7 +96,10 @@ class Driver_main extends React.Component {
 
         const {latitude, longitude} = location.coords
         await this.getGeocodeAsync({latitude, longitude})
-        this.setState({location: {latitude, longitude}})
+        this.props.updateCustomerLocation({
+            latitude: latitude,
+            longitude: longitude,
+        })
     }
 
     getGeocodeAsync = async (location) => {
@@ -100,17 +107,18 @@ class Driver_main extends React.Component {
         this.setState({geocode})
     }
 
-    getDistanceBetweenCustomerAndDriver = () => {
+    getDistanceBetweenCustomerAndDriver = (customerLocation) => {
         const distanceBetween = (
             getPreciseDistance(
                 {
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
+                    latitude: customerLocation.latitude,
+                    longitude: customerLocation.longitude,
                 },
-                this.state.secondLocation
+                this.props.customerLocation
             ) / 1000
         ).toFixed(2)
-        this.setState({distanceBetween: distanceBetween})
+        return distanceBetween
+        //this.setState({distanceBetween: distanceBetween})
     }
 
     getOrders = async () => {
@@ -125,7 +133,8 @@ class Driver_main extends React.Component {
             .then((response) => response.json())
             .then((json) => {
                 if (json.length) {
-                    this.props.updateOrderList(json)
+                    let sortedJson = this.sort(json)
+                    this.props.updateOrderList(sortedJson)
                     return json[0].object
                 } else {
                     console.log('Array was empty')

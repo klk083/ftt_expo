@@ -1,7 +1,7 @@
 import React from 'react'
 import {getToken} from '../common_files/ourFunctions'
 import {serverIp} from '../common_files/Texts'
-import {updateMobNum} from '../redux/actions'
+import {updateMobNum, updateOrder} from '../redux/actions'
 import store from '../redux/store'
 
 export const getOrderPhoneNumber = async () => {
@@ -18,8 +18,8 @@ export const getOrderPhoneNumber = async () => {
         .then((response) => response.json())
         .then((json) => {
             console.log('took Order, got Phone number:')
-            console.log(json[0].phoneNumber)
-            this.props.updateMobNum(json[0].phoneNumber)
+            console.log(json[1].phoneNumber)
+            this.props.updateMobNum(json[1].phoneNumber)
         })
         .catch((error) => {
             console.error(error)
@@ -31,4 +31,7 @@ const mapStateToProps = (state) => ({
     mobileNumber: state.mobileNumber,
 })
 
+const mapDispatchToProps = {
+    updateMobNum,
+}
 export default getOrderPhoneNumber
