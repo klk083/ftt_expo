@@ -6,7 +6,7 @@ import Order from './Order'
 
 const renderItem = ({item}) => <Order {...item} />
 
-const FlatListCustomers = (props) => (
+const SectionListCustomers = (props) => (
     <FlatList
         renderItem={renderItem}
         data={props.orders}
@@ -15,7 +15,7 @@ const FlatListCustomers = (props) => (
     />
 )
 
-FlatListCustomers.propTypes = {
+SectionListCustomers.propTypes = {
     orders: PropTypes.array,
 }
 
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default FlatListCustomers
+export default SectionListCustomers
