@@ -59,7 +59,7 @@ class Customer_booking_priority extends React.Component {
                 },
             ],
             {
-                cancelable: false,
+                cancelable: true,
             }
         )
         return true
@@ -137,7 +137,7 @@ class Customer_booking_priority extends React.Component {
                         >
                             <Text
                                 style={styles.cancel_button}
-                                onPress={() => this.cancellationAlert}
+                                onPress={() => this.cancellationAlert()}
                             >
                                 {cancel_taxi}
                             </Text>

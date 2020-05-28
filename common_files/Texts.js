@@ -58,6 +58,7 @@ export const star = ' stjerne.'
 export const stars = ' stjerner.'
 export const no_thanks = 'Nei, takk'
 export const no = 'Nei'
+export const current_address_location = 'Du befinner deg på denne adressen:\n\n'
 
 // driver texts
 export const driver_available = 'Du er tilgjengelig'

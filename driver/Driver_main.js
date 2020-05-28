@@ -6,6 +6,8 @@ import {
     Switch,
     SafeAreaView,
     Platform,
+    Alert,
+    BackHandler,
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 import * as Permissions from 'expo-permissions'
@@ -23,7 +25,12 @@ import {
 } from '../common_files/Texts'
 import SectionListCustomers from './SectionListCustomers'
 import {getToken} from '../common_files/ourFunctions'
-import {updateOrderList, updateUserType} from '../redux/actions'
+import {
+    updateCustomerLocation,
+    updateOrderList,
+    updatePermission,
+    updateUserType,
+} from '../redux/actions'
 
 class Driver_main extends React.Component {
     state = {
@@ -32,15 +39,43 @@ class Driver_main extends React.Component {
         orders: this.props.orderList,
     }
 
-    componentWillUnmount() {
-        clearInterval(this.interval)
+    componentDidMount() {
+        this.setState({orders: this.props.orderList})
+        BackHandler.addEventListener('hardwareBackPress', this.backAction)
     }
 
-    componentDidMount() {
-        this.setState(this.props.orderList)
+    componentWillUnmount() {
+        clearInterval(this.interval)
+        BackHandler.removeEventListener('hardwareBackPress', this.backAction)
+        this.setState({orders: []})
+    }
+
+    backAction = () => {
+        Alert.alert(
+            'Vil du logge deg ut og lukke appen?',
+            '',
+            [
+                {
+                    text: 'Nei',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {},
+                {
+                    text: 'Logg ut og lukk appen',
+                    onPress: () => BackHandler.exitApp(),
+                },
+            ],
+            {cancelable: true}
+        )
+        return true
     }
 
     toggleSwitch = (value) => {
+        if (this.props.userPermission !== 'granted') {
+            this.getLocationAsync()
+            return null
+        }
         this.getLocationAsync()
         this.setState({isAvailable: value})
         if (value) {
@@ -49,7 +84,6 @@ class Driver_main extends React.Component {
         } else {
             clearInterval(this.interval)
         }
-        //this.sort()
     }
 
     sort = (json) => {
@@ -66,9 +100,12 @@ class Driver_main extends React.Component {
     }
 
     getLocationAsync = async () => {
-        let {status} = await Permissions.askAsync(Permissions.LOCATION)
-        if (status === 'granted') {
-            this.props.updatePermission({location: 'granted'})
+        if (this.props.userPermission !== 'granted') {
+            let {status} = await Permissions.askAsync(Permissions.LOCATION)
+            if (status === 'granted') {
+                this.props.updatePermission({location: 'granted'})
+                this.toggleSwitch(true)
+            }
         }
 
         let location = await Location.getCurrentPositionAsync({
@@ -118,7 +155,6 @@ class Driver_main extends React.Component {
             ) / 1000
         ).toFixed(2)
         return distanceBetween
-        //this.setState({distanceBetween: distanceBetween})
     }
 
     getOrders = async () => {
@@ -173,6 +209,7 @@ class Driver_main extends React.Component {
      */
 
     render() {
+        console.log(this.props)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
@@ -316,11 +353,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
     orderList: state.orderList,
     customerLocation: state.user_location,
+    userPermission: state.permission.location,
 })
 
 const mapDispatchToProps = {
     updateOrderList,
     updateUserType,
+    updatePermission,
+    updateCustomerLocation,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Driver_main)

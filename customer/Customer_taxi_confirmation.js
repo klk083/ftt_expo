@@ -45,7 +45,8 @@ class Customer_taxi_confirmation extends React.Component {
                     onPress: () => null,
                     style: 'cancel',
                 },
-            ]
+            ],
+            {cancelable: true}
         )
         return true
     }
