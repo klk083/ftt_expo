@@ -10,8 +10,10 @@ import {
     SafeAreaView,
     Platform,
     KeyboardAvoidingView,
+    BackHandler,
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
+import {CommonActions} from '@react-navigation/native'
 
 import {
     is_order_accomplished,
@@ -26,6 +28,14 @@ export default class DriverHasOrder extends React.Component {
         isModalVisible: false,
         isDisabled: true,
         cancellationMessage: '',
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.backAction)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backAction)
     }
 
     handleMsg = (text) => {
@@ -47,7 +57,59 @@ export default class DriverHasOrder extends React.Component {
 
     submitCancellation = () => {
         this.setState({isModalVisible: false})
-        this.props.navigation.navigate('Driver Home')
+        this.props.navigation.dispatch(
+            CommonActions.reset({
+                index: 0,
+                routes: [{name: 'Driver Home', params: {isAvailable: true}}],
+            })
+        )
+    }
+
+    backAction = () => {
+        Alert.alert(
+            'Er oppdraget utført?',
+            '',
+            [
+                {text: 'Nei', onPress: () => null, style: 'cancel'},
+                {
+                    text: 'Turen ble kansellert',
+                    onPress: () => this.cancellationButton(),
+                    style: 'cancel',
+                },
+                {
+                    text: 'Utført',
+                    onPress: () => this.submitCancellation(),
+                },
+            ],
+            {cancelable: true}
+        )
+        return true
+    }
+
+    cancellationButton = () => {
+        Alert.alert(
+            'Hva er grunnen til kanselleringen?',
+            '',
+            [
+                {
+                    text: 'Kunden møtte ikke opp',
+                    onPress: () => this.submitCancellation(),
+                },
+                {},
+                {
+                    text: 'Noe annet',
+                    onPress: () => {
+                        this.setState({
+                            isModalVisible: true,
+                        })
+                    },
+                    style: 'cancel',
+                },
+            ],
+            {
+                cancelable: true,
+            }
+        )
     }
 
     render() {
@@ -62,9 +124,7 @@ export default class DriverHasOrder extends React.Component {
                     <View style={styles.accomplished_buttonContainer}>
                         <TouchableOpacity
                             style={styles.touchableAccomplishedContainer}
-                            onPress={() =>
-                                this.props.navigation.navigate('Driver Home')
-                            }
+                            onPress={() => this.submitCancellation()}
                         >
                             <Text style={styles.accomplished_button}>
                                 {order_is_accomplished}
@@ -77,34 +137,7 @@ export default class DriverHasOrder extends React.Component {
                         >
                             <Text
                                 style={styles.orderCancel_button}
-                                onPress={() =>
-                                    Alert.alert(
-                                        'Hva er grunnen til kanselleringen?',
-                                        '',
-                                        [
-                                            {
-                                                text: 'Kunden møtte ikke opp',
-                                                onPress: () =>
-                                                    this.props.navigation.navigate(
-                                                        'Driver Home'
-                                                    ),
-                                            },
-                                            {},
-                                            {
-                                                text: 'Noe annet',
-                                                onPress: () => {
-                                                    this.setState({
-                                                        isModalVisible: true,
-                                                    })
-                                                },
-                                                style: 'cancel',
-                                            },
-                                        ],
-                                        {
-                                            cancelable: false,
-                                        }
-                                    )
-                                }
+                                onPress={() => this.cancellationButton()}
                             >
                                 {order_was_canceled}
                             </Text>
@@ -158,9 +191,7 @@ export default class DriverHasOrder extends React.Component {
                                             <Text
                                                 style={styles.sendReasonButton}
                                                 disabled={this.state.isDisabled}
-                                                onPress={
-                                                    this.submitCancellation
-                                                }
+                                                onPress={this.submitCancellation()}
                                             >
                                                 {send}
                                             </Text>

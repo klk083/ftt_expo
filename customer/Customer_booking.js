@@ -84,7 +84,7 @@ class Customer_booking extends React.Component {
                 },
             ],
             {
-                cancelable: false,
+                cancelable: true,
             }
         )
         return true

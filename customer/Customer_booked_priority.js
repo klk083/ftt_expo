@@ -56,7 +56,7 @@ class Customer_booked_priority extends React.Component {
                 },
             ],
             {
-                cancelable: false,
+                cancelable: true,
             }
         )
         return true
@@ -114,35 +114,7 @@ class Customer_booked_priority extends React.Component {
                         <TouchableOpacity style={styles.touchableCancelButton}>
                             <Text
                                 style={styles.cancel_button}
-                                onPress={() =>
-                                    Alert.alert(
-                                        'Avbestilling',
-                                        'Vil du avbestille taxi likevel?',
-                                        [
-                                            {
-                                                text: 'Ja',
-                                                onPress: () =>
-                                                    this.props.navigation.reset(
-                                                        {
-                                                            index: 0,
-                                                            routes: [
-                                                                {name: 'Home'},
-                                                            ],
-                                                        }
-                                                    ),
-                                            },
-                                            {},
-                                            {
-                                                text: 'Nei',
-                                                onPress: () => {},
-                                                style: 'cancel',
-                                            },
-                                        ],
-                                        {
-                                            cancelable: false,
-                                        }
-                                    )
-                                }
+                                onPress={() => this.cancellationAlert()}
                             >
                                 {cancel_taxi}
                             </Text>
