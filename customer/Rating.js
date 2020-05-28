@@ -45,7 +45,8 @@ export default class Rating extends React.Component {
                             routes: [{name: 'Home'}],
                         }),
                 },
-            ]
+            ],
+            {cancelable: true}
         )
     }
 

@@ -22,6 +22,7 @@ import {
     turn_on_location_explanation,
     serverIp,
     change_user_to_driver,
+    current_address_location,
 } from '../common_files/Texts'
 import {
     updateCustomerLocation,
@@ -58,15 +59,20 @@ class Customer_main extends React.Component {
     }
 
     backAction = () => {
-        Alert.alert('Avslutte appen', 'Vil du lukke appen?', [
-            {
-                text: 'Nei',
-                onPress: () => null,
-                style: 'cancel',
-            },
-            {},
-            {text: 'Lukk', onPress: () => BackHandler.exitApp()},
-        ])
+        Alert.alert(
+            'Vil du lukke appen?',
+            '',
+            [
+                {
+                    text: 'Nei',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {},
+                {text: 'Lukk appen', onPress: () => BackHandler.exitApp()},
+            ],
+            {cancelable: true}
+        )
         return true
     }
 
@@ -83,9 +89,11 @@ class Customer_main extends React.Component {
     }
 
     getLocationAsync = async () => {
-        let {status} = await Permissions.askAsync(Permissions.LOCATION)
-        if (status === 'granted') {
-            this.props.updatePermission({location: 'granted'})
+        if (this.props.user_permission.location !== 'granted') {
+            let {status} = await Permissions.askAsync(Permissions.LOCATION)
+            if (status === 'granted') {
+                this.props.updatePermission({location: 'granted'})
+            }
         }
 
         let location = await Location.getCurrentPositionAsync({
@@ -188,6 +196,7 @@ class Customer_main extends React.Component {
                         <View style={styles.grantedMainContainer}>
                             <View style={styles.spaceBetweenViews}>
                                 <Text style={styles.locationAddress}>
+                                    {current_address_location}
                                     {geocode
                                         ? `${geocode[0].street} ${geocode[0].name}`
                                         : ''}
