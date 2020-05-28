@@ -42,9 +42,9 @@ class Order extends React.Component {
                 console.log('took Order, got Phone number:')
                 console.log(this.props.orderId)
                 console.log(this.props.deviceId)
-                console.log(json)
-                console.log(json[0].phoneNumber)
-                this.props.updateMobNum(json[0].phoneNumber)
+                console.log(json[1][0].phoneNumber)
+                this.props.updateMobNum(json[1][0].phoneNumber)
+                console.log(store.getState());
             })
             .catch((error) => {
                 console.error(error)
