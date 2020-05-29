@@ -1,13 +1,13 @@
 import React from 'react'
 import {
-    View,
-    Text,
-    StyleSheet,
-    Switch,
-    SafeAreaView,
-    Platform,
     Alert,
     BackHandler,
+    Platform,
+    SafeAreaView,
+    StyleSheet,
+    Switch,
+    Text,
+    View,
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 import * as Permissions from 'expo-permissions'
@@ -16,11 +16,11 @@ import {getPreciseDistance} from 'geolib'
 import {connect} from 'react-redux'
 
 import {
+    change_user_to_customer,
     driver_available,
     driver_not_available,
-    priority_orders,
     orders,
-    change_user_to_customer,
+    priority_orders,
     serverIp,
 } from '../common_files/Texts'
 import SectionListCustomers from './SectionListCustomers'
@@ -145,7 +145,7 @@ class Driver_main extends React.Component {
     }
 
     getDistanceBetweenCustomerAndDriver = (customerLocation) => {
-        const distanceBetween = (
+        return (
             getPreciseDistance(
                 {
                     latitude: customerLocation.latitude,
@@ -154,7 +154,6 @@ class Driver_main extends React.Component {
                 this.props.customerLocation
             ) / 1000
         ).toFixed(2)
-        return distanceBetween
     }
 
     getOrders = async () => {
@@ -183,17 +182,11 @@ class Driver_main extends React.Component {
     }
 
     priorityOrderList = () => {
-        const priorityOrders = this.props.orderList.filter(
-            (item) => item.priority === 1
-        )
-        return priorityOrders
+        return this.props.orderList.filter((item) => item.priority === 1)
     }
 
     basicOrderList = () => {
-        const basicOrders = this.props.orderList.filter(
-            (item) => item.priority === 0
-        )
-        return basicOrders
+        return this.props.orderList.filter((item) => item.priority === 0)
     }
 
     /* Fungerer bare i bare react native mode

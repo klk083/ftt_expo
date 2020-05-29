@@ -14,7 +14,6 @@ import {
     TAXI_NUMBER,
     PRIORITY,
     ORDER_ID,
-    DRIVER_IS_AVAILABLE,
 } from './actionTypes'
 
 const initial_userType = 'false'

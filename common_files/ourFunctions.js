@@ -1,8 +1,6 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
-import {RFPercentage} from 'react-native-responsive-fontsize'
 
-import {secretKey, serverIp} from '../common_files/Texts'
+import {secretKey, serverIp} from './Texts'
 
 let tokenGotten = ''
 
