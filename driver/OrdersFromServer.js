@@ -14,10 +14,8 @@ export const getOrders = async () => {
     })
         .then((response) => response.json())
         .then((json) => {
-            console.log(json)
             if (json.length) {
                 console.log('got to orders')
-                console.log(json)
                 return json[0].object;
             } else {
                 console.log('Array was empty')

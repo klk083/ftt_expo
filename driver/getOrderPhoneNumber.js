@@ -1,8 +1,7 @@
 import React from 'react'
 import {getToken} from '../common_files/ourFunctions'
 import {serverIp} from '../common_files/Texts'
-import {updateMobNum, updateOrder} from '../redux/actions'
-import store from '../redux/store'
+import {updateMobNum} from '../redux/actions'
 
 export const getOrderPhoneNumber = async () => {
     const tokenGotten = await getToken()

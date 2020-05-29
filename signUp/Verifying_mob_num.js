@@ -23,7 +23,6 @@ import {
     updateUserType,
 } from '../redux/actions'
 import {connect} from 'react-redux'
-import store from '../redux/store'
 
 class Verifying_mob_num extends React.Component {
     state = {
@@ -51,19 +50,16 @@ class Verifying_mob_num extends React.Component {
     submitSignIn = () => {
         this.props.updateUserType(false)
         this.props.updateToken('UserConfirmed')
-        console.log(store.getState())
     }
 
     sendNewCode = () => {
         this.textInput.clear()
         this.props.updateToken('UserConfirmed')
         this.props.updateUserType(true)
-        console.log(store.getState())
-        //      SEND      NY      KODE
+        //      SEND      NY      KODE      FUNKSJONALITETEN        MANGLER
     }
 
     render() {
-        console.log(store.getState())
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <KeyboardAvoidingView

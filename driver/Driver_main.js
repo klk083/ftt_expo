@@ -171,9 +171,6 @@ class Driver_main extends React.Component {
                 if (json.length) {
                     let sortedJson = this.sort(json)
                     this.props.updateOrderList(sortedJson)
-                    console.log('sortedJson')
-                    console.log(sortedJson)
-                    console.log('slutt på sortedJson')
                     return json[0].object
                 } else {
                     console.log('Array was empty')
@@ -209,7 +206,6 @@ class Driver_main extends React.Component {
      */
 
     render() {
-        console.log(this.props)
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>

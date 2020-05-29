@@ -1,7 +1,3 @@
-/*
-    Må lastes ned info om taxien og korporasjonen fra serveren.
-    Må finne en løsning til å vise vurderingen.
-*/
 import React from 'react'
 import {
     View,
@@ -13,7 +9,6 @@ import {
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
-import store from '../redux/store'
 
 import {
     confirmation_msg,
