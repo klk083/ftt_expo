@@ -21,7 +21,6 @@ import {
     serverIp,
 } from '../common_files/Texts'
 import {getToken} from '../common_files/ourFunctions'
-import {NavigationActions} from 'react-navigation'
 
 class Customer_booking_priority extends React.Component {
     componentDidMount() {

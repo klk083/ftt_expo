@@ -1,7 +1,3 @@
-/*
-    Må lastes ned info om taxien og korporasjonen fra serveren.
-    Må finne en løsning til å vise vurderingen.
-*/
 import React from 'react'
 import {
     View,
@@ -13,7 +9,6 @@ import {
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
-import store from '../redux/store'
 
 import {
     confirmation_msg,
@@ -28,7 +23,7 @@ class Customer_taxi_confirmation extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(() => this.setState({isReviewed: true}), 2000)
+        setTimeout(() => this.setState({isReviewed: true}), 10000)
         BackHandler.addEventListener('hardwareBackPress', this.backAction)
     }
     componentWillUnmount() {
@@ -36,19 +31,44 @@ class Customer_taxi_confirmation extends React.Component {
     }
 
     backAction = () => {
-        Alert.alert(
-            'Avbestilling ikke mulig',
-            'Du kan ikke avbestille taxi nå.',
-            [
-                {
-                    text: 'OK',
-                    onPress: () => null,
-                    style: 'cancel',
-                },
-            ],
-            {cancelable: true}
-        )
-        return true
+        if (this.state.isReviewed) {
+            Alert.alert(
+                'Vil du avbryte og gå til startskjerm?',
+                '',
+                [
+                    {
+                        text: 'Til startskjerm',
+                        onPress: () =>
+                            this.props.navigation.reset({
+                                index: 0,
+                                routes: [{name: 'Home'}],
+                            }),
+                        style: 'cancel',
+                    },
+                    {},
+                    {
+                        text: 'Gi vurering',
+                        onPress: () => {},
+                    },
+                ],
+                {cancelable: true}
+            )
+            return true
+        } else {
+            Alert.alert(
+                'Avbestilling ikke mulig',
+                'Du kan ikke avbestille taxi nå.',
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => null,
+                        style: 'cancel',
+                    },
+                ],
+                {cancelable: true}
+            )
+            return true
+        }
     }
 
     render() {
