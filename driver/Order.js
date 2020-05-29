@@ -14,8 +14,6 @@ import {accept, km, serverIp} from '../common_files/Texts'
 import {getToken} from '../common_files/ourFunctions'
 import {updateMobNum} from '../redux/actions'
 
-import store from '../redux/store'
-
 class Order extends React.Component {
     call = (phoneNumber) => {
         const args = {
@@ -41,7 +39,6 @@ class Order extends React.Component {
                 console.log('took Order, got Phone number:')
                 this.props.updateMobNum(json[1][0].phoneNumber)
                 this.call(this.props.customerMobNum.toString())
-                //this.props.navigation.navigate('Driver Order')
             })
             .catch((error) => {
                 console.error(error)

@@ -35,7 +35,6 @@ import {
     updateUserType,
     updateMobNum,
 } from '../redux/actions'
-import store from '../redux/store'
 
 class Customer_main extends React.Component {
     state = {
@@ -78,7 +77,6 @@ class Customer_main extends React.Component {
 
     componentDidMount() {
         this.mounted_Customer_main = true
-        //this.getDeviceId()            KAN FJERNES ETTERHVERT
         this.getLocationAsync().catch()
         BackHandler.addEventListener('hardwareBackPress', this.backAction)
     }

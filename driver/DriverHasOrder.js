@@ -13,7 +13,6 @@ import {
     BackHandler,
 } from 'react-native'
 import {RFPercentage} from 'react-native-responsive-fontsize'
-import {CommonActions} from '@react-navigation/native'
 
 import {
     is_order_accomplished,

@@ -14,10 +14,9 @@ import {
     TAXI_NUMBER,
     PRIORITY,
     ORDER_ID,
-    DRIVER_IS_AVAILABLE,
 } from './actionTypes'
 
-const initial_userType = 'true'
+const initial_userType = 'false'
 const userType = (state = initial_userType, action) => {
     switch (action.type) {
         case UPDATE_IS_DRIVER:
@@ -103,7 +102,7 @@ const loading = (state = initial_loading, action) => {
     }
 }
 
-const initial_token = '0'
+const initial_token = ''
 const token = (state = initial_token, action) => {
     switch (action.type) {
         case UPDATE_TOKEN:

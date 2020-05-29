@@ -10,7 +10,6 @@ import {
     ORDER_DATA,
     PRIORITY,
     ORDER_LIST_DATA,
-    DRIVER_IS_AVAILABLE,
 } from './actionTypes'
 
 // action creators
@@ -70,9 +69,4 @@ export const updateMobNum = (mobileNumber) => ({
 export const updatePermission = (permission) => ({
     type: PERMISSION,
     permission: {location: permission.location},
-})
-
-export const driver_is_available = (driver_is_available) => ({
-    type: DRIVER_IS_AVAILABLE,
-    driver_is_available,
 })
