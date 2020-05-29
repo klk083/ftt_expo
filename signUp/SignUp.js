@@ -52,6 +52,7 @@ class SignUp extends React.Component {
     verificationTlf = () => {
         this.setState({isModalVisible: true})
     }
+
     submit = () => {
         this.setState({isModalVisible: false})
         this.props.navigation.navigate('Number_verification')
@@ -89,16 +90,10 @@ class SignUp extends React.Component {
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             style={styles.touchableButtonContainer}
+                            disabled={this.state.isDisabled}
+                            onPress={() => this.verificationTlf(this.state.tlf)}
                         >
-                            <Text
-                                style={styles.button}
-                                disabled={this.state.isDisabled}
-                                onPress={() =>
-                                    this.verificationTlf(this.state.tlf)
-                                }
-                            >
-                                {next}
-                            </Text>
+                            <Text style={styles.button}>{next}</Text>
                         </TouchableOpacity>
                     </View>
                     {this.state.isModalVisible && (
@@ -153,6 +148,9 @@ class SignUp extends React.Component {
                                             >
                                                 <Text
                                                     style={styles.okButton}
+                                                    disabled={
+                                                        this.state.isDisabled
+                                                    }
                                                     onPress={() =>
                                                         this.submit()
                                                     }

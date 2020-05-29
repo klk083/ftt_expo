@@ -195,7 +195,10 @@ class Customer_main extends React.Component {
                             <View style={styles.spaceBetweenViews}>
                                 <Text style={styles.locationAddress}>
                                     {current_address_location}
-                                    {geocode
+                                    {geocode && Platform.OS === 'ios'
+                                        ? `${geocode[0].name}\n${geocode[0].city}`
+                                        : ''}
+                                    {geocode && Platform.OS !== 'ios'
                                         ? `${geocode[0].street} ${geocode[0].name}`
                                         : ''}
                                 </Text>
