@@ -43,19 +43,18 @@ class Verifying_mob_num extends React.Component {
 
     enableKeyPress = (event) => {
         {
-            event.nativeEvent.text
+            this.state.code.length === 6
+                ? this.props.updateToken(event.nativeEvent.text)
+                : null
         }
     }
 
     submitSignIn = () => {
-        this.props.updateUserType(false)
         this.props.updateToken('UserConfirmed')
     }
 
     sendNewCode = () => {
         this.textInput.clear()
-        this.props.updateToken('UserConfirmed')
-        this.props.updateUserType(true)
         //      SEND      NY      KODE      FUNKSJONALITETEN        MANGLER
     }
 
