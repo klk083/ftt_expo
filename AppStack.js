@@ -1,3 +1,6 @@
+/**
+ * AppStack
+ */
 import React from 'react'
 import {Text, TextInput} from 'react-native'
 import {createStackNavigator} from '@react-navigation/stack'
@@ -15,9 +18,18 @@ import MenuButton from './common_files/MenuButton'
 import CustomerStack from './customer/CustomerStack'
 import DriverStack from './driver/DriverStack'
 
+/**
+ * Creates stack navigator.
+ */
 const AppStack = createStackNavigator()
 
+/**
+ * Stack that decides which part of application should be shown.
+ */
 class AppStackScreen extends React.Component {
+    /**
+     * Ignoring scaling for Text and TextInput.
+     */
     constructor() {
         super()
         Text.defaultProps = Text.defaultProps || {}
@@ -95,10 +107,18 @@ class AppStackScreen extends React.Component {
     }
 }
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{isLoading: string | boolean, driver: userType, token: *}}
+ */
 const mapStateToProps = (state) => ({
     isLoading: state.loading,
     token: state.token,
     driver: state.userType,
 })
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps)(AppStackScreen)

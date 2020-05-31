@@ -17,6 +17,10 @@ import {cancel_taxi, looking_for_taxi, serverIp} from '../common_files/Texts'
 import {getToken} from '../common_files/ourFunctions'
 import {updateOrder} from '../redux/actions'
 
+/**
+ * Client's screen after booking a taxi that informs the customer about
+ * looking for a driver.
+ */
 class Customer_booking extends React.Component {
     componentDidMount() {
         this.interval = setInterval(() => this.searchForDriver(), 10000)
@@ -37,6 +41,11 @@ class Customer_booking extends React.Component {
         )
     }
 
+    /**
+     * An anonymous function that sends orderId and token to the server and
+     * tries to find an available driver
+     * @returns {Promise<void>} If success returns to booking confirmation screen.
+     */
     searchForDriver = async () => {
         const tokenGotten = await getToken()
         await fetch(serverIp + '/getOrderTaxiNum', {
@@ -66,6 +75,11 @@ class Customer_booking extends React.Component {
             })
     }
 
+    /**
+     * An anonymous function that opens an alert when the customer clicked
+     * cancellation button in the app or android's hardware back button.
+     * @returns {boolean} Returns true.
+     */
     cancellationAlert = () => {
         Alert.alert(
             'Avbestilling',
@@ -89,6 +103,11 @@ class Customer_booking extends React.Component {
         return true
     }
 
+    /**
+     * An anonymous async function that sends user's cancellation request to
+     * the server.
+     * @returns {Promise<void>}
+     */
     submitCancellationButton = async () => {
         const tokenGotten = await getToken()
         await fetch(serverIp + '/cancelOrder', {
@@ -154,6 +173,9 @@ class Customer_booking extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
@@ -194,6 +216,11 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{orderId: (number|string), companyName: (string|string), taxiNumber: string, token: *}} Return object with states.
+ */
 const mapStateToProps = (state) => ({
     token: state.token,
     orderId: state.order.orderId,
@@ -201,8 +228,15 @@ const mapStateToProps = (state) => ({
     companyName: state.order.companyName,
 })
 
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateOrder: (function(*): {order_data: *, type: string})}}
+ */
 const mapDispatchToProps = {
     updateOrder,
 }
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_booking)

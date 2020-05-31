@@ -1,3 +1,6 @@
+/**
+ * SignUp
+ */
 import React from 'react'
 import {
     Platform,
@@ -25,6 +28,9 @@ import {
 } from '../common_files/Texts'
 import {updateMobNum} from '../redux/actions'
 
+/**
+ * Shows the first screen after starting the Fast Track Taxi app.
+ */
 class SignUp extends React.Component {
     state = {
         tlf: '',
@@ -32,6 +38,10 @@ class SignUp extends React.Component {
         isModalVisible: false,
     }
 
+    /**
+     * Stores user input.
+     * @param text Mobile number.
+     */
     handleTlf = (text) => {
         this.setState({tlf: text.replace(/[^0-9]/g, '')})
         {
@@ -41,6 +51,10 @@ class SignUp extends React.Component {
         }
     }
 
+    /**
+     * Enables keyboard's send button.
+     * @param event Listens to send button click.
+     */
     enableKeyPress = (event) => {
         {
             this.state.tlf.length === 8
@@ -49,10 +63,16 @@ class SignUp extends React.Component {
         }
     }
 
+    /**
+     * Opens an alert to verify user's input.
+     */
     verificationTlf = () => {
         this.setState({isModalVisible: true})
     }
 
+    /**
+     * Stores user mobile number and sends him/her to customer's main screen.
+     */
     submit = () => {
         this.setState({isModalVisible: false})
         this.props.navigation.navigate('Number_verification')
@@ -170,6 +190,9 @@ class SignUp extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,

@@ -1,3 +1,6 @@
+/**
+ * Customer_booked_priority
+ */
 import React from 'react'
 import {
     View,
@@ -20,6 +23,10 @@ import {
 } from '../common_files/Texts'
 import {getToken} from '../common_files/ourFunctions'
 
+/**
+ * Client's screen with priority booking chosen. Shows that the app is trying
+ * to find an available driver.
+ */
 class Customer_booked_priority extends React.Component {
     componentDidMount() {
         BackHandler.addEventListener(
@@ -39,6 +46,11 @@ class Customer_booked_priority extends React.Component {
         )
     }
 
+    /**
+     * An anonymous function that opens an alert when the customer clicked
+     * cancellation button in the app or android's hardware back button.
+     * @returns {boolean} Returns true.
+     */
     cancellationAlert = () => {
         Alert.alert(
             'Avbestilling',
@@ -62,6 +74,11 @@ class Customer_booked_priority extends React.Component {
         return true
     }
 
+    /**
+     * An anonymous async function that sends user's cancellation request to
+     * the server.
+     * @returns {Promise<void>} Returns to the main screen.
+     */
     submitCancellationButton = async () => {
         const tokenGotten = await getToken()
         await fetch(serverIp + '/cancelOrder', {
@@ -84,6 +101,7 @@ class Customer_booked_priority extends React.Component {
                 console.error(error)
             })
     }
+
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -126,6 +144,9 @@ class Customer_booked_priority extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
@@ -172,9 +193,17 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{orderId: (number|string), token: *}} Returns state values.
+ */
 const mapStateToProps = (state) => ({
     token: state.token,
     orderId: state.order.orderId,
 })
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps)(Customer_booked_priority)

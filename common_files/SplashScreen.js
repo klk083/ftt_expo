@@ -3,6 +3,9 @@ import {StyleSheet, View, Image} from 'react-native'
 import {updateIsLoading} from '../redux/actions'
 import {connect} from 'react-redux'
 
+/**
+ * SplashScreen screen
+ */
 export class SplashScreen extends React.Component {
     performTimeConsumingTask = async () => {
         return new Promise((resolve) =>
@@ -36,6 +39,9 @@ export class SplashScreen extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
@@ -44,12 +50,24 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{isLoading: boolean}} Returns boolean value.
+ */
 const mapStateToProps = (state) => ({
     isLoading: state.loading,
 })
 
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateIsLoading: updateIsLoading}}
+ */
 const mapDispatchToProps = {
     updateIsLoading,
 }
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen)

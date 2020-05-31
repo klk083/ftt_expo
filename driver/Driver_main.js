@@ -1,3 +1,6 @@
+/**
+ * Driver_main
+ */
 import React from 'react'
 import {
     Alert,
@@ -32,6 +35,9 @@ import {
     updateUserType,
 } from '../redux/actions'
 
+/**
+ * The driver's main screen. Possibility to be available and take an order.
+ */
 class Driver_main extends React.Component {
     state = {
         isAvailable: false,
@@ -50,6 +56,11 @@ class Driver_main extends React.Component {
         this.setState({orders: []})
     }
 
+    /**
+     * An anonymous function that opens an alert when the customer clicked
+     * android's hardware back button.
+     * @returns {boolean} Returns true.
+     */
     backAction = () => {
         Alert.alert(
             'Vil du logge deg ut og lukke appen?',
@@ -71,6 +82,11 @@ class Driver_main extends React.Component {
         return true
     }
 
+    /**
+     * A function that makes driver available/unavailable.
+     * @param value
+     * @returns {null} If location is not granted return null, otherwise gets orders.
+     */
     toggleSwitch = (value) => {
         if (this.props.userPermission !== 'granted') {
             this.getLocationAsync()
@@ -86,6 +102,11 @@ class Driver_main extends React.Component {
         }
     }
 
+    /**
+     * Sorts an order list by decreasing distance.
+     * @param json Order list from the server.
+     * @returns {*[]} Sorted order list.
+     */
     sort = (json) => {
         let newOrderList = [...json]
         for (let i = 0; i < json.length; i++) {
@@ -99,6 +120,11 @@ class Driver_main extends React.Component {
         return newOrderList
     }
 
+    /**
+     * An anonymous function used to get user's location permission and to get
+     * user's location.
+     * @returns {Promise<void>}
+     */
     getLocationAsync = async () => {
         if (this.props.userPermission !== 'granted') {
             let {status} = await Permissions.askAsync(Permissions.LOCATION)
@@ -108,10 +134,16 @@ class Driver_main extends React.Component {
             }
         }
 
+        /**
+         * A variable that stores user's current location.
+         */
         let location = await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.High,
         })
 
+        /**
+         * Watching changes in location.
+         */
         await Location.watchPositionAsync(
             {
                 accuracy: Location.Accuracy.High,
@@ -139,11 +171,22 @@ class Driver_main extends React.Component {
         })
     }
 
+    /**
+     * An async function that returns user's current postal address.
+     * @param location Current user's location.
+     * @returns {Promise<void>}
+     */
     getGeocodeAsync = async (location) => {
         let geocode = await Location.reverseGeocodeAsync(location)
         this.setState({geocode})
     }
 
+    /**
+     * An anonymous function used to compute distance between customer's
+     * location and driver's location.
+     * @param customerLocation
+     * @returns {string} Returns fixed distance value.
+     */
     getDistanceBetweenCustomerAndDriver = (customerLocation) => {
         return (
             getPreciseDistance(
@@ -156,6 +199,11 @@ class Driver_main extends React.Component {
         ).toFixed(2)
     }
 
+    /**
+     * An async function that gets orders from server and stores them in
+     * the redux store.
+     * @returns {Promise<void>} If success returns orders object, otherwise returns false.
+     */
     getOrders = async () => {
         const tokenGotten = await getToken()
         await fetch(serverIp + '/getOrders', {
@@ -181,22 +229,34 @@ class Driver_main extends React.Component {
             })
     }
 
+    /**
+     * Filters priority orders.
+     * @returns {*} Priority order list.
+     */
     priorityOrderList = () => {
         return this.props.orderList.filter((item) => item.priority === 1)
     }
 
+    /**
+     * Filters basic orders.
+     * @returns {*} Priority order list
+     */
     basicOrderList = () => {
         return this.props.orderList.filter((item) => item.priority === 0)
     }
 
     /* Fungerer bare i bare react native mode
+    * Requires: import DeviceInfo from 'react-native-device-info'
+    *
+    * An anonymous function that gets deviceId.
+    *
 
     getDeviceId = () => {
         let uid = DeviceInfo.getDeviceId()
         this.setState({ deviceId: uid })
     }
 
-     */
+    */
 
     render() {
         return (
@@ -271,6 +331,9 @@ class Driver_main extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
@@ -339,12 +402,25 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{userPermission, customerLocation: (user_location|{latitude: *, longitude: *}),
+ * orderList: orderList}} Returns object with states.
+ */
 const mapStateToProps = (state) => ({
     orderList: state.orderList,
     customerLocation: state.user_location,
     userPermission: state.permission.location,
 })
 
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateOrderList: (function(*): {orderListData: *, type: string}),
+ * updateCustomerLocation: (function(*): {user_location: {latitude: *, longitude: *}, type: string}),
+ * updateUserType: (function(*): {isDriver: *, type: string}),
+ * updatePermission: (function(*): {permission: {location: *}, type: string})}}
+ */
 const mapDispatchToProps = {
     updateOrderList,
     updateUserType,
@@ -352,4 +428,7 @@ const mapDispatchToProps = {
     updateCustomerLocation,
 }
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(Driver_main)
