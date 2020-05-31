@@ -1,3 +1,6 @@
+/**
+ * Verify_mob_num
+ */
 import React from 'react'
 import {
     StyleSheet,
@@ -24,6 +27,9 @@ import {
 } from '../redux/actions'
 import {connect} from 'react-redux'
 
+/**
+ * Verifies user's number and creates customer profile.
+ */
 class Verifying_mob_num extends React.Component {
     state = {
         code: '',
@@ -32,6 +38,10 @@ class Verifying_mob_num extends React.Component {
         isDisabled: true,
     }
 
+    /**
+     * Stores user input.
+     * @param text Code.
+     */
     handleCode = (text) => {
         this.setState({code: text.replace(/[^0-9]/g, '')})
         {
@@ -41,6 +51,10 @@ class Verifying_mob_num extends React.Component {
         }
     }
 
+    /**
+     * Enables keyboard's send button.
+     * @param event Listens to send button click.
+     */
     enableKeyPress = (event) => {
         {
             this.state.code.length === 6
@@ -49,10 +63,16 @@ class Verifying_mob_num extends React.Component {
         }
     }
 
+    /**
+     * Updates token and sends to customer's main screen.
+     */
     submitSignIn = () => {
         this.props.updateToken('UserConfirmed')
     }
 
+    /**
+     * Sends new confirmation code and clear user's input.
+     */
     sendNewCode = () => {
         this.textInput.clear()
         //      SEND      NY      KODE      FUNKSJONALITETEN        MANGLER
@@ -122,6 +142,9 @@ class Verifying_mob_num extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
@@ -184,14 +207,28 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{mobileNumber: mobileNumber}} Returns object with state.
+ */
 const mapStateToProps = (state) => ({
     mobileNumber: state.mobileNumber,
 })
 
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateCustomerLocation: (function(*): {user_location: {latitude: *, longitude: *}, type: string}),
+ * updateToken: (function(*): {type: string, token: *}),
+ * updateUserType: (function(*): {isDriver: *, type: string})}}
+ */
 const mapDispatchToProps = {
     updateCustomerLocation,
     updateToken,
     updateUserType,
 }
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(Verifying_mob_num)

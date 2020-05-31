@@ -1,3 +1,6 @@
+/**
+ * DriverHasOrder
+ */
 import React from 'react'
 import {
     View,
@@ -22,6 +25,10 @@ import {
     send,
 } from '../common_files/Texts'
 
+/**
+ * Driver's screen when the order is taken. Gives possibility to send order's
+ * completion request or to cancel the order.
+ */
 export default class DriverHasOrder extends React.Component {
     state = {
         isModalVisible: false,
@@ -37,6 +44,11 @@ export default class DriverHasOrder extends React.Component {
         BackHandler.removeEventListener('hardwareBackPress', this.backAction)
     }
 
+    /**
+     * A function that stores driver's reason for cancellation. Makes the send
+     * button enabled.
+     * @param text Driver's input
+     */
     handleMsg = (text) => {
         this.setState({cancellationMessage: text})
         {
@@ -46,6 +58,10 @@ export default class DriverHasOrder extends React.Component {
         }
     }
 
+    /**
+     * Enables keyboard's send button.
+     * @param event Listens to send button click.
+     */
     enableKeyPress = (event) => {
         {
             this.state.cancellationMessage.length >= 3
@@ -54,11 +70,19 @@ export default class DriverHasOrder extends React.Component {
         }
     }
 
+    /**
+     * Sends confirmation about completed order or cancellation.
+     */
     submitCancellation = () => {
         this.setState({isModalVisible: false})
         this.props.navigation.navigate('Driver Home')
     }
 
+    /**
+     * An anonymous function that opens an alert when the driver clicked
+     * android's hardware back button.
+     * @returns {boolean} Returns object with states.
+     */
     backAction = () => {
         Alert.alert(
             'Er oppdraget utført?',
@@ -202,6 +226,9 @@ export default class DriverHasOrder extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,

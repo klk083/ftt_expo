@@ -1,3 +1,6 @@
+/**
+ * CustomerStack
+ */
 import React from 'react'
 import {StyleSheet} from 'react-native'
 import {createDrawerNavigator} from '@react-navigation/drawer'
@@ -8,8 +11,14 @@ import Customer_booking_priority from './Customer_booking_priority'
 import Customer_booked_priority from './Customer_booked_priority'
 import Customer_taxi_confirmation from './Customer_taxi_confirmation'
 
+/**
+ * Creates navigation drawer.
+ */
 const CustomerDrawerStack = createDrawerNavigator()
 
+/**
+ * Stack that allows navigation between customer's screens.
+ */
 class CustomerStack extends React.Component {
     render() {
         return (
@@ -47,6 +56,9 @@ class CustomerStack extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         width: 200,

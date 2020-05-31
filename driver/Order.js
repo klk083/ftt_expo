@@ -1,3 +1,6 @@
+/**
+ * Order
+ */
 import React from 'react'
 import {
     View,
@@ -14,7 +17,14 @@ import {accept, km, serverIp} from '../common_files/Texts'
 import {getToken} from '../common_files/ourFunctions'
 import {updateMobNum} from '../redux/actions'
 
+/**
+ * Creates order.
+ */
 class Order extends React.Component {
+    /**
+     * A function that sends number to the dialer.
+     * @param phoneNumber
+     */
     call = (phoneNumber) => {
         const args = {
             number: phoneNumber,
@@ -23,6 +33,10 @@ class Order extends React.Component {
         call(args).catch(console.error)
     }
 
+    /**
+     * An async function that sends order data and gets phone number.
+     * @returns {Promise<void>} Returns customer's mobile number.
+     */
     getOrderPhoneNumber = async () => {
         const tokenGotten = await getToken()
         await fetch(serverIp + '/takeorder', {
@@ -45,8 +59,6 @@ class Order extends React.Component {
             })
     }
 
-    componentDidMount() {}
-
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
@@ -68,6 +80,9 @@ class Order extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
@@ -85,13 +100,26 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{customerMobNum: mobileNumber, deviceId: device_id}} Returns object with customer's mobile number and
+ * device id.
+ */
 const mapStateToProps = (state) => ({
     deviceId: state.device_id,
     customerMobNum: state.mobileNumber,
 })
 
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateMobNum: (function(*): {mobileNumber: *, type: string})}}
+ */
 const mapDispatchToProps = {
     updateMobNum,
 }
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(Order)
