@@ -99,7 +99,7 @@ const updatePriority = (state = initial_updatePriority, action) => {
 
 /**
  * Reduces order list action.
- * @type {*[]}
+ * @type {any[]}
  */
 const initial_updateOrderList = []
 const orderList = (state = initial_updateOrderList, action) => {

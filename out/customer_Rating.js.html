@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: customer/Rating.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: customer/Rating.js</h1>
+
+
+
+
+
+
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Rating
+ */
+import React from 'react'
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    Alert,
+    SafeAreaView,
+} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import {RFPercentage} from 'react-native-responsive-fontsize'
+
+import {
+    give_review,
+    is_trip_done,
+    divide_by_5_stars,
+    no_thanks,
+} from '../common_files/Texts'
+
+/**
+ * Renders evaluation component for customer.
+ */
+export default class Rating extends React.Component {
+    state = {
+        stars: 0,
+    }
+
+    star = 'star'
+    star_o = 'star-o'
+
+    /**
+     * A function that opens alert that shows number of stars given and ask about action.
+     * @param key Which star was clicked.
+     */
+    updateStars(key) {
+        this.setState({stars: key})
+        Alert.alert(
+            'Vurdering',
+            'Du har gitt ' + key + (key &lt;= 1 ? ' stjerne.' : ' stjerner.'),
+            [
+                {
+                    text: 'Endre vurdering',
+                    onPress: () => {},
+                    style: 'cancel',
+                },
+                {},
+                {
+                    text: 'Gi vurdering',
+                    onPress: () =>
+                        this.props.navigation.reset({
+                            index: 0,
+                            routes: [{name: 'Home'}],
+                        }),
+                },
+            ],
+            {cancelable: true}
+        )
+    }
+
+    render() {
+        /**
+         * Makes the evaluation component ready.
+         * @type {any[]} Table with touchable star icons.
+         */
+        let rating_bar = []
+        for (let i = 1; i &lt; 6; i++) {
+            rating_bar.push(
+                &lt;TouchableOpacity
+                    activeOpacity={0.7}
+                    key={i}
+                    onPress={() => {
+                        this.updateStars(i)
+                    }}
+                >
+                    &lt;Icon
+                        style={styles.star}
+                        name={i &lt;= this.state.stars ? this.star : this.star_o}
+                        size={RFPercentage(7)}
+                        color="gold"
+                    />
+                &lt;/TouchableOpacity>
+            )
+        }
+
+        return (
+            &lt;SafeAreaView style={styles.safeAreaView}>
+                &lt;View style={styles.container}>
+                    &lt;View style={styles.reviewContainer}>
+                        &lt;View style={styles.textContainer}>
+                            &lt;Text style={styles.trip_done}>{is_trip_done}&lt;/Text>
+                            &lt;Text style={styles.review}>{give_review}&lt;/Text>
+                        &lt;/View>
+                        &lt;View style={styles.starsContainer}>
+                            &lt;View style={styles.rating_bar}>{rating_bar}&lt;/View>
+                            &lt;View style={styles.starsRateContainer}>
+                                &lt;Text style={styles.starsRate}>
+                                    {this.state.stars}
+                                    {divide_by_5_stars}
+                                &lt;/Text>
+                            &lt;/View>
+                        &lt;/View>
+                    &lt;/View>
+                    &lt;View style={styles.buttonContainer}>
+                        &lt;TouchableOpacity
+                            style={styles.touchableNoThanksContainer}
+                        >
+                            &lt;Text
+                                style={styles.no_thanks}
+                                onPress={() =>
+                                    this.props.navigation.reset({
+                                        index: 0,
+                                        routes: [{name: 'Home'}],
+                                    })
+                                }
+                            >
+                                {no_thanks}
+                            &lt;/Text>
+                        &lt;/TouchableOpacity>
+                    &lt;/View>
+                &lt;/View>
+            &lt;/SafeAreaView>
+        )
+    }
+}
+
+/**
+ * A variable that stores style objects.
+ */
+const styles = StyleSheet.create({
+    safeAreaView: {
+        flex: 1,
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    reviewContainer: {
+        flex: 0.85,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
+    buttonContainer: {
+        flex: 0.15,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: 10,
+    },
+    textContainer: {
+        flex: 0.5,
+        justifyContent: 'center',
+    },
+    starsContainer: {
+        flex: 0.5,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    touchableNoThanksContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'dodgerblue',
+        borderRadius: 15,
+        paddingHorizontal: 10,
+    },
+    trip_done: {
+        flex: 0.5,
+        color: 'teal',
+        textAlignVertical: 'center',
+        fontSize: RFPercentage(7),
+    },
+    review: {
+        flex: 0.5,
+        textAlign: 'center',
+        textAlignVertical: 'top',
+        fontSize: RFPercentage(4),
+    },
+    rating_bar: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    star: {
+        padding: 5,
+    },
+    starsRateContainer: {
+        flex: 1,
+    },
+    starsRate: {
+        flex: 1,
+        textAlign: 'center',
+        textAlignVertical: 'top',
+        fontSize: RFPercentage(2),
+    },
+    no_thanks: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: RFPercentage(3),
+    },
+})
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AppStackScreen.html">AppStackScreen</a></li><li><a href="Customer_booked_priority.html">Customer_booked_priority</a></li><li><a href="Customer_booking.html">Customer_booking</a></li><li><a href="Customer_booking_priority.html">Customer_booking_priority</a></li><li><a href="Customer_main.html">Customer_main</a></li><li><a href="Customer_taxi_confirmation.html">Customer_taxi_confirmation</a></li><li><a href="CustomerStack.html">CustomerStack</a></li><li><a href="Driver_main.html">Driver_main</a></li><li><a href="DriverStack.html">DriverStack</a></li><li><a href="Order.html">Order</a></li><li><a href="SignUp.html">SignUp</a></li><li><a href="SplashScreen.html">SplashScreen</a></li><li><a href="Verifying_mob_num.html">Verifying_mob_num</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AppStack">AppStack</a></li><li><a href="global.html#book_taxi">book_taxi</a></li><li><a href="global.html#CustomerDrawerStack">CustomerDrawerStack</a></li><li><a href="global.html#driver_available">driver_available</a></li><li><a href="global.html#DriverDrawerStack">DriverDrawerStack</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#initial_device_id">initial_device_id</a></li><li><a href="global.html#initial_loading">initial_loading</a></li><li><a href="global.html#initial_mobileNumber">initial_mobileNumber</a></li><li><a href="global.html#initial_order">initial_order</a></li><li><a href="global.html#initial_permission">initial_permission</a></li><li><a href="global.html#initial_token">initial_token</a></li><li><a href="global.html#initial_updateOrderList">initial_updateOrderList</a></li><li><a href="global.html#initial_updatePriority">initial_updatePriority</a></li><li><a href="global.html#initial_user_location">initial_user_location</a></li><li><a href="global.html#initial_userType">initial_userType</a></li><li><a href="global.html#mapDispatchToProps">mapDispatchToProps</a></li><li><a href="global.html#mapStateToProps">mapStateToProps</a></li><li><a href="global.html#reducer">reducer</a></li><li><a href="global.html#renderItem">renderItem</a></li><li><a href="global.html#secretKey">secretKey</a></li><li><a href="global.html#SectionListCustomers">SectionListCustomers</a></li><li><a href="global.html#styles">styles</a></li><li><a href="global.html#UPDATE_TOKEN">UPDATE_TOKEN</a></li><li><a href="global.html#updateCustomerLocation">updateCustomerLocation</a></li><li><a href="global.html#updateDeviceId">updateDeviceId</a></li><li><a href="global.html#updateIsLoading">updateIsLoading</a></li><li><a href="global.html#updateMobNum">updateMobNum</a></li><li><a href="global.html#updateOrder">updateOrder</a></li><li><a href="global.html#updateOrderId">updateOrderId</a></li><li><a href="global.html#updateOrderList">updateOrderList</a></li><li><a href="global.html#updatePermission">updatePermission</a></li><li><a href="global.html#updatePriority">updatePriority</a></li><li><a href="global.html#updateStars">updateStars</a></li><li><a href="global.html#updateToken">updateToken</a></li><li><a href="global.html#updateUserType">updateUserType</a></li><li><a href="global.html#write_your_num">write_your_num</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 31 2020 21:12:58 GMT+0200 (sentraleuropeisk sommertid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -63,7 +63,7 @@ export default class Rating extends React.Component {
     render() {
         /**
          * Makes the evaluation component ready.
-         * @type {*[]} Table with touchable star icons.
+         * @type {any[]} Table with touchable star icons.
          */
         let rating_bar = []
         for (let i = 1; i < 6; i++) {

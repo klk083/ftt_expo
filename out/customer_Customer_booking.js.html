@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: customer/Customer_booking.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: customer/Customer_booking.js</h1>
+
+
+
+
+
+
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert,
+    SafeAreaView,
+    Platform,
+    BackHandler,
+} from 'react-native'
+import {RFPercentage} from 'react-native-responsive-fontsize'
+import {connect} from 'react-redux'
+
+import {cancel_taxi, looking_for_taxi, serverIp} from '../common_files/Texts'
+import {getToken} from '../common_files/ourFunctions'
+import {updateOrder} from '../redux/actions'
+
+/**
+ * Client's screen after booking a taxi that informs the customer about
+ * looking for a driver.
+ */
+class Customer_booking extends React.Component {
+    componentDidMount() {
+        this.interval = setInterval(() => this.searchForDriver(), 10000)
+        BackHandler.addEventListener(
+            'hardwareBackPress',
+            this.cancellationAlert
+        )
+    }
+
+    componentDidUpdate() {
+        clearInterval(this.interval)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener(
+            'hardwareBackPress',
+            this.cancellationAlert
+        )
+    }
+
+    /**
+     * An anonymous function that sends orderId and token to the server and
+     * tries to find an available driver
+     * @returns {Promise&lt;void>} If success returns to booking confirmation screen.
+     */
+    searchForDriver = async () => {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/getOrderTaxiNum', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                orderId: this.props.orderId,
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                if (json.length) {
+                    this.props.updateOrder({
+                        companyName: json[0].companyName,
+                        taxiNumber: json[0].taxiNumber,
+                    })
+                    clearInterval(this.interval)
+                    console.log('try to navigate to booking confirmation')
+                    this.props.navigation.navigate('Booking confirmation')
+                } else {
+                    console.log('did try to get taxinumber but failed')
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
+    /**
+     * An anonymous function that opens an alert when the customer clicked
+     * cancellation button in the app or android's hardware back button.
+     * @returns {boolean} Returns true.
+     */
+    cancellationAlert = () => {
+        Alert.alert(
+            'Avbestilling',
+            'Vil du avbestille taxi likevel?',
+            [
+                {
+                    text: 'Nei',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {},
+                {
+                    text: 'Ja',
+                    onPress: () => this.submitCancellationButton(),
+                },
+            ],
+            {
+                cancelable: true,
+            }
+        )
+        return true
+    }
+
+    /**
+     * An anonymous async function that sends user's cancellation request to
+     * the server.
+     * @returns {Promise&lt;void>}
+     */
+    submitCancellationButton = async () => {
+        const tokenGotten = await getToken()
+        await fetch(serverIp + '/cancelOrder', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                orderId: this.props.orderId,
+                token: tokenGotten,
+            }),
+        })
+            .then((response) => response.text())
+            .then((responseData) => {
+                clearInterval(this.interval)
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Home'}],
+                })
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
+    render() {
+        return (
+            &lt;SafeAreaView style={styles.safeAreaView}>
+                &lt;View style={styles.container}>
+                    &lt;View style={styles.info_container}>
+                        &lt;Text
+                            style={styles.looking_for_taxi}
+                            onPress={() =>
+                                this.props.navigation.navigate(
+                                    'Booking priority'
+                                )
+                            }
+                        >
+                            {looking_for_taxi}
+                        &lt;/Text>
+                        &lt;ActivityIndicator
+                            size={
+                                Platform.OS === 'ios'
+                                    ? 'large'
+                                    : RFPercentage(12)
+                            }
+                            style={styles.activityIndicator}
+                        />
+                    &lt;/View>
+                    &lt;View style={styles.cancel_buttonContainer}>
+                        &lt;TouchableOpacity
+                            style={styles.touchableCancelButtonContainer}
+                        >
+                            &lt;Text
+                                style={styles.cancel_button}
+                                onPress={() => this.cancellationAlert()}
+                            >
+                                {cancel_taxi}
+                            &lt;/Text>
+                        &lt;/TouchableOpacity>
+                    &lt;/View>
+                &lt;/View>
+            &lt;/SafeAreaView>
+        )
+    }
+}
+
+/**
+ * A variable that stores style objects.
+ */
+const styles = StyleSheet.create({
+    safeAreaView: {
+        flex: 1,
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 20,
+    },
+    info_container: {
+        flex: 0.9,
+        alignItems: 'center',
+    },
+    activityIndicator: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        padding: 50,
+    },
+    cancel_buttonContainer: {
+        flex: 0.1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    touchableCancelButtonContainer: {
+        flex: 1,
+        padding: 10,
+        backgroundColor: 'firebrick',
+        borderRadius: 15,
+    },
+    looking_for_taxi: {
+        fontSize: RFPercentage(7),
+        textAlign: 'center',
+    },
+    cancel_button: {
+        textAlign: 'center',
+        fontSize: RFPercentage(4),
+    },
+})
+
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{orderId: (number|string), companyName: (string|string), taxiNumber: string, token: *}} Return object with states.
+ */
+const mapStateToProps = (state) => ({
+    token: state.token,
+    orderId: state.order.orderId,
+    taxiNumber: state.order.taxiNumber,
+    companyName: state.order.companyName,
+})
+
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateOrder: (function(*): {order_data: *, type: string})}}
+ */
+const mapDispatchToProps = {
+    updateOrder,
+}
+
+/**
+ * Connecting component with the redux store.
+ */
+export default connect(mapStateToProps, mapDispatchToProps)(Customer_booking)
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="AppStackScreen.html">AppStackScreen</a></li><li><a href="Customer_booked_priority.html">Customer_booked_priority</a></li><li><a href="Customer_booking.html">Customer_booking</a></li><li><a href="Customer_booking_priority.html">Customer_booking_priority</a></li><li><a href="Customer_main.html">Customer_main</a></li><li><a href="Customer_taxi_confirmation.html">Customer_taxi_confirmation</a></li><li><a href="CustomerStack.html">CustomerStack</a></li><li><a href="Driver_main.html">Driver_main</a></li><li><a href="DriverStack.html">DriverStack</a></li><li><a href="Order.html">Order</a></li><li><a href="SignUp.html">SignUp</a></li><li><a href="SplashScreen.html">SplashScreen</a></li><li><a href="Verifying_mob_num.html">Verifying_mob_num</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AppStack">AppStack</a></li><li><a href="global.html#book_taxi">book_taxi</a></li><li><a href="global.html#CustomerDrawerStack">CustomerDrawerStack</a></li><li><a href="global.html#driver_available">driver_available</a></li><li><a href="global.html#DriverDrawerStack">DriverDrawerStack</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#initial_device_id">initial_device_id</a></li><li><a href="global.html#initial_loading">initial_loading</a></li><li><a href="global.html#initial_mobileNumber">initial_mobileNumber</a></li><li><a href="global.html#initial_order">initial_order</a></li><li><a href="global.html#initial_permission">initial_permission</a></li><li><a href="global.html#initial_token">initial_token</a></li><li><a href="global.html#initial_updateOrderList">initial_updateOrderList</a></li><li><a href="global.html#initial_updatePriority">initial_updatePriority</a></li><li><a href="global.html#initial_user_location">initial_user_location</a></li><li><a href="global.html#initial_userType">initial_userType</a></li><li><a href="global.html#mapDispatchToProps">mapDispatchToProps</a></li><li><a href="global.html#mapStateToProps">mapStateToProps</a></li><li><a href="global.html#reducer">reducer</a></li><li><a href="global.html#renderItem">renderItem</a></li><li><a href="global.html#secretKey">secretKey</a></li><li><a href="global.html#SectionListCustomers">SectionListCustomers</a></li><li><a href="global.html#styles">styles</a></li><li><a href="global.html#UPDATE_TOKEN">UPDATE_TOKEN</a></li><li><a href="global.html#updateCustomerLocation">updateCustomerLocation</a></li><li><a href="global.html#updateDeviceId">updateDeviceId</a></li><li><a href="global.html#updateIsLoading">updateIsLoading</a></li><li><a href="global.html#updateMobNum">updateMobNum</a></li><li><a href="global.html#updateOrder">updateOrder</a></li><li><a href="global.html#updateOrderId">updateOrderId</a></li><li><a href="global.html#updateOrderList">updateOrderList</a></li><li><a href="global.html#updatePermission">updatePermission</a></li><li><a href="global.html#updatePriority">updatePriority</a></li><li><a href="global.html#updateStars">updateStars</a></li><li><a href="global.html#updateToken">updateToken</a></li><li><a href="global.html#updateUserType">updateUserType</a></li><li><a href="global.html#write_your_num">write_your_num</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 31 2020 21:12:57 GMT+0200 (sentraleuropeisk sommertid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
