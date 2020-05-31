@@ -1,0 +1,6 @@
+{
+  "source": {
+    "include": ["expoFastTrackTaxi/common_files", "expoFastTrackTaxi/customer", "expoFastTrackTaxi/driver", "expoFastTrackTaxi/redux", "expoFastTrackTaxi/server", "expoFastTrackTaxi/signUp", "expoFastTrackTaxi/AppStack.js"]
+  }
+}
+

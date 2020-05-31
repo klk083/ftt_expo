@@ -1,3 +1,6 @@
+/**
+ * Rating
+ */
 import React from 'react'
 import {
     View,
@@ -17,6 +20,9 @@ import {
     no_thanks,
 } from '../common_files/Texts'
 
+/**
+ * Renders evaluation component for customer.
+ */
 export default class Rating extends React.Component {
     state = {
         stars: 0,
@@ -25,6 +31,10 @@ export default class Rating extends React.Component {
     star = 'star'
     star_o = 'star-o'
 
+    /**
+     * A function that opens alert that shows number of stars given and ask about action.
+     * @param key Which star was clicked.
+     */
     updateStars(key) {
         this.setState({stars: key})
         Alert.alert(
@@ -51,6 +61,10 @@ export default class Rating extends React.Component {
     }
 
     render() {
+        /**
+         * Makes the evaluation component ready.
+         * @type {any[]} Table with touchable star icons.
+         */
         let rating_bar = []
         for (let i = 1; i < 6; i++) {
             rating_bar.push(
@@ -112,6 +126,9 @@ export default class Rating extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,

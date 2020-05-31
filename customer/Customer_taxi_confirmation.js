@@ -1,3 +1,6 @@
+/**
+ * Customer_taxi_confirmation
+ */
 import React from 'react'
 import {
     View,
@@ -17,6 +20,10 @@ import {
 } from '../common_files/Texts'
 import Rating from './Rating'
 
+/**
+ * Client's screen that shows the booking confirmation with the taxi number and
+ * the corporation name. Gives the possibility to evaluate the driver after ride.
+ */
 class Customer_taxi_confirmation extends React.Component {
     state = {
         isReviewed: false,
@@ -30,6 +37,11 @@ class Customer_taxi_confirmation extends React.Component {
         BackHandler.removeEventListener('hardwareBackPress', this.backAction)
     }
 
+    /**
+     * An anonymous function that opens an alert when the customer clicked
+     * cancellation button in the app or android's hardware back button.
+     * @returns {boolean} Returns true.
+     */
     backAction = () => {
         if (this.state.isReviewed) {
             Alert.alert(
@@ -97,6 +109,9 @@ class Customer_taxi_confirmation extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
@@ -121,9 +136,17 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{companyName: (string|string), taxiNumber: string}} Returns object with states.
+ */
 const mapStateToProps = (state) => ({
     companyName: state.order.companyName,
     taxiNumber: state.order.taxiNumber,
 })
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps)(Customer_taxi_confirmation)

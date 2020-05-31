@@ -1,4 +1,60 @@
-// Common texts
+/**
+ * Texts used in app.
+ * @type {string}
+ */
+
+/**
+ * Texts used in the customer part.
+ * @type {string}
+ */
+export const book_taxi = 'Bestill\ntaxi'
+export const cancel_taxi = 'Avbestill taxi'
+export const looking_for_taxi = 'Leter etter en ledig taxi'
+export const looking_for_taxi_booked_priority =
+    'Leter etter en ledig prioritert taxi'
+export const looking_for_taxi_priority =
+    'Ingen ledig taxi funnet for øyeblikket, men vi leter fortsatt.'
+export const buy_yourself_out_of_queue = 'Kjøp deg ut av køen'
+export const confirmation_msg = 'En taxi er på vei.'
+export const taxi_num = 'Taxinr: '
+export const taxi_corporation = 'Fra: '
+export const is_trip_done = 'Er turen ferdig?'
+export const priority_orders = 'Prioritert bestilling'
+
+export const give_review = 'Gi vurdering'
+export const divide_by_5_stars = ' / 5 stjerner'
+export const star = ' stjerne.'
+export const stars = ' stjerner.'
+export const no_thanks = 'Nei, takk'
+export const no = 'Nei'
+export const current_address_location = 'Du befinner deg på denne adressen:\n\n'
+
+/**
+ * Text used in the driver part.
+ * @type {string}
+ */
+export const driver_available = 'Du er tilgjengelig'
+export const driver_not_available = 'Du er ikke tilgjengelig'
+export const orders = 'Bestilling'
+export const is_order_accomplished = 'Er oppdraget utført?'
+export const order_is_accomplished = 'Oppdraget utført'
+export const order_was_canceled = 'Turen ble kansellert'
+export const reason_for_the_cancellation = 'Hva er grunnen til kanselleringen?'
+export const change_user_to_customer = 'Gå til kunde'
+
+/**
+ * Texts used for the server part.
+ * @type {string}
+ */
+export const secretKey =
+    '4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15'
+//export const serverIp = 'http://192.168.1.12:8080' // local sever kenneth
+export const serverIp = 'https://ftt.idi.ntnu.no:443' // server at ntnu
+
+/**
+ * Common texts.
+ * @type {string}
+ */
 export const write_your_num = 'Skriv inn\nmobilnummeret ditt'
 export const fft_info =
     'Fast Track Taxi skal sende deg en melding for å verifisere ' +
@@ -30,46 +86,6 @@ export const km = ' km'
 export const wrong_number = 'Feil nummer?'
 export const confirm = 'BEKREFT'
 export const change_user_to_driver = 'Gå til sjåfør'
-
-//all texts
-export const secretKey =
-    '4ecf096c08b97a3b3ba79deae1d3bd865623da9e09b549f50da3eb7f93ac5c15'
-//export const serverIp = 'http://192.168.1.12:8080' // local sever kenneth
-export const serverIp = 'https://ftt.idi.ntnu.no:443' // server at ntnu
-
-// customer texts
-export const book_taxi = 'Bestill\ntaxi'
-export const cancel_taxi = 'Avbestill taxi'
-export const looking_for_taxi = 'Leter etter en ledig taxi'
-export const looking_for_taxi_booked_priority =
-    'Leter etter en ledig prioritert taxi'
-export const looking_for_taxi_priority =
-    'Ingen ledig taxi funnet for øyeblikket, men vi leter fortsatt.'
-export const buy_yourself_out_of_queue = 'Kjøp deg ut av køen'
-export const confirmation_msg = 'En taxi er på vei.'
-export const taxi_num = 'Taxinr: '
-export const taxi_corporation = 'Fra: '
-export const is_trip_done = 'Er turen ferdig?'
-export const priority_orders = 'Prioritert bestilling'
-
-export const give_review = 'Gi vurdering'
-export const divide_by_5_stars = ' / 5 stjerner'
-export const star = ' stjerne.'
-export const stars = ' stjerner.'
-export const no_thanks = 'Nei, takk'
-export const no = 'Nei'
-export const current_address_location = 'Du befinner deg på denne adressen:\n\n'
-
-// driver texts
-export const driver_available = 'Du er tilgjengelig'
-export const driver_not_available = 'Du er ikke tilgjengelig'
-export const orders = 'Bestilling'
-export const is_order_accomplished = 'Er oppdraget utført?'
-export const order_is_accomplished = 'Oppdraget utført'
-export const order_was_canceled = 'Turen ble kansellert'
-export const reason_for_the_cancellation = 'Hva er grunnen til kanselleringen?'
-export const change_user_to_customer = 'Gå til kunde'
-
 export const terms_of_service =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ' +
     'tortor libero. Nullam quis ante ut velit gravida porttitor. Curabitur ' +
@@ -123,7 +139,6 @@ export const terms_of_service =
     'cursus massa, in sagittis erat. Suspendisse condimentum ex velit, ut ' +
     'pharetra magna faucibus in. Maecenas congue lacus massa, ac tincidunt ' +
     'ZZerat viverra condimentum.'
-
 export const privacyText =
     'Jf. tidligere lov 14. april 2000 nr. 31. – Jf. EØS-avtalen vedlegg XI nr. 5e (forordning ' +
     '(EU) 2016/679 – personvernforordningen, også omtalt som GDPR og PVF).\n' +

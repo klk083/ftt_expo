@@ -4,8 +4,17 @@ import PropTypes from 'prop-types'
 
 import Order from './Order'
 
+/**
+ * Renders order.
+ * @param item Order item
+ * @returns {Order} Order component.
+ */
 const renderItem = ({item}) => <Order {...item} />
 
+/**
+ * Creates FlatList with orders.
+ * @param props OrderList
+ */
 const SectionListCustomers = (props) => (
     <FlatList
         renderItem={renderItem}
@@ -15,10 +24,16 @@ const SectionListCustomers = (props) => (
     />
 )
 
+/**
+ * Validating type
+ */
 SectionListCustomers.propTypes = {
     orders: PropTypes.array,
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     flatList: {
         flex: 1,
