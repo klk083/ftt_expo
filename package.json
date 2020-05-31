@@ -45,6 +45,7 @@
     "@babel/core": "^7.9.6",
     "babel-preset-expo": "~8.1.0",
     "jest": "^26.0.1",
+    "jsdoc": "^3.6.4",
     "prettier": "^2.0.5"
   },
   "jest": {

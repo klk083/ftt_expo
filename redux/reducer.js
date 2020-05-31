@@ -1,3 +1,6 @@
+/**
+ * Reducer. Changing states in redux store.
+ */
 import {combineReducers} from 'redux'
 
 import {
@@ -16,6 +19,10 @@ import {
     ORDER_ID,
 } from './actionTypes'
 
+/**
+ * Reduces user type action.
+ * @type {string}
+ */
 const initial_userType = 'false'
 const userType = (state = initial_userType, action) => {
     switch (action.type) {
@@ -26,6 +33,10 @@ const userType = (state = initial_userType, action) => {
     }
 }
 
+/**
+ * Reduces mobile number action.
+ * @type {string}
+ */
 const initial_mobileNumber = '-1'
 const mobileNumber = (state = initial_mobileNumber, action) => {
     switch (action.type) {
@@ -36,6 +47,11 @@ const mobileNumber = (state = initial_mobileNumber, action) => {
     }
 }
 
+/**
+ * Reduces location action.
+ * @type {{latitude: number, longitude: number}} Location object.
+ * Contains latitude and longitude values of number type.
+ */
 const initial_user_location = {latitude: 63.430487, longitude: 10.394978}
 const user_location = (state = initial_user_location, action) => {
     switch (action.type) {
@@ -46,6 +62,11 @@ const user_location = (state = initial_user_location, action) => {
     }
 }
 
+/**
+ * Reduces order action.
+ * @type {{orderId: number, companyName: string, taxiNumber: string}} Order object.
+ * Contains orderId of number type, companyName and taxiNumber of String type.
+ */
 const initial_order = {
     companyName: 'COMPANY_NAME',
     taxiNumber: 'TAXI_NUMBER',
@@ -62,6 +83,10 @@ const order = (state = initial_order, action) => {
     }
 }
 
+/**
+ * Reduces order priority action.
+ * @type {number}
+ */
 const initial_updatePriority = 0
 const updatePriority = (state = initial_updatePriority, action) => {
     switch (action.type) {
@@ -72,6 +97,10 @@ const updatePriority = (state = initial_updatePriority, action) => {
     }
 }
 
+/**
+ * Reduces order list action.
+ * @type {any[]}
+ */
 const initial_updateOrderList = []
 const orderList = (state = initial_updateOrderList, action) => {
     switch (action.type) {
@@ -82,6 +111,10 @@ const orderList = (state = initial_updateOrderList, action) => {
     }
 }
 
+/**
+ * Reduces deviceId action.
+ * @type {string}
+ */
 const initial_device_id = 'tlf321'
 const device_id = (state = initial_device_id, action) => {
     switch (action.type) {
@@ -92,6 +125,10 @@ const device_id = (state = initial_device_id, action) => {
     }
 }
 
+/**
+ * Reduces loading action.
+ * @type {string}
+ */
 const initial_loading = 'true'
 const loading = (state = initial_loading, action) => {
     switch (action.type) {
@@ -102,6 +139,10 @@ const loading = (state = initial_loading, action) => {
     }
 }
 
+/**
+ * Reduces token action.
+ * @type {string}
+ */
 const initial_token = ''
 const token = (state = initial_token, action) => {
     switch (action.type) {
@@ -112,6 +153,10 @@ const token = (state = initial_token, action) => {
     }
 }
 
+/**
+ * Reduces location action.
+ * @type {{location: string}} Location object.
+ */
 const initial_permission = {location: 'none'}
 const permission = (state = initial_permission, action) => {
     switch (action.type) {
@@ -122,6 +167,9 @@ const permission = (state = initial_permission, action) => {
     }
 }
 
+/**
+ * Combines all reducer into one.
+ */
 const reducer = combineReducers({
     userType,
     user_location,

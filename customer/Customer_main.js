@@ -1,3 +1,6 @@
+/**
+ * Customer_main screen
+ */
 import React from 'react'
 import {
     View,
@@ -10,7 +13,6 @@ import {
 } from 'react-native'
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
-import {getPreciseDistance} from 'geolib'
 import {RFPercentage} from 'react-native-responsive-fontsize'
 import {connect} from 'react-redux'
 
@@ -36,6 +38,11 @@ import {
     updateMobNum,
 } from '../redux/actions'
 
+/**
+ * The customer's main screen where the order can be made.
+ * If the user did not grant location permission, the screen with
+ * the location request button is displayed.
+ */
 class Customer_main extends React.Component {
     state = {
         mounted_Customer_main: false,
@@ -57,6 +64,11 @@ class Customer_main extends React.Component {
         orderId: '',
     }
 
+    /**
+     * An anonymous function that opens an alert when the customer clicked
+     * android's hardware back button.
+     * @returns {boolean} Returns true.
+     */
     backAction = () => {
         Alert.alert(
             'Vil du lukke appen?',
@@ -86,6 +98,11 @@ class Customer_main extends React.Component {
         BackHandler.removeEventListener('hardwareBackPress', this.backAction)
     }
 
+    /**
+     * An anonymous function used to get user's location permission and to get
+     * user's location.
+     * @returns {Promise<void>}
+     */
     getLocationAsync = async () => {
         if (this.props.user_permission.location !== 'granted') {
             let {status} = await Permissions.askAsync(Permissions.LOCATION)
@@ -94,10 +111,16 @@ class Customer_main extends React.Component {
             }
         }
 
+        /**
+         * A variable that stores user's current location.
+         */
         let location = await Location.getCurrentPositionAsync({
             accuracy: Location.Accuracy.High,
         })
 
+        /**
+         * Watching changes in location.
+         */
         await Location.watchPositionAsync(
             {
                 accuracy: Location.Accuracy.High,
@@ -125,33 +148,33 @@ class Customer_main extends React.Component {
         })
     }
 
+    /**
+     * An async function that returns user's current postal address
+.     * @param location Current user's location.
+     * @returns {Promise<void>}
+     */
     getGeocodeAsync = async (location) => {
         let geocode = await Location.reverseGeocodeAsync(location)
         this.setState({geocode})
     }
 
-    getDistanceBetweenCustomerAndDriver = () => {
-        const distanceBetween = (
-            getPreciseDistance(
-                {
-                    latitude: this.state.latitude,
-                    longitude: this.state.longitude,
-                },
-                this.state.secondLocation
-            ) / 1000
-        ).toFixed(2)
-        this.setState({distanceBetween: distanceBetween})
-    }
-
     /* Fungerer bare i bare react native mode
+    * Requires: import DeviceInfo from 'react-native-device-info'
+    *
+    * An anonymous function that gets deviceId.
+    *
 
     getDeviceId = () => {
         let uid = DeviceInfo.getDeviceId()
         this.setState({ deviceId: uid })
     }
 
-     */
+    */
 
+    /**
+     * An anonymous function that sends user's data to server and creates an order.
+     * @returns {Promise<void>}
+     */
     submitBookingButton = async () => {
         this.props.updateCustomerLocation({
             latitude: this.state.latitude,
@@ -179,6 +202,9 @@ class Customer_main extends React.Component {
             })
     }
 
+    /**
+     * An anonymous function used to switch to the driver mode
+     */
     changeToDriver = () => {
         this.props.updateMobNum('123456789')
         this.props.updateDeviceId('tlf123')
@@ -255,6 +281,9 @@ class Customer_main extends React.Component {
     }
 }
 
+/**
+ * A variable that stores style objects.
+ */
 const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
@@ -345,6 +374,15 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Mapping data from redux store.
+ * @param state State stored in redux store.
+ * @returns {{orderId: (string|number), mobileNumber: mobileNumber,
+ * customerLocation: (user_location|{latitude: *, longitude: *}),
+ * user_permission: (string|number|permission|{location: *}|NotificationPermission),
+ * priority: ((function(*): {type: string, priority: *})|updatePriority),
+ * deviceId: device_id, user: boolean, token: *}} Returns object with states.
+ */
 const mapStateToProps = (state) => ({
     customerLocation: state.user_location,
     orderId: state.order.orderId,
@@ -356,6 +394,18 @@ const mapStateToProps = (state) => ({
     priority: state.updatePriority,
 })
 
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateDeviceId: (function(*): {type: string, deviceId: *}),
+ * updateOrderId: (function(*): {orderId: *, type: string}),
+ * updateCustomerLocation: (function(*): {user_location: {latitude: *, longitude: *}, type: string}),
+ * updateToken: (function(*): {type: string, token: *}),
+ * updateUserType: (function(*): {isDriver: *, type: string}),
+ * updateMobNum: (function(*): {mobileNumber: *, type: string}),
+ * updatePermission: (function(*): {permission: {location: *}, type: string}),
+ * updateOrder: (function(*): {order_data: *, type: string}),
+ * updatePriority: (function(*): {type: string, priority: *})}}
+ */
 const mapDispatchToProps = {
     updateCustomerLocation,
     updateToken,
@@ -368,4 +418,7 @@ const mapDispatchToProps = {
     updateMobNum,
 }
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_main)

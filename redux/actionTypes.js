@@ -1,3 +1,7 @@
+/**
+ * Action types
+ * @type {string} String
+ */
 export const UPDATE_TOKEN = 'UPDATE_TOKEN'
 export const UPDATE_IS_DRIVER = 'UPDATE_IS_DRIVER'
 export const USER_LOCATION = 'USER_LOCATION'
