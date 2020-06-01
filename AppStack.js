@@ -19,12 +19,12 @@ import CustomerStack from './customer/CustomerStack'
 import DriverStack from './driver/DriverStack'
 
 /**
- * Creates stack navigator.
+ * Creates a stack navigator.
  */
 const AppStack = createStackNavigator()
 
 /**
- * Stack that decides which part of application should be shown.
+ * Stack that decides which part of the application to shown.
  */
 class AppStackScreen extends React.Component {
     /**

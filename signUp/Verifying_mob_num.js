@@ -71,7 +71,7 @@ class Verifying_mob_num extends React.Component {
     }
 
     /**
-     * Sends new confirmation code and clear user's input.
+     * Sends new confirmation code and clears user's input.
      */
     sendNewCode = () => {
         this.textInput.clear()

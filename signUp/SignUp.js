@@ -323,8 +323,15 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * Dispatching actions using action creators.
+ * @type {{updateMobNum: updateMobNum}}
+ */
 const mapDispatchToProps = {
     updateMobNum,
 }
 
+/**
+ * Connecting component with the redux store.
+ */
 export default connect(null, mapDispatchToProps)(SignUp)
